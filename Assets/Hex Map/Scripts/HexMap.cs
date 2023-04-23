@@ -21,8 +21,8 @@ public class HexMap : MonoBehaviour
     void CreateTileMap() {
 
 
-        for (int x = 0; x <= mapWidth; x++) {
-            for (int y = 0; y <= mapHeight; y++) {
+        for (int x = 0; x < mapWidth; x++) {
+            for (int y = 0; y < mapHeight; y++) {
                 GameObject hex = Instantiate(hexPrefab);
 
                 if (y % 2 == 0)
@@ -34,8 +34,17 @@ public class HexMap : MonoBehaviour
                 }
 
                 hex.name = x + ", " + y;
-                hex.GetComponent<HexCord>().x = x;
-                hex.GetComponent<HexCord>().y = y;
+                if (hex.GetComponent<HexCord>() == null)
+                {
+                    hex.GetComponentInChildren<HexCord>().x = x;
+                    hex.GetComponentInChildren<HexCord>().y = y;
+                }
+                else { 
+                    hex.GetComponent<HexCord>().x = x;
+                    hex.GetComponent<HexCord>().y = y;
+                }
+
+
                 hex.transform.parent = gameObject.transform;
 
             }

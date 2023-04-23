@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8816497963023435208}
   - component: {fileID: 6754987564075544834}
   - component: {fileID: 8816497963023435211}
+  - component: {fileID: 8903803063209708850}
   m_Layer: 0
   m_Name: CombineTreeHex
-  m_TagString: Untagged
+  m_TagString: Hex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,3 +99,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
+--- !u!64 &8903803063209708850
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5097640567127986391}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4575734979276873811, guid: 940cbf2fa6de8f04289931c36b1c2c23, type: 3}
