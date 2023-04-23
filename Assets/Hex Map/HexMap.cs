@@ -9,8 +9,8 @@ public class HexMap : MonoBehaviour
     public int mapWidth = 25;
     public int mapHeight = 12;
     
-    float xSpacing = 0.2f;
-    float zSpacing = 0.16f;
+    float xSpacing = 0.19f;
+    float zSpacing = 0.165f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +26,12 @@ public class HexMap : MonoBehaviour
 
                 GameObject hex = Instantiate(hexPrefab);
 
-                if (z % 2 == 0) {
-                    hex.transform.position = new Vector3(x * xSpacing, 0, z*zSpacing);
+                if (z % 2 == 0)
+                {
+                    hex.transform.position = new Vector3(x * xSpacing, 0, z * zSpacing);
+                }
+                else {
+                    hex.transform.position = new Vector3(x*xSpacing + xSpacing / 2, 0, z*zSpacing);
                 }
 
             
