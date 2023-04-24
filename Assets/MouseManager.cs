@@ -18,12 +18,22 @@ public class MouseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
             selectedHexPrefab = grassHexPrefab;
-        } else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
             selectedHexPrefab = treeHexPrefab;
-        } else if (Input.GetKeyDown(KeyCode.Alpha3)) {
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
             selectedHexPrefab = hillHexPrefab;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space)) {
+            Debug.Log("Refresh Map");
+            PerlinGenerator.instance.ClearMap();
+            PerlinGenerator.instance.CreateTileMap();
         }
  
 

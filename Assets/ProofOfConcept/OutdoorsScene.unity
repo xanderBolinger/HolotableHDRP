@@ -125,6 +125,58 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &14067909
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 14067911}
+  - component: {fileID: 14067910}
+  m_Layer: 0
+  m_Name: PerlinGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &14067910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14067909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1744ef6a231333644a51e77b4d6637f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapWidth: 33
+  mapHeight: 33
+  treePrefab: {fileID: 5097640567127986391, guid: d5db1828bbf20aa459a3cf419648b1cd,
+    type: 3}
+  mountainPrefab: {fileID: 3595636020788996620, guid: 84f8a63157d09714cb357d78ab5e0442,
+    type: 3}
+  grassPrefab: {fileID: 2368201668060121199, guid: e215a097dc20c5b4b981af17a1d850b8,
+    type: 3}
+--- !u!4 &14067911
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14067909}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.545771, y: -2.3299088, z: 2.883089}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &139145129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4031,7 +4083,7 @@ PrefabInstance:
     - target: {fileID: 1056018203459076019, guid: ad169405f867e8a49baaf2d7b48347bd,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad169405f867e8a49baaf2d7b48347bd, type: 3}
