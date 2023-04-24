@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class ChunkGenerator : MonoBehaviour
@@ -30,8 +32,24 @@ public class ChunkGenerator : MonoBehaviour
 
                 List<List<GameObject>> chunks = new List<List<GameObject>>();
 
-                int count = 0;
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 10; i++)
+                {
+                    List<GameObject> row = new List<GameObject>();
+                    for (int j = 0; j < 10; j++)
+                    {
+                        row.Add(null);
+                    }
+                    chunks.Add(row);
+                }
+
+                for (int i = 0; i < 100; i++) {
+                    GameObject hex = chunk.transform.GetChild(i).gameObject;
+                    Regex regex = new Regex(@"[\d]+");
+                    var matches = regex.Matches(hex.name);
+                    chunks[Int32.Parse(matches[0].Value)][Int32.Parse(matches[1].Value)] = hex;
+                }
+
+                /*for (int i = 0; i < 10; i++) {
                         List<GameObject> row = new List<GameObject>();
                     for (int j = 0; j < 10; j++) {
                         //chunk.transform.GetChild
@@ -39,10 +57,10 @@ public class ChunkGenerator : MonoBehaviour
                         count++;
                     }
                     chunks.Add(row);
-                }
+                }*/
 
-               
-                count = 0; 
+
+                int count = 0; 
                 for (int i = 0; i < chunks.Count; i++) {
                     var row = chunks[i];
 
@@ -88,7 +106,11 @@ public class ChunkGenerator : MonoBehaviour
     }
 
     GameObject GetChunk() {
-        GameObject chunkPrefab = chunkPrefabs[Random.Range(0, chunkPrefabs.Count - 1)];
+        GameObject chunkPrefab = chunkPrefabs[UnityEngine.Random.Range(0, chunkPrefabs.Count - 1)];
+
+        // Prevents duplicate chunks from being added
+        chunkPrefabs.Remove(chunkPrefab);
+        
         GameObject chunk = Instantiate(chunkPrefab);
         chunk.transform.position = new Vector3(0, 0, 0);
         return chunk;
