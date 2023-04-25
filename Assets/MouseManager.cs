@@ -10,6 +10,8 @@ public class MouseManager : MonoBehaviour
     public GameObject grassHexPrefab;
     public GameObject treeHexPrefab;
 
+    Vector2Int b = new Vector2Int(-1,-1);
+
     void Start()
     {
         selectedHexPrefab = grassHexPrefab;
@@ -33,9 +35,12 @@ public class MouseManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Space)) {
             Debug.Log("Refresh Map");
             PerlinGenerator.instance.ClearMap();
+            
             PerlinGenerator.instance.CreateTileMap();
         }
  
+
+        
 
         //Debug.Log("Mouse Position: "+Input.mousePosition);
         
@@ -49,41 +54,31 @@ public class MouseManager : MonoBehaviour
 
             //Debug.Log("Raycast Hit: "+hitInfo.collider.gameObject.name+", Tag: "+hitObject.tag);
             if (Input.GetMouseButtonDown(0) && hitObject.tag == "Hex") {
-
                 int x = hitObject.GetComponent<HexCord>().x;
                 int y = hitObject.GetComponent<HexCord>().y;
 
-                Debug.Log("Clicked Hex: "+ x
-                    +", "+ y);
+                Debug.Log("Clicked Hex: " + x
+                    + ", " + y);
 
-                GameObject newHex = Instantiate(selectedHexPrefab);
-                newHex.transform.position = hitInfo.collider.transform.position;
-                
-
-                if (newHex.GetComponent<HexCord>() == null)
+                if (b.x == -1)
                 {
-                    newHex.GetComponentInChildren<HexCord>().x = x;
-                    newHex.GetComponentInChildren<HexCord>().y = y;
-                }
-                else
-                {
-                    newHex.GetComponent<HexCord>().x = x;
-                    newHex.GetComponent<HexCord>().y = y;
-                }
-
-                if (hitObject.transform.parent != null &&
-                    hitObject.transform.parent.gameObject != null &&
-                    hitObject.transform.parent.gameObject.tag == "Hex")
-                {
-                    newHex.name = hitObject.transform.parent.gameObject.name;
-                    newHex.transform.parent = hitObject.transform.parent.transform.parent;
-                    Destroy(hitObject.transform.parent.gameObject);
+                    b = new Vector2Int(x, y);
                 }
                 else {
-                    newHex.name = hitObject.transform.gameObject.name;
-                    newHex.transform.parent = hitObject.transform.parent;
-                    Destroy(hitObject);
+
+                    int x0 = b.x - (int)Mathf.Floor(b.y / 2);
+                    int y0 = b.y;
+                    int x1 = x - (int)Mathf.Floor(y / 2);
+                    int y1 = y;
+                    int dx = x1 - x0;
+                    int dy = y1 - y0;
+                    Debug.Log("Distance: "+Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy), Mathf.Abs(dx + dy)));
+
+                    b.x = -1; 
                 }
+                
+                
+                HexMap.SwapHex(selectedHexPrefab, hitObject);
 
 
                 //Debug.Log("Set Color");

@@ -17,6 +17,8 @@ public class PerlinGenerator : MonoBehaviour
     public GameObject grassPrefab;
     public GameObject cityPrefab;
     public GameObject townPrefab;
+    public GameObject highwayPrefab;
+    public GameObject pathPrefab;
 
     /*int densityUpper = 5;
     int densityLower = 2; */
@@ -31,7 +33,12 @@ public class PerlinGenerator : MonoBehaviour
     public HexFrequency.Frequency cityFrequency;
     public HexFrequency.Frequency townFrequency;
 
-    public static PerlinGenerator instance; 
+    public static PerlinGenerator instance;
+
+
+    List<List<GameObject>> hexes = new List<List<GameObject>>();
+    List<List<int>> cityCoordintes = new List<List<int>>();
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +46,7 @@ public class PerlinGenerator : MonoBehaviour
         instance = this;
 
         CreateTileMap();
+        
     }
 
     public void ClearMap() {
@@ -46,10 +54,12 @@ public class PerlinGenerator : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        hexes.Clear();
     }
 
     public void CreateTileMap()
     {
+        cityCoordintes.Clear();
         var mountainStats = new HexFrequency(mountainFrequency);
         var treeStats = new HexFrequency(treeFrequency);
         var townStats = new HexFrequency(townFrequency);
@@ -69,6 +79,9 @@ public class PerlinGenerator : MonoBehaviour
 
         for (int x = 0; x < mapWidth; x++)
         {
+
+            var row = new List<GameObject>();
+
             for (int y = 0; y < mapHeight; y++)
             {
                 int mountain = mountainMap[x][y];
@@ -76,10 +89,14 @@ public class PerlinGenerator : MonoBehaviour
                 int town = townMap[x][y];
                 int city = cityMap[x][y];
 
+                bool urbanHex = false; 
 
                 GameObject hexPrefab = grassPrefab;
-                if (city >= cityStats.margin)
+                if (city >= cityStats.margin) {
+                    cityCoordintes.Add(new List<int> { x, y });
                     hexPrefab = cityPrefab;
+                    urbanHex = true;
+                }
                 else if(town >= townStats.margin)
                     hexPrefab = townPrefab;
                 else if(mountain >= mountainStats.margin)
@@ -88,7 +105,7 @@ public class PerlinGenerator : MonoBehaviour
                     hexPrefab = treePrefab;
 
                 GameObject hex = Instantiate(hexPrefab);
-
+                
                 if (y % 2 == 0)
                 {
                     hex.transform.position = new Vector3(x * xSpacing, 0, y * ySpacing);
@@ -101,20 +118,27 @@ public class PerlinGenerator : MonoBehaviour
                 hex.name = x + ", " + y;
                 if (hex.GetComponent<HexCord>() == null)
                 {
+                    hex.GetComponentInChildren<HexCord>().urbanHex = urbanHex;
                     hex.GetComponentInChildren<HexCord>().x = x;
                     hex.GetComponentInChildren<HexCord>().y = y;
                 }
                 else
                 {
-                    hex.GetComponent<HexCord>().x = x;
+                    hex.GetComponent<HexCord>().urbanHex = urbanHex;
+                    hex.GetComponent<HexCord>().y = y;
                     hex.GetComponent<HexCord>().y = y;
                 }
 
-
+                
                 hex.transform.parent = gameObject.transform;
+                row.Add(hex);
 
             }
+
+            hexes.Add(row);
         }
+
+        RoadGenerator.CreateRoads(cityCoordintes, hexes, highwayPrefab);
 
     }
 
@@ -207,4 +231,7 @@ public class PerlinGenerator : MonoBehaviour
 
         }
     }
+
+    
+
 }

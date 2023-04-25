@@ -51,4 +51,53 @@ public class HexMap : MonoBehaviour
         }
 
     }
+
+
+    public static void SwapHex(GameObject hexPrefab, GameObject hex) {
+
+
+        GameObject newHex = Instantiate(hexPrefab);
+        newHex.transform.position = hex.transform.position;
+
+        int x, y;
+        if (hex.GetComponent<HexCord>() == null)
+        {
+            x = hex.GetComponentInChildren<HexCord>().x;
+            y = hex.GetComponentInChildren<HexCord>().y;
+        }
+        else
+        {
+            x = hex.GetComponent<HexCord>().x;
+            y = hex.GetComponent<HexCord>().y;
+        }
+
+        if (newHex.GetComponent<HexCord>() == null)
+        {
+            newHex.GetComponentInChildren<HexCord>().x = x;
+            newHex.GetComponentInChildren<HexCord>().y = y;
+        }
+        else
+        {
+            newHex.GetComponent<HexCord>().x = x;
+            newHex.GetComponent<HexCord>().y = y;
+        }
+
+        if (hex.transform.parent != null &&
+            hex.transform.parent.gameObject != null &&
+            hex.transform.parent.gameObject.tag == "Hex")
+        {
+            newHex.name = hex.transform.parent.gameObject.name;
+            newHex.transform.parent = hex.transform.parent.transform.parent;
+            
+            Destroy(hex.transform.parent.gameObject);
+        }
+        else
+        {
+            newHex.name = hex.transform.gameObject.name;
+            newHex.transform.parent = hex.transform.parent;
+            Destroy(hex);
+        }
+
+    }
+
 }
