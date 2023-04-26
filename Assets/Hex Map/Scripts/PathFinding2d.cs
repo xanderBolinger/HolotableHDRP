@@ -23,12 +23,66 @@ public static class PathFinding2D
         Func<Vector2Int, List<Vector2Int>> getNeighbors = delegate (Vector2Int pos)
         {
             var neighbors = new List<Vector2Int>();
+
+            if (getDistance(pos, new Vector2Int(pos.x + 1, pos.y + 1)) == 1) {
+                neighbors.Add(new Vector2Int(pos.x + 1, pos.y + 1));
+            } 
+            
+            if (getDistance(pos, new Vector2Int(pos.x, pos.y + 1)) == 1) {
+                neighbors.Add(new Vector2Int(pos.x, pos.y + 1));
+            }
+            if (getDistance(pos, new Vector2Int(pos.x+ 1, pos.y)) == 1)
+            {
+                neighbors.Add(new Vector2Int(pos.x + 1, pos.y));
+            }
+            
+            if (getDistance(pos, new Vector2Int(pos.x - 1, pos.y)) == 1)
+            {
+                neighbors.Add(new Vector2Int(pos.x - 1, pos.y));
+            }
+            
+            if (getDistance(pos, new Vector2Int(pos.x - 1, pos.y - 1)) == 1)
+            {
+                neighbors.Add(new Vector2Int(pos.x - 1, pos.y - 1));
+            }
+            
+            if (getDistance(pos, new Vector2Int(pos.x, pos.y - 1)) == 1)
+            {
+                neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
+            }
+            
+            if (getDistance(pos, new Vector2Int(pos.x + 1, pos.y - 1)) == 1)
+            {
+                neighbors.Add(new Vector2Int(pos.x + 1, pos.y - 1));
+            }
+            
+            if (getDistance(pos, new Vector2Int(pos.x - 1, pos.y + 1)) == 1)
+            {
+                neighbors.Add(new Vector2Int(pos.x - 1, pos.y + 1));
+            }
+
+            if (neighbors.Count != 6) {
+                Debug.LogError("Neighbors not 6: ");
+                Debug.LogError("Pos: "+pos.x+", "+pos.y);
+            }
+
+            /*neighbors.Add(new Vector2Int(pos.x - 1, pos.y));
+            neighbors.Add(new Vector2Int(pos.x - 1, pos.y + 1));
             neighbors.Add(new Vector2Int(pos.x, pos.y + 1));
-            neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
             neighbors.Add(new Vector2Int(pos.x + 1, pos.y));
+            neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
+            neighbors.Add(new Vector2Int(pos.x - 1, pos.y - 1));*/
+
+            /*neighbors.Add(new Vector2Int(pos.x + 1, pos.y));
             neighbors.Add(new Vector2Int(pos.x - 1, pos.y));
-            neighbors.Add(new Vector2Int(pos.x - 1, pos.y+1));
+            neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
             neighbors.Add(new Vector2Int(pos.x - 1, pos.y - 1));
+            neighbors.Add(new Vector2Int(pos.x - 1, pos.y + 1));
+            neighbors.Add(new Vector2Int(pos.x, pos.y + 1));*/
+
+
+            /*neighbors.Add(new Vector2Int(pos.x - 1, pos.y+1));
+            neighbors.Add(new Vector2Int(pos.x - 1, pos.y - 1));*/
             /*neighbors.Add(new Vector2Int(pos.x + 1, pos.y + 1));*/
             return neighbors;
         };

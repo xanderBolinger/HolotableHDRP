@@ -138,8 +138,118 @@ public class PerlinGenerator : MonoBehaviour
             hexes.Add(row);
         }
 
+        if (cityCoordintes.Count < 2)
+            return;
+        SetCityCoordinates();
+        /*cityCoordintes.Clear();
+        cityCoordintes.Add(new List<int> { 5,10});
+        cityCoordintes.Add(new List<int> { 45, 47 });
+        cityCoordintes.Add(new List<int> { 4, 11 });*/
         RoadGenerator.CreateRoads(cityCoordintes, hexes, highwayPrefab);
 
+    }
+
+    void SetCityCoordinates() {
+
+        List<double[]> uncleanCenters = Kmeans(ConvertCoordinates(cityCoordintes));
+
+        List<double[]> centers = new List<double[]>();
+
+        foreach (var c in uncleanCenters) {
+            if (!containsCenter(c, centers))
+                centers.Add(c);
+        }
+
+        cityCoordintes.Clear();
+
+        foreach (var center in centers) {
+            Debug.Log("Center: "+center[0]+", "+center[1]);
+            cityCoordintes.Add(new List<int> {(int) center[0], (int)center[1] });
+        }
+
+    }
+
+    bool containsCenter(double[] center, List<double[]> centers) {
+
+        foreach (var c in centers) {
+            if ((center[0] == c[0] && center[1] == c[1]) || Distance(c, center) < 4)
+                return true;
+        }
+
+        return false; 
+    }
+
+    double[,] ConvertCoordinates(List<List<int>> list) {
+        // Assuming cityCoordinates is already initialized and filled with data
+        int rows = list.Count;
+        int cols = list[0].Count;
+
+        double[,] cityCoordinatesArray = new double[rows, cols];
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                cityCoordinatesArray[i, j] = Convert.ToDouble(list[i][j]);
+            }
+        }
+
+        return cityCoordinatesArray;
+    }
+
+    public static List<double[]> Kmeans(double[,] data, int k=12)
+    {
+        List<double[]> centroids = new List<double[]>();
+        System.Random rnd = new System.Random();
+
+        // add a randomly selected data point to the centroids list
+        double[] initialCentroid = new double[] { data[rnd.Next(data.GetLength(0)), 0], data[rnd.Next(data.GetLength(0)), 1] };
+        centroids.Add(initialCentroid);
+
+        // compute remaining k - 1 centroids
+        for (int c_id = 0; c_id < k - 1; c_id++)
+        {
+            // initialize a list to store distances of data points from nearest centroid
+            List<double> dist = new List<double>();
+            for (int i = 0; i < data.GetLength(0); i++)
+            {
+                double[] point = new double[] { data[i, 0], data[i, 1] };
+                double d = double.MaxValue;
+
+                // compute distance of 'point' from each of the previously selected centroid
+                // and store the minimum distance
+                foreach (double[] centroid in centroids)
+                {
+                    double temp_dist = Distance(point, centroid);
+                    d = Math.Min(d, temp_dist);
+                }
+                dist.Add(d);
+            }
+
+            // select data point with maximum distance as our next centroid
+            double[] next_centroid = new double[] { data[dist.IndexOf(Max(dist)), 0], data[dist.IndexOf(Max(dist)), 1] };
+            centroids.Add(next_centroid);
+            dist.Clear();
+        }
+        return centroids;
+    }
+
+    public static double Max(List<double> list) {
+        double max = -1;
+        foreach (var val in list) { max = val > max ? val : max; }
+        return max;
+    } 
+
+    public static double Distance(double[] a, double[] b)
+    {
+
+        int x0 = (int)a[0] - (int)Mathf.Floor((int)a[1] / 2);
+        int y0 = (int)a[1];
+        int x1 = (int)b[0] - (int)Mathf.Floor((int)b[1] / 2);
+        int y1 = (int)b[0];
+        int dx = x1 - x0;
+        int dy = y1 - y0;
+        return Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy), Mathf.Abs(dx + dy));
     }
 
     /*GameObject GetHex(int x, int y)

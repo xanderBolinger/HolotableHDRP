@@ -28,8 +28,10 @@ public class RoadGenerator
         }
 
         List<int> passableValues = new List<int>();
+        //passableValues.Add(100);
         passableValues.Add(0);
-       /* for (int i = 0; i < 100; i++) {
+        /*passableValues.Add(1);*/
+        /*for (int i = 0; i < 100; i++) {
             passableValues.Add(i);
         }*/
 
@@ -91,44 +93,102 @@ public class RoadGenerator
     public static void CreateRoads(List<List<int>> coordinates, List<List<GameObject>> hexes, GameObject prefab)
     {
 
+        var paths = new List<List<List<int>>>();
 
-        for (int i = 0; i < coordinates.Count; i++)
+        for (int i = 0; i < coordinates.Count - 1; i++)
         {
             Debug.Log("Cord in Create Roads");
+            int j = i + 1;
 
-            for (int j = 0; j < coordinates.Count; j++)
-            {
-                if (i == j || Distance(coordinates[i][0], coordinates[i][1], coordinates[j][0], coordinates[j][1]) == 1)
-                    continue;
+            /*if (i == j || Distance(coordinates[i][0], coordinates[i][1], coordinates[j][0], coordinates[j][1]) == 1) {
+                Debug.Log("Skip cords");
+                continue;
+            }*/
 
-                var path = GetPath(new List<int> { coordinates[i][0], coordinates[i][1] },
-                    new List<int> { coordinates[j][0], coordinates[j][1] });
-
-
-                for (int cord = 0; cord < path.Count; cord++) {
-
-                    var hex = hexes[path[cord][0]][path[cord][1]];
-                    
-                    if (hex.GetComponent<HexCord>() != null
-                        && (hex.GetComponent<HexCord>().urbanHex || hex.GetComponent<HexCord>().roadHex))
-                        continue;
-                    else if (hex.GetComponentInChildren<HexCord>().urbanHex ||
-                        hex.GetComponentInChildren<HexCord>().roadHex)
-                        continue;
-                    Debug.Log("Swap Hex");
-                    HexMap.SwapHex(prefab, hexes[path[cord][0]][path[cord][1]]);
-                }
-
-
-                return;
-                //hexes[i][j]
-
-
-            }
+            var path = GetPath(new List<int> { coordinates[i][0], coordinates[i][1] },
+                new List<int> { coordinates[j][0], coordinates[j][1] });
+            Debug.Log("Add path");
+            paths.Add(path);
 
         }
 
+        if (paths.Count < 1)
+        {
+            Debug.LogError("Path returning, no paths");
+            return;
+        }
+        else if (paths.Count > 2) {
+            paths.Add(GetPath(coordinates[-1],
+                coordinates[0]));
+        }
 
+        /*var minPath = paths[0];
+        foreach (var path in paths) {
+
+            if (path.Count < minPath.Count)
+                minPath = path;
+
+        }*/
+
+        PrintHexes(hexes);
+
+        foreach (var path in paths) {
+            SwapPath(path, hexes, prefab);
+        }
+        
+
+
+    }
+
+    static void SwapPath(List<List<int>> path, List<List<GameObject>> hexes, GameObject prefab) {
+        for (int cord = 0; cord < path.Count; cord++)
+        {
+
+            var hex = hexes[path[cord][0]][path[cord][1]];
+
+            if (hex.GetComponent<HexCord>() != null
+                && (hex.GetComponent<HexCord>().urbanHex || hex.GetComponent<HexCord>().roadHex))
+                continue;
+            else if (hex.GetComponentInChildren<HexCord>().urbanHex ||
+                hex.GetComponentInChildren<HexCord>().roadHex)
+                continue;
+            Debug.Log("Swap Hex");
+            HexMap.SwapHex(prefab, hexes[path[cord][0]][path[cord][1]]);
+        }
+    }
+
+    static void PrintHexes(List<List<GameObject>> hexes) {
+        foreach (var hexRow in hexes)
+        {
+
+            List<Vector2Int> cords = new List<Vector2Int>();
+            foreach (var hex in hexRow)
+            {
+
+                int x, y;
+
+                if (hex.GetComponent<HexCord>() == null)
+                {
+                    x = hex.GetComponentInChildren<HexCord>().x;
+                    y = hex.GetComponentInChildren<HexCord>().y;
+                }
+                else
+                {
+                    x = hex.GetComponent<HexCord>().x;
+                    y = hex.GetComponent<HexCord>().y;
+                }
+
+                cords.Add(new Vector2Int(x, y));
+            }
+
+            string cordString = "Row: ";
+            foreach (var cord in cords)
+            {
+                cordString += "(" + cord.x + " , " + cord.y + ")";
+            }
+            Debug.Log(cordString);
+
+        }
     }
 
 }
