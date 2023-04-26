@@ -9,6 +9,10 @@ public class MouseManager : MonoBehaviour
     public GameObject hillHexPrefab;
     public GameObject grassHexPrefab;
     public GameObject treeHexPrefab;
+    public GameObject cityHexPrefab;
+    public GameObject townHexPrefab;
+    public GameObject highwayHexPrefab;
+    public GameObject pathHexPrefab;
 
     Vector2Int b = new Vector2Int(-1,-1);
 
@@ -32,6 +36,22 @@ public class MouseManager : MonoBehaviour
         {
             selectedHexPrefab = hillHexPrefab;
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            selectedHexPrefab = cityHexPrefab;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            selectedHexPrefab = townHexPrefab;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            selectedHexPrefab = highwayHexPrefab;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            selectedHexPrefab = pathHexPrefab;
+        }
         else if (Input.GetKeyDown(KeyCode.Space)) {
             Debug.Log("Refresh Map");
             PerlinGenerator.instance.ClearMap();
@@ -52,7 +72,7 @@ public class MouseManager : MonoBehaviour
 
             GameObject hitObject = hitInfo.collider.transform.gameObject;
 
-            //Debug.Log("Raycast Hit: "+hitInfo.collider.gameObject.name+", Tag: "+hitObject.tag);
+            Debug.Log("Raycast Hit: "+hitInfo.collider.gameObject.name+", Tag: "+hitObject.tag);
             if (Input.GetMouseButtonDown(0) && hitObject.tag == "Hex") {
                 int x = hitObject.GetComponent<HexCord>().x;
                 int y = hitObject.GetComponent<HexCord>().y;

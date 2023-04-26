@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5984115128235852866}
   m_Layer: 0
   m_Name: PathHex
-  m_TagString: Untagged
+  m_TagString: Hex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2190622540023885545, guid: a035b2adfca60b6458120975ce2ab9b3, type: 3}
 --- !u!114 &5984115128235852866
@@ -113,3 +113,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
+  roadHex: 0
+  urbanHex: 0

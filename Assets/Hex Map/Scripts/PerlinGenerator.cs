@@ -35,10 +35,11 @@ public class PerlinGenerator : MonoBehaviour
 
     public static PerlinGenerator instance;
 
+    public int k = 4;
 
     List<List<GameObject>> hexes = new List<List<GameObject>>();
-    List<List<int>> cityCoordintes = new List<List<int>>();
-
+    List<List<int>> cityCoordinates = new List<List<int>>();
+    List<List<int>> townCoordinates = new List<List<int>>();
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +60,8 @@ public class PerlinGenerator : MonoBehaviour
 
     public void CreateTileMap()
     {
-        cityCoordintes.Clear();
+        cityCoordinates.Clear();
+        townCoordinates.Clear();
         var mountainStats = new HexFrequency(mountainFrequency);
         var treeStats = new HexFrequency(treeFrequency);
         var townStats = new HexFrequency(townFrequency);
@@ -93,12 +95,15 @@ public class PerlinGenerator : MonoBehaviour
 
                 GameObject hexPrefab = grassPrefab;
                 if (city >= cityStats.margin) {
-                    cityCoordintes.Add(new List<int> { x, y });
+                    cityCoordinates.Add(new List<int> { x, y });
                     hexPrefab = cityPrefab;
                     urbanHex = true;
                 }
-                else if(town >= townStats.margin)
+                else if (town >= townStats.margin) {
+                    townCoordinates.Add(new List<int> { x, y });
+                    urbanHex = true;
                     hexPrefab = townPrefab;
+                }
                 else if(mountain >= mountainStats.margin)
                     hexPrefab = mountainPrefab;
                 else if (tree >= treeStats.margin)
@@ -138,20 +143,49 @@ public class PerlinGenerator : MonoBehaviour
             hexes.Add(row);
         }
 
-        if (cityCoordintes.Count < 2)
-            return;
-        SetCityCoordinates();
-        /*cityCoordintes.Clear();
-        cityCoordintes.Add(new List<int> { 5,10});
-        cityCoordintes.Add(new List<int> { 45, 47 });
-        cityCoordintes.Add(new List<int> { 4, 11 });*/
-        RoadGenerator.CreateRoads(cityCoordintes, hexes, highwayPrefab);
+        RoadGenerator.roadCords.Clear();
+
+        if (cityCoordinates.Count > 2) {
+            SetCityCoordinates();
+            cityCoordinates.Insert(0, new List<int> { 0, 10 });
+            cityCoordinates.Add(new List<int> { 99, 47 });
+            RoadGenerator.CreateRoads(cityCoordinates, hexes, highwayPrefab);
+        }
+
+        if (townCoordinates.Count > 2) {
+            SetTownCoordinates();
+            
+            RoadGenerator.CreateRoads(townCoordinates, hexes, pathPrefab);
+        }
+        
+    }
+
+    void SetTownCoordinates()
+    {
+
+        List<double[]> uncleanCenters = Kmeans(ConvertCoordinates(townCoordinates), k);
+
+        List<double[]> centers = new List<double[]>();
+
+        foreach (var c in uncleanCenters)
+        {
+            if (!containsCenter(c, centers))
+                centers.Add(c);
+        }
+
+        townCoordinates.Clear();
+
+        foreach (var center in centers)
+        {
+            Debug.Log("Center: " + center[0] + ", " + center[1]);
+            townCoordinates.Add(new List<int> { (int)center[0], (int)center[1] });
+        }
 
     }
 
     void SetCityCoordinates() {
 
-        List<double[]> uncleanCenters = Kmeans(ConvertCoordinates(cityCoordintes));
+        List<double[]> uncleanCenters = Kmeans(ConvertCoordinates(cityCoordinates), k);
 
         List<double[]> centers = new List<double[]>();
 
@@ -160,11 +194,11 @@ public class PerlinGenerator : MonoBehaviour
                 centers.Add(c);
         }
 
-        cityCoordintes.Clear();
+        cityCoordinates.Clear();
 
         foreach (var center in centers) {
             Debug.Log("Center: "+center[0]+", "+center[1]);
-            cityCoordintes.Add(new List<int> {(int) center[0], (int)center[1] });
+            cityCoordinates.Add(new List<int> {(int) center[0], (int)center[1] });
         }
 
     }
@@ -197,7 +231,7 @@ public class PerlinGenerator : MonoBehaviour
         return cityCoordinatesArray;
     }
 
-    public static List<double[]> Kmeans(double[,] data, int k=12)
+    public static List<double[]> Kmeans(double[,] data, int k)
     {
         List<double[]> centroids = new List<double[]>();
         System.Random rnd = new System.Random();

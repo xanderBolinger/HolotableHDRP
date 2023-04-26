@@ -7,6 +7,8 @@ using UnityEngine;
 public class RoadGenerator
 {
 
+    public static List<List<int>> roadCords = new List<List<int>>();
+
     public static List<List<int>> GetPath(List<int> from, List<int> to) {
         Debug.Log("Get Path");
         List<List<int>> cords = new List<List<int>>();
@@ -15,8 +17,6 @@ public class RoadGenerator
 
         for (int i = 0; i < PerlinGenerator.instance.mapWidth; i++)
         {
-
-
 
             for (int j = 0; j < PerlinGenerator.instance.mapHeight; j++)
             {
@@ -93,6 +93,20 @@ public class RoadGenerator
     public static void CreateRoads(List<List<int>> coordinates, List<List<GameObject>> hexes, GameObject prefab)
     {
 
+
+        /*foreach (var cord in coordinates) {
+            if (ContainsCord(cord, highwayCords))
+                continue;
+
+            highwayCords.Add(cord);
+
+            HexMap.SwapHex(cordPrefab, hexes[cord[0]][cord[1]]);
+            
+            //SwapPath()
+        }*/
+
+
+
         var paths = new List<List<List<int>>>();
 
         for (int i = 0; i < coordinates.Count - 1; i++)
@@ -117,10 +131,10 @@ public class RoadGenerator
             Debug.LogError("Path returning, no paths");
             return;
         }
-        else if (paths.Count > 2) {
-            paths.Add(GetPath(coordinates[-1],
+        /*else if (paths.Count > 2) {
+            paths.Add(GetPath(coordinates[coordinates.Count-1],
                 coordinates[0]));
-        }
+        }*/
 
         /*var minPath = paths[0];
         foreach (var path in paths) {
@@ -144,17 +158,36 @@ public class RoadGenerator
         for (int cord = 0; cord < path.Count; cord++)
         {
 
-            var hex = hexes[path[cord][0]][path[cord][1]];
+            if (ContainsCord(path[cord], roadCords))
+                continue;
 
-            if (hex.GetComponent<HexCord>() != null
+            roadCords.Add(new List<int> { path[cord][0], path[cord][1]});
+
+            //var hex = hexes[path[cord][0]][path[cord][1]];
+
+            /*if (hex.GetComponent<HexCord>() != null
                 && (hex.GetComponent<HexCord>().urbanHex || hex.GetComponent<HexCord>().roadHex))
                 continue;
             else if (hex.GetComponentInChildren<HexCord>().urbanHex ||
                 hex.GetComponentInChildren<HexCord>().roadHex)
-                continue;
+                continue;*/
             Debug.Log("Swap Hex");
+
+            
+
             HexMap.SwapHex(prefab, hexes[path[cord][0]][path[cord][1]]);
         }
+    }
+
+    static bool ContainsCord(List<int> cord, List<List<int>> cords) {
+
+        foreach (var c in cords) {
+            if (cord[0] == c[0] && cord[1] == c[1])
+                return true;
+        }
+
+
+        return false; 
     }
 
     static void PrintHexes(List<List<GameObject>> hexes) {
