@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PerlinGenerator : MonoBehaviour
 {
+    public static PerlinGenerator instance;
 
     public int mapWidth = 25;
     public int mapHeight = 12;
@@ -33,11 +34,10 @@ public class PerlinGenerator : MonoBehaviour
     public HexFrequency.Frequency cityFrequency;
     public HexFrequency.Frequency townFrequency;
 
-    public static PerlinGenerator instance;
 
     public int k = 4;
 
-    List<List<GameObject>> hexes = new List<List<GameObject>>();
+    public List<List<GameObject>> hexes = new List<List<GameObject>>();
     List<List<int>> cityCoordinates = new List<List<int>>();
     List<List<int>> townCoordinates = new List<List<int>>();
 
