@@ -57,6 +57,8 @@ public class MouseManager : MonoBehaviour
             PerlinGenerator.instance.ClearMap();
             
             PerlinGenerator.instance.CreateTileMap();
+            PerlinGenerator.instance.GetComponent<Tilemap>().initTilemap();
+            PerlinGenerator.instance.GetComponent<Tilemap>().read();
         }
  
 
@@ -72,7 +74,7 @@ public class MouseManager : MonoBehaviour
 
             GameObject hitObject = hitInfo.collider.transform.gameObject;
 
-            Debug.Log("Raycast Hit: "+hitInfo.collider.gameObject.name+", Tag: "+hitObject.tag);
+            //Debug.Log("Raycast Hit: "+hitInfo.collider.gameObject.name+", Tag: "+hitObject.tag);
             if (Input.GetMouseButtonDown(0) && hitObject.tag == "Hex") {
                 int x = hitObject.GetComponent<HexCord>().x;
                 int y = hitObject.GetComponent<HexCord>().y;
