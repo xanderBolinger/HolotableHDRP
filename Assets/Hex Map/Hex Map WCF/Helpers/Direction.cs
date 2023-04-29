@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace WaveFunctionCollaps
+namespace WaveFunctionCollapse
 {
     public enum Direction
     {
-        Up,
-        Down,
-        Left,
-        Right
+        A,
+        B,
+        C,
+        D,
+        E,
+        F
     }
 
     public static class DirectionHelper
@@ -18,14 +20,18 @@ namespace WaveFunctionCollaps
         {
             switch (direction)
             {
-                case Direction.Up:
-                    return Direction.Down;
-                case Direction.Down:
-                    return Direction.Up;
-                case Direction.Left:
-                    return Direction.Right;
-                case Direction.Right:
-                    return Direction.Left;
+                case Direction.A:
+                    return Direction.D;
+                case Direction.B:
+                    return Direction.E;
+                case Direction.C:
+                    return Direction.F;
+                case Direction.D:
+                    return Direction.A;
+                case Direction.E:
+                    return Direction.B;
+                case Direction.F:
+                    return Direction.C;
                 default:
                     return direction;
             }
