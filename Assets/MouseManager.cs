@@ -57,8 +57,7 @@ public class MouseManager : MonoBehaviour
             PerlinGenerator.instance.ClearMap();
             
             PerlinGenerator.instance.CreateTileMap();
-            PerlinGenerator.instance.GetComponent<Tilemap>().initTilemap();
-            PerlinGenerator.instance.GetComponent<Tilemap>().read();
+            
         }
  
 

@@ -2,6 +2,8 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using WaveFunctionCollapse;
+using System.Text;
 
 public class PerlinGenerator : MonoBehaviour
 {
@@ -157,7 +159,30 @@ public class PerlinGenerator : MonoBehaviour
             
             RoadGenerator.CreateRoads(townCoordinates, hexes, pathPrefab);
         }
-        
+
+
+        GetComponent<Tilemap>().initTilemap();
+        InputReader inputReader = new InputReader(GetComponent<Tilemap>());
+        var grid = inputReader.ReadInputToGrid();
+        ValueManager<TileBase> valueManager = new ValueManager<TileBase>(grid);
+        StringBuilder builder = null;
+        List<string> list = new List<string>();
+        for (int r = -1; r < grid.Length; r++) {
+            builder = new StringBuilder();
+
+            for (int c = -1; c < grid[0].Length; c++) {
+                builder.Append(valueManager.GetGridValuesIncludingOffset(c, r)+" ");
+            }
+
+            list.Add(builder.ToString());
+
+        }
+
+        list.Reverse();
+        foreach (var str in list) {
+            Debug.Log(str);
+        } 
+
     }
 
     void SetTownCoordinates()

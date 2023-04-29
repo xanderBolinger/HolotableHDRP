@@ -10,19 +10,14 @@ public class Tilemap : MonoBehaviour
     public int mapWidth;
     public int mapHeight;
 
-    InputReader inputReader;
 
     public void initTilemap()
     {
         hexes = PerlinGenerator.instance.hexes;
         mapHeight = PerlinGenerator.instance.mapHeight;
         mapWidth = PerlinGenerator.instance.mapWidth;
-        inputReader = new InputReader(this);
         
     }
 
-    public void read() {
-        inputReader.ReadInputToGrid();
-    }
 
 }
