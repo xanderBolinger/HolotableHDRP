@@ -29,30 +29,30 @@ public static class PathFinding2D
 
             // B
             if (pos.y % 2 == 0)
-                neighbors.Add(new Vector2Int(pos.x, pos.y+1));
+                neighbors.Add(new Vector2Int(pos.x-1, pos.y+1));
             else
-                neighbors.Add(new Vector2Int(pos.x - 1, pos.y + 1));
+                neighbors.Add(new Vector2Int(pos.x, pos.y + 1));
 
             // C 
             if (pos.y % 2 == 0)
-                neighbors.Add(new Vector2Int(pos.x + 1, pos.y + 1));
-            else
                 neighbors.Add(new Vector2Int(pos.x, pos.y + 1));
+            else
+                neighbors.Add(new Vector2Int(pos.x + 1, pos.y + 1));
 
             // D
             neighbors.Add(new Vector2Int(pos.x + 1, pos.y));
 
             // E
             if (pos.y % 2 == 0)
-                neighbors.Add(new Vector2Int(pos.x + 1, pos.y - 1));
+                neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
             else
-                neighbors.Add(new Vector2Int(pos.x, pos.y -1));
+                neighbors.Add(new Vector2Int(pos.x+1, pos.y -1));
 
             // F
             if (pos.y % 2 == 0)
-                neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
-            else
                 neighbors.Add(new Vector2Int(pos.x - 1, pos.y - 1));
+            else
+                neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
 
 
 

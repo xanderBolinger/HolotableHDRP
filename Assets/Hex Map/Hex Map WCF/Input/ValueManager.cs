@@ -29,6 +29,14 @@ namespace WaveFunctionCollapse {
 
         }
 
+        internal Vector2 GetGridSize()
+        {
+            if (grid == null)
+                return Vector2.zero;
+
+            return new Vector2(grid[0].Length, grid.Length);
+        }
+
         private void SetIndexToGridPosition(IValue<T>[][] gridOfValues, int row, int col)
         {
             if (valueIndexDictionary.ContainsValue(gridOfValues[row][col]))
@@ -66,40 +74,40 @@ namespace WaveFunctionCollapse {
         public int GetGridValuesIncludingOffset(int x, int y) {
             int yMax = grid.Length;
             int xMax = grid[0].Length;
-            
-            if (x < 0 && y < 0) {
+            if (x < 0 && y < 0)
+            {
                 return GetGridValue(xMax + x, yMax + y);
             }
-
-            if (x < 0 && y >= yMax) {
-                return GetGridValue(xMax + x, y- yMax);
+            if (x < 0 && y >= yMax)
+            {
+                return GetGridValue(xMax + x, y - yMax);
             }
-
-            if (x >= xMax && y < 0) {
+            if (x >= xMax && y < 0)
+            {
                 return GetGridValue(x - xMax, yMax + y);
             }
-
-            if (x >= xMax || y >= yMax) {
+            if (x >= xMax && y >= yMax)
+            {
                 return GetGridValue(x - xMax, y - yMax);
             }
-
-            if (x < 0) {
+            if (x < 0)
+            {
                 return GetGridValue(xMax + x, y);
             }
-
-            if (x >= xMax) {
+            if (x >= xMax)
+            {
                 return GetGridValue(x - xMax, y);
             }
-
-            if (y < 0) {
-                return GetGridValue(x, yMax + y);
-            }
-
-            if (y >= yMax) {
+            if (y >= yMax)
+            {
                 return GetGridValue(x, y - yMax);
             }
-
+            if (y < 0)
+            {
+                return GetGridValue(x, yMax + y);
+            }
             return GetGridValue(x, y);
+
 
         }
 

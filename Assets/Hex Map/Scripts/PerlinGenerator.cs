@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WaveFunctionCollapse;
 using System.Text;
+using System.Linq;
 
 public class PerlinGenerator : MonoBehaviour
 {
@@ -165,7 +166,12 @@ public class PerlinGenerator : MonoBehaviour
         InputReader inputReader = new InputReader(GetComponent<Tilemap>());
         var grid = inputReader.ReadInputToGrid();
         ValueManager<TileBase> valueManager = new ValueManager<TileBase>(grid);
-        StringBuilder builder = null;
+        PatternManager manager = new PatternManager(2);
+        manager.ProcessGrid(valueManager, false);
+        foreach (Direction dir in Enum.GetValues(typeof(Direction))) {
+            Debug.Log(dir.ToString() + " " + string.Join(" ", manager.GetPossibleNeighoursForPatternInDirection(0, dir).ToArray()));
+        }
+       /* StringBuilder builder = null;
         List<string> list = new List<string>();
         for (int r = -1; r < grid.Length; r++) {
             builder = new StringBuilder();
@@ -181,7 +187,7 @@ public class PerlinGenerator : MonoBehaviour
         list.Reverse();
         foreach (var str in list) {
             Debug.Log(str);
-        } 
+        } */
 
     }
 
