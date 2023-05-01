@@ -229,3 +229,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
+  roadHex: 0
+  urbanHex: 0
+  hexType: 2

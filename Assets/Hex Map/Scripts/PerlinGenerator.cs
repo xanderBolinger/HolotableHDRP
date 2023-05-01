@@ -166,28 +166,82 @@ public class PerlinGenerator : MonoBehaviour
         InputReader inputReader = new InputReader(GetComponent<Tilemap>());
         var grid = inputReader.ReadInputToGrid();
         ValueManager<TileBase> valueManager = new ValueManager<TileBase>(grid);
-        PatternManager manager = new PatternManager(2);
+        PatternManager manager = new PatternManager(1);
         manager.ProcessGrid(valueManager, false);
+
         foreach (Direction dir in Enum.GetValues(typeof(Direction))) {
             Debug.Log(dir.ToString() + " " + string.Join(" ", manager.GetPossibleNeighoursForPatternInDirection(0, dir).ToArray()));
         }
-       /* StringBuilder builder = null;
-        List<string> list = new List<string>();
-        for (int r = -1; r < grid.Length; r++) {
-            builder = new StringBuilder();
 
-            for (int c = -1; c < grid[0].Length; c++) {
-                builder.Append(valueManager.GetGridValuesIncludingOffset(c, r)+" ");
-            }
+        /*TileBase woods = new TileBase(HexCord.HexType.WOODS);
+        TileBase woods1 = new TileBase(HexCord.HexType.WOODS);
+        TileBase citytb = new TileBase(HexCord.HexType.CITY);
 
-            list.Add(builder.ToString());
+        TileBaseValue woodsValue = new TileBaseValue(woods);
+        TileBaseValue woods1Value = new TileBaseValue(woods);
+        TileBaseValue cityValue = new TileBaseValue(citytb);
 
+        if (woods == woods1) {
+            Debug.Log("Comparison pass 0");
+        }
+        if (woods == citytb)
+        {
+            Debug.Log("Comparison pass 00");
         }
 
-        list.Reverse();
-        foreach (var str in list) {
-            Debug.Log(str);
-        } */
+
+        if (woodsValue == woods1Value)
+        {
+            Debug.Log("Comparison pass 1");
+        }
+        else {
+            Debug.Log("Comparison fail 1");
+        }
+
+        if (cityValue != woods1Value)
+        {
+            Debug.Log("Comparison pass 2");
+        }
+        else
+        {
+            Debug.Log("Comparison fail 2");
+        }
+
+        if (woodsValue.Equals(woods1Value))
+        {
+            Debug.Log("Comparison pass 3");
+        }
+        else
+        {
+            Debug.Log("Comparison fail 3");
+        }
+
+        if (!cityValue.Equals(woods1Value))
+        {
+            Debug.Log("Comparison pass 4");
+        }
+        else
+        {
+            Debug.Log("Comparison fail 4");
+        }*/
+
+        /* StringBuilder builder = null;
+         List<string> list = new List<string>();
+         for (int r = -1; r < grid.Length; r++) {
+             builder = new StringBuilder();
+
+             for (int c = -1; c < grid[0].Length; c++) {
+                 builder.Append(valueManager.GetGridValuesIncludingOffset(c, r)+" ");
+             }
+
+             list.Add(builder.ToString());
+
+         }
+
+         list.Reverse();
+         foreach (var str in list) {
+             Debug.Log(str);
+         } */
 
     }
 

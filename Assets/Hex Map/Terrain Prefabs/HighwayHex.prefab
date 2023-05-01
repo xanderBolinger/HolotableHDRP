@@ -115,3 +115,4 @@ MonoBehaviour:
   y: 0
   roadHex: 1
   urbanHex: 0
+  hexType: 6

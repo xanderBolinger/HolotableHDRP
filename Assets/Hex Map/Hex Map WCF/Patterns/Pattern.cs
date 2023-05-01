@@ -1,3 +1,4 @@
+using Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -51,7 +52,39 @@ namespace WaveFunctionCollapse {
         
         private int[][] GetGridValuesInDirection(Direction dir)
         {
-            throw new NotImplementedException();
+            int[][] gridPartToCompare;
+            switch (dir)
+            {
+                case Direction.A:
+                    //gridPartToCompare = MyCollectableExtension.CreateJaggedArray<int[][]>(grid.Length - 1, grid.Length);
+                    gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length - 1, grid.Length);
+                    CreatePartOfGrid(0, grid.Length, 1, grid.Length, gridPartToCompare);
+                    break;
+                case Direction.D:
+                    gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length - 1, grid.Length);
+                    CreatePartOfGrid(0, grid.Length, 0, grid.Length - 1, gridPartToCompare);
+                    break;
+                case Direction.F:
+                    gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length, grid.Length - 1);
+                    CreatePartOfGrid(0, grid.Length - 1, 0, grid.Length, gridPartToCompare);
+                    break;
+                case Direction.E:
+                    gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length, grid.Length - 1);
+                    CreatePartOfGrid(0, grid.Length - 1, 0, grid.Length, gridPartToCompare);
+                    break;
+                case Direction.B:
+                    gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length, grid.Length - 1);
+                    CreatePartOfGrid(1, grid.Length, 0, grid.Length, gridPartToCompare);
+                    break;
+                case Direction.C:
+                    gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length, grid.Length - 1);
+                    CreatePartOfGrid(1, grid.Length, 0, grid.Length, gridPartToCompare);
+                    break;
+                default:
+                    return grid;
+            }
+
+            return gridPartToCompare;
         }
 
         private void CreatePartOfGrid(int xmin, int xmax, int ymin, int ymax, int[][] gridPartToCompare) {
