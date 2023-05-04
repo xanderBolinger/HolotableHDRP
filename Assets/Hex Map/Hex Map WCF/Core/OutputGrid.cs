@@ -46,11 +46,11 @@ namespace WaveFunctionCollapse {
             return position.x + width * position.y;
         }
 
-        private bool CheckIfCellIsCollapsed(Vector2Int position) {
+        public bool CheckIfCellIsCollapsed(Vector2Int position) {
             return GetPossibleValueForPosition(position).Count <= 1;
         }
 
-        private HashSet<int> GetPossibleValueForPosition(Vector2Int position)
+        public HashSet<int> GetPossibleValueForPosition(Vector2Int position)
         {
             int index = GetIndexFromCoordinates(position);
             if (indexPossiblePatternDictionary.ContainsKey(index)) {
@@ -75,8 +75,11 @@ namespace WaveFunctionCollapse {
         private Vector2Int GetCoordsFromIndex(int randomIndex)
         {
             Vector2Int coords = Vector2Int.zero;
-            coords.x = randomIndex / this.width;
-            coords.y = randomIndex % this.height;
+
+            // Possible flip % and / 
+
+            coords.x = randomIndex % this.width;
+            coords.y = randomIndex / this.height;
             return coords;
         }
 
