@@ -99,8 +99,12 @@ public class MouseManager : MonoBehaviour
                 }
                 
                 
-                HexMap.SwapHex(selectedHexPrefab, hitObject);
+                GameObject newHex = HexMap.SwapHex(selectedHexPrefab, hitObject);
 
+                if (PerlinGenerator.instance != null) {
+                    PerlinGenerator.instance.hexes[x][y] = newHex;
+                    Debug.Log("set hex");
+                }
 
                 //Debug.Log("Set Color");
                 //MeshRenderer mr = hitObject.GetComponent<MeshRenderer>();

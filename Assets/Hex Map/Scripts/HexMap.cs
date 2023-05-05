@@ -53,7 +53,7 @@ public class HexMap : MonoBehaviour
     }
 
 
-    public static void SwapHex(GameObject hexPrefab, GameObject hex) {
+    public static GameObject SwapHex(GameObject hexPrefab, GameObject hex) {
 
 
         GameObject newHex = Instantiate(hexPrefab);
@@ -98,6 +98,7 @@ public class HexMap : MonoBehaviour
             Destroy(hex);
         }
 
+        return newHex;
     }
 
 }

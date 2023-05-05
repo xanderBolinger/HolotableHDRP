@@ -37,6 +37,9 @@ public class PerlinGenerator : MonoBehaviour
     public HexFrequency.Frequency cityFrequency;
     public HexFrequency.Frequency townFrequency;
 
+    InputReader inputReader;
+    IValue<TileBase>[][] inputGrid;
+    public int patternSize = 2;
 
     public int k = 4;
 
@@ -63,6 +66,7 @@ public class PerlinGenerator : MonoBehaviour
 
     public void CreateTileMap()
     {
+        ClearMap();
         cityCoordinates.Clear();
         townCoordinates.Clear();
         var mountainStats = new HexFrequency(mountainFrequency);
@@ -162,21 +166,7 @@ public class PerlinGenerator : MonoBehaviour
         }
 
 
-        GetComponent<Tilemap>().initTilemap();
-        InputReader inputReader = new InputReader(GetComponent<Tilemap>());
-        var grid = inputReader.ReadInputToGrid();
-        ValueManager<TileBase> valueManager = new ValueManager<TileBase>(grid);
-        PatternManager manager = new PatternManager(2);
-        manager.ProcessGrid(valueManager, false);
-
-        foreach (Direction dir in Enum.GetValues(typeof(Direction))) {
-            Debug.Log(dir.ToString() + " " + string.Join(" ", manager.GetPossibleNeighoursForPatternInDirection(0, dir).ToArray()));
-        }
-
-        Debug.Log("---");
-
-        WFCCore core = new WFCCore(5, 5, 50, manager);
-        var result = core.CreateOutputGrid();
+        SetInputReader();
 
         /*TileBase woods = new TileBase(HexCord.HexType.WOODS);
         TileBase woods1 = new TileBase(HexCord.HexType.WOODS);
@@ -248,6 +238,75 @@ public class PerlinGenerator : MonoBehaviour
              Debug.Log(str);
          } */
 
+    }
+
+    public void VerifyHexes() {
+
+        int rowi = 0;
+        int coli = 0;
+
+        foreach (var row in hexes) {
+
+            foreach (var hex in row) {
+
+                string hexName = rowi + ", " + coli;
+
+                if (hexName != hex.name) {
+
+                    Debug.LogError("Hex name doesn't equal hex.name: "+hexName+", name 2: "+hex.name);
+
+                }
+
+                if (hex.GetComponent<HexCord>() == null)
+                {
+                    hex.GetComponentInChildren<HexCord>().x = rowi;
+                    hex.GetComponentInChildren<HexCord>().y = coli;
+                }
+                else
+                {
+                    hex.GetComponent<HexCord>().x = rowi;
+                    hex.GetComponent<HexCord>().y = coli;
+                }
+
+                coli++;
+            }
+            coli = 0;
+
+            rowi++; 
+        }
+
+    }
+
+    public void SetInputReader() {
+
+        VerifyHexes();
+
+        GetComponent<Tilemap>().initTilemap();
+        inputReader = new InputReader(GetComponent<Tilemap>());
+        inputGrid = inputReader.ReadInputToGrid();
+    }
+
+    public void RunWFC() {
+        ValueManager<TileBase> valueManager = new ValueManager<TileBase>(inputGrid);
+        PatternManager manager = new PatternManager(patternSize);
+        manager.ProcessGrid(valueManager, false);
+
+        foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+        {
+            Debug.Log(dir.ToString() + " " + string.Join(" ", manager.GetPossibleNeighoursForPatternInDirection(0, dir).ToArray()));
+        }
+
+        Debug.Log("---");
+
+        WFCCore core = new WFCCore(mapWidth, mapHeight, 100, manager);
+
+        Tilemap outputTileMap = new Tilemap();
+        outputTileMap.initTilemap();
+
+        TileMapOutput output = new TileMapOutput(valueManager, outputTileMap);
+        var result = core.CreateOutputGrid();
+        output.CreateOutput(manager, result, mapWidth, mapHeight);
+        output.OutputImage.SwapTiles();
     }
 
     void SetTownCoordinates()
