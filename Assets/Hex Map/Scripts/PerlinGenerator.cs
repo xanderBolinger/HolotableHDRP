@@ -40,6 +40,7 @@ public class PerlinGenerator : MonoBehaviour
     InputReader inputReader;
     IValue<TileBase>[][] inputGrid;
     public int patternSize = 2;
+    public int maximumIterations = 100;
 
     public int k = 4;
 
@@ -298,7 +299,7 @@ public class PerlinGenerator : MonoBehaviour
 
         Debug.Log("---");
 
-        WFCCore core = new WFCCore(mapWidth, mapHeight, 100, manager);
+        WFCCore core = new WFCCore(mapWidth, mapHeight, maximumIterations, manager);
 
         Tilemap outputTileMap = new Tilemap();
         outputTileMap.initTilemap();

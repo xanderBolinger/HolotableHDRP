@@ -7,7 +7,8 @@ using UnityEngine;
 namespace WaveFunctionCollapse {
     public class NeighboursStrategySize2 : IFindNeighbourStrategy
     {
-        
+    
+
         public Dictionary<int, PatternNeighbours> FindNeighbours(PatternDataResults patternFinderResult) {
             Debug.Log("Find Neighbours");
             Dictionary<int, PatternNeighbours> result = new Dictionary<int, PatternNeighbours>();

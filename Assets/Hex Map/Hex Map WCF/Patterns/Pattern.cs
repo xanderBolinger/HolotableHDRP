@@ -73,12 +73,12 @@ namespace WaveFunctionCollapse {
                     //gridPartToCompare = MyCollectableExtension.CreateJaggedArray<int[][]>(grid.Length - 1, grid.Length);
                     //Debug.Log("Direction A");
                     gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length - 1, grid.Length);
-                    CreatePartOfGrid(0, grid.Length-1, 0, grid.Length-1, gridPartToCompare);
+                    CreatePartOfGrid(0, grid.Length, 1, grid.Length, gridPartToCompare);
                     break;
                 case Direction.D:
                     //Debug.Log("Direction D");
                     gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length - 1, grid.Length);
-                    CreatePartOfGrid(0, grid.Length-1, 0, grid.Length - 1, gridPartToCompare);
+                    CreatePartOfGrid(0, grid.Length, 0, grid.Length - 1, gridPartToCompare);
                     break;
                 case Direction.F:
                     //Debug.Log("Direction F");

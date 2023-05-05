@@ -50,3 +50,11 @@ MonoBehaviour:
     type: 3}
   treeHexPrefab: {fileID: 5097640567127986391, guid: d5db1828bbf20aa459a3cf419648b1cd,
     type: 3}
+  cityHexPrefab: {fileID: 2421533609526419518, guid: be26a23747f79544eb2cdcfe7af01344,
+    type: 3}
+  townHexPrefab: {fileID: 4536650656717077366, guid: 3fa8e89e3f3df6347abff1ab93b5e8ed,
+    type: 3}
+  highwayHexPrefab: {fileID: 1383478647159426019, guid: 5940cfe001a54e84aa45aae7a650ec63,
+    type: 3}
+  pathHexPrefab: {fileID: 6529803778590227509, guid: 78db26855199cb84797c65dab566e290,
+    type: 3}
