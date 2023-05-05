@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Helpers;
+using System.Text;
 
 namespace WaveFunctionCollapse {
 
@@ -23,7 +24,7 @@ namespace WaveFunctionCollapse {
             ResetAllPossibilities();
         }
 
-        private void ResetAllPossibilities()
+        public void ResetAllPossibilities()
         {
             HashSet<int> allPossiblePatternList = new HashSet<int>();
             allPossiblePatternList.UnionWith(Enumerable.Range(0, this.maxNumberOfPatterns).ToList());
@@ -57,6 +58,43 @@ namespace WaveFunctionCollapse {
                 return indexPossiblePatternDictionary[index];
             }
             return new HashSet<int>();
+        }
+
+        internal void PrintResultsToConsole()
+        {
+            StringBuilder builder = null;
+            List<string> list = new List<string>();
+            for (int r = 0; r < this.height; r++)
+            {
+                builder = new StringBuilder();
+
+                for (int c = 0; c < this.width; c++)
+                {
+                    var result = GetPossibleValueForPosition(new Vector2Int(c, r));
+                    if (result.Count == 1)
+                    {
+                        builder.Append(result.First() + " ");
+                    }
+                    else {
+                        string newString = "";
+                        foreach (var item in result) {
+                            newString += item+", ";
+                        }
+                        builder.Append(newString);
+                    }
+                  //  builder.Append(valueManager.GetGridValuesIncludingOffset(c, r) + " ");
+                }
+
+                list.Add(builder.ToString());
+
+            }
+
+            list.Reverse();
+            foreach (var str in list)
+            {
+                Debug.Log(str);
+            }
+            Debug.Log("---");
         }
 
         public bool CheckIfGridIsSolved() {

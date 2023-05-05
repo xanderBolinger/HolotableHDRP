@@ -173,6 +173,11 @@ public class PerlinGenerator : MonoBehaviour
             Debug.Log(dir.ToString() + " " + string.Join(" ", manager.GetPossibleNeighoursForPatternInDirection(0, dir).ToArray()));
         }
 
+        Debug.Log("---");
+
+        //WFCCore core = new WFCCore(5, 5, 50, manager);
+        //var result = core.CreateOutputGrid();
+
         /*TileBase woods = new TileBase(HexCord.HexType.WOODS);
         TileBase woods1 = new TileBase(HexCord.HexType.WOODS);
         TileBase citytb = new TileBase(HexCord.HexType.CITY);

@@ -106,7 +106,7 @@ namespace WaveFunctionCollapse {
                 return;
             else { 
                 int index = coreHelper.SelectSolutionPatternFromFrequency(possibleValue);
-                outputGrid.SetPatternOnPosition(cellCoordinates.x, cellCoordinates.y, index);
+                outputGrid.SetPatternOnPosition(cellCoordinates.x, cellCoordinates.y, possibleValue[index]);
             }
 
             if (!coreHelper.CheckCellSolutionForCollision(cellCoordinates, outputGrid))
@@ -123,7 +123,9 @@ namespace WaveFunctionCollapse {
             return outputGrid.CheckIfGridIsSolved();
         }
 
-
+        public bool CheckForConflicts() {
+            return propogationHelper.CheckForConflicts();
+        }
 
     }
 

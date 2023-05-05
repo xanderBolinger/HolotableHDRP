@@ -16,11 +16,11 @@ namespace WaveFunctionCollapse {
         {
             this.patternManager = patternManager;
 
-            for (int i = 0; i < patternManager.GetNumberOfPatterns(); i++) {
+            /*for (int i = 0; i < patternManager.GetNumberOfPatterns(); i++) {
                 totalFrequency += patternManager.GetPatternFrequency(i);
             }
 
-            totalFrequencyLog = Mathf.Log(totalFrequency, 2);
+            totalFrequencyLog = Mathf.Log(totalFrequency, 2);*/
 
         }
 
@@ -76,8 +76,11 @@ namespace WaveFunctionCollapse {
             float sum = 0;
             
             foreach (var possibleIndex in outputGrid.GetPossibleValueForPosition(position)) {
+                totalFrequency += patternManager.GetPatternFrequency(possibleIndex);
                 sum += patternManager.GetPatternFrequencyLog2(possibleIndex);
             }
+
+            totalFrequencyLog = Mathf.Log(totalFrequency, 2);
 
             return totalFrequencyLog - (sum / totalFrequency);
         }
