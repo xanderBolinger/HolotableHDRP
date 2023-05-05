@@ -53,30 +53,50 @@ namespace WaveFunctionCollapse {
         private int[][] GetGridValuesInDirection(Direction dir)
         {
             int[][] gridPartToCompare;
+            //Debug.Log("Grid,  Rows: "+grid.Length+", Cols: "+grid[0].Length);
+
+            for (int row = 0; row < grid.Length; row++)
+            {
+                for (int col = 0; col < grid[0].Length; col++)
+                {
+                    //Debug.Log("Value("+row+", "+col+"): "+grid[row][col]);
+                }
+            }
+
+
+           //gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length, grid.Length);
+           //CreatePartOfGrid(0, grid.Length, 0, grid.Length, gridPartToCompare);
+
             switch (dir)
             {
                 case Direction.A:
                     //gridPartToCompare = MyCollectableExtension.CreateJaggedArray<int[][]>(grid.Length - 1, grid.Length);
+                    //Debug.Log("Direction A");
                     gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length - 1, grid.Length);
-                    CreatePartOfGrid(0, grid.Length, 1, grid.Length, gridPartToCompare);
+                    CreatePartOfGrid(0, grid.Length-1, 0, grid.Length-1, gridPartToCompare);
                     break;
                 case Direction.D:
+                    //Debug.Log("Direction D");
                     gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length - 1, grid.Length);
-                    CreatePartOfGrid(0, grid.Length, 0, grid.Length - 1, gridPartToCompare);
+                    CreatePartOfGrid(0, grid.Length-1, 0, grid.Length - 1, gridPartToCompare);
                     break;
                 case Direction.F:
+                    //Debug.Log("Direction F");
                     gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length, grid.Length - 1);
                     CreatePartOfGrid(0, grid.Length - 1, 0, grid.Length, gridPartToCompare);
                     break;
                 case Direction.E:
+                    //Debug.Log("Direction E");
                     gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length, grid.Length - 1);
                     CreatePartOfGrid(0, grid.Length - 1, 0, grid.Length, gridPartToCompare);
                     break;
                 case Direction.B:
+                    //Debug.Log("Direction B");
                     gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length, grid.Length - 1);
                     CreatePartOfGrid(1, grid.Length, 0, grid.Length, gridPartToCompare);
                     break;
                 case Direction.C:
+                    //Debug.Log("Direction C");
                     gridPartToCompare = MyCollectionExtension.CreateJaggedArray<int[][]>(grid.Length, grid.Length - 1);
                     CreatePartOfGrid(1, grid.Length, 0, grid.Length, gridPartToCompare);
                     break;
@@ -92,7 +112,9 @@ namespace WaveFunctionCollapse {
 
             for (int row = ymin; row < ymax; row++) {
                 for (int col = xmin; col < xmax; col++) {
-                    tempList.Add(gridPartToCompare[row][col]);
+                   // Debug.Log("Row: " + row + ", Col: " + col);
+                    //Debug.Log("Xmin: "+xmin+", Xmax: "+xmax+", Ymin:"+ymin+", Ymax: "+ymax+", Rows: "+gridPartToCompare.Length+", Cols: "+gridPartToCompare[0].Length);
+                    tempList.Add(this.grid[row][col]);
                 }
             }
 

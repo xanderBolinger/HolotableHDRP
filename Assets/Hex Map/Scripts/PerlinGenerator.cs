@@ -166,7 +166,7 @@ public class PerlinGenerator : MonoBehaviour
         InputReader inputReader = new InputReader(GetComponent<Tilemap>());
         var grid = inputReader.ReadInputToGrid();
         ValueManager<TileBase> valueManager = new ValueManager<TileBase>(grid);
-        PatternManager manager = new PatternManager(1);
+        PatternManager manager = new PatternManager(2);
         manager.ProcessGrid(valueManager, false);
 
         foreach (Direction dir in Enum.GetValues(typeof(Direction))) {
@@ -175,8 +175,8 @@ public class PerlinGenerator : MonoBehaviour
 
         Debug.Log("---");
 
-        //WFCCore core = new WFCCore(5, 5, 50, manager);
-        //var result = core.CreateOutputGrid();
+        WFCCore core = new WFCCore(5, 5, 50, manager);
+        var result = core.CreateOutputGrid();
 
         /*TileBase woods = new TileBase(HexCord.HexType.WOODS);
         TileBase woods1 = new TileBase(HexCord.HexType.WOODS);
