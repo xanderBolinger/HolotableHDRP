@@ -42,7 +42,49 @@ namespace WaveFunctionCollapse {
 
             bool even = x % 2 == 0 ? true : false;
 
-            switch (dir) {
+            //dir = DirectionHelper.GetOppositeDirectionTo(dir);
+
+            switch (dir)
+            {
+
+                case Direction.A:
+                    if (valid(x, y - 1))
+                        return GetIndexAt(x, y - 1);
+                    return -1;
+                case Direction.B:
+                    if (even && valid(x + 1, y - 1))
+                        return GetIndexAt(x + 1, y - 1);
+                    else if (!even && valid(x + 1, y))
+                        return GetIndexAt(x + 1, y);
+                    return -1;
+                case Direction.C:
+                    if (even && valid(x + 1, y))
+                        return GetIndexAt(x + 1, y);
+                    else if (!even && valid(x + 1, y + 1))
+                        return GetIndexAt(x + 1, y + 1);
+                    return -1;
+                case Direction.D:
+                    if (valid(x, y - 1))
+                        return GetIndexAt(x, y - 1);
+                    return -1;
+                case Direction.E:
+                    if (even && valid(x - 1, y))
+                        return GetIndexAt(x - 1, y);
+                    else if (!even && valid(x - 1, y + 1))
+                        return GetIndexAt(x - 1, y + 1);
+                    return -1;
+                case Direction.F:
+                    if (even && valid(x - 1, y - 1))
+                        return GetIndexAt(x - 1, y - 1);
+                    else if (!even && valid(x-1, y))
+                        return GetIndexAt(x-1, y);
+                    return -1;
+                default:
+                    return -1;
+
+            }
+
+            /*switch (dir) {
 
                 case Direction.A:
                     if (valid(x - 1, y))
@@ -79,7 +121,7 @@ namespace WaveFunctionCollapse {
                 default:
                     return -1;
 
-            }
+            }*/
 
         }
 

@@ -74,6 +74,10 @@ namespace WaveFunctionCollapse {
         public int GetGridValuesIncludingOffset(int x, int y) {
             int yMax = grid.Length;
             int xMax = grid[0].Length;
+
+            //Debug.Log("yMax: "+yMax);
+            //Debug.Log("xMax: " + xMax);
+
             if (x < 0 && y < 0)
             {
                 return GetGridValue(xMax + x, yMax + y);

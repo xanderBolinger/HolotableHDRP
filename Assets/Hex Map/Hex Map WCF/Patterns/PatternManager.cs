@@ -85,6 +85,8 @@ namespace WaveFunctionCollapse {
         {
             var patternFinderResult = PatternFinder.GetPatternDataFromGrid(valueManager, patternSize, equalWeights);
 
+            Debug.Log("--- Create Patterns ---");
+
             StringBuilder builder = null;
             List<string> list = new List<string>();
             for (int r = 0; r < patternFinderResult.GetGridLengthY(); r++)
@@ -105,6 +107,8 @@ namespace WaveFunctionCollapse {
             {
                 Debug.Log(str);
             }
+
+            Debug.Log("--- Create Patterns Finished ---");
 
             patternDataIndexDictionary = patternFinderResult.patternIndexDictionary;
             GetPatternNeighbours(patternFinderResult, strategy);

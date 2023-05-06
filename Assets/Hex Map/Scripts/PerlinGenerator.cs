@@ -39,6 +39,8 @@ public class PerlinGenerator : MonoBehaviour
 
     InputReader inputReader;
     IValue<TileBase>[][] inputGrid;
+    ValueManager<TileBase> valueManager;
+    PatternManager patternManager;
     public int patternSize = 2;
     public int maximumIterations = 100;
 
@@ -285,28 +287,67 @@ public class PerlinGenerator : MonoBehaviour
         GetComponent<Tilemap>().initTilemap();
         inputReader = new InputReader(GetComponent<Tilemap>());
         inputGrid = inputReader.ReadInputToGrid();
-    }
 
-    public void RunWFC() {
-        ValueManager<TileBase> valueManager = new ValueManager<TileBase>(inputGrid);
-        PatternManager manager = new PatternManager(patternSize);
-        manager.ProcessGrid(valueManager, false);
+        Debug.Log("---Reading Input Grid---");
+
+        for (int row = 0; row < inputGrid.Length; row++) {
+            for (int col = 0; col < inputGrid[0].Length; col++) {
+                Debug.Log("Row: "+row+", Col: "+col+" tile name: "+inputGrid[row][col].Value.hexType);
+            }
+        }
+
+        Debug.Log("---Reading Input Grid Finished---");
+
+        valueManager = new ValueManager<TileBase>(inputGrid);
+
+        Debug.Log("---Value Manager---");
+
+        StringBuilder builder = null;
+        List<string> list = new List<string>();
+        for (int r = -1; r <= inputGrid.Length; r++)
+        {
+            builder = new StringBuilder();
+
+            for (int c = -1; c <= inputGrid[0].Length; c++)
+            {
+                builder.Append(valueManager.GetGridValuesIncludingOffset(c, r) + " ");
+            }
+
+            list.Add(builder.ToString());
+
+        }
+
+        list.Reverse();
+        foreach (var str in list)
+        {
+            Debug.Log(str);
+        }
+
+        Debug.Log("---Value Manager Finished---");
+
+        patternManager = new PatternManager(patternSize);
+        patternManager.ProcessGrid(valueManager, false);
+
+        Debug.Log("---Pattern Neighbours in Direction---");
 
         foreach (Direction dir in Enum.GetValues(typeof(Direction)))
         {
-            Debug.Log(dir.ToString() + " " + string.Join(" ", manager.GetPossibleNeighoursForPatternInDirection(0, dir).ToArray()));
+            Debug.Log(dir.ToString() + " " + string.Join(" ", patternManager.GetPossibleNeighoursForPatternInDirection(0, dir).ToArray()));
         }
 
-        Debug.Log("---");
+        Debug.Log("---Pattern Neighbours in Direction Finished---");
 
-        WFCCore core = new WFCCore(mapWidth, mapHeight, maximumIterations, manager);
+    }
+
+    public void RunWFC() {
+        WFCCore core = new WFCCore(mapWidth, mapHeight, maximumIterations, patternManager);
 
         Tilemap outputTileMap = new Tilemap();
         outputTileMap.initTilemap();
 
         TileMapOutput output = new TileMapOutput(valueManager, outputTileMap);
         var result = core.CreateOutputGrid();
-        output.CreateOutput(manager, result, mapWidth, mapHeight);
+        output.CreateOutput(patternManager, result, mapWidth, mapHeight);
         output.OutputImage.SwapTiles();
     }
 
