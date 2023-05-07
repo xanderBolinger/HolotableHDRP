@@ -315,6 +315,11 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8238034344526878293, guid: cf0f397f9201fba4a99ac647db9ab999,
         type: 3}
+      propertyPath: patternSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8238034344526878293, guid: cf0f397f9201fba4a99ac647db9ab999,
+        type: 3}
       propertyPath: cityFrequency
       value: 1
       objectReference: {fileID: 0}

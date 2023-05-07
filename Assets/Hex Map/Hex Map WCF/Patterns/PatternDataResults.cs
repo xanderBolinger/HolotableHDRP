@@ -26,6 +26,8 @@ namespace WaveFunctionCollapse {
         }
 
         public int GetIndexAt(int x, int y) {
+           // Debug.Log("Get Index At: "+x+", "+y);
+
             if (x < 0 || y < 0 || y >= patternIndicesGrid.Length || x >= patternIndicesGrid[0].Length) {
                 throw new System.Exception("Get Index at out of bounds, Length: " + patternIndicesGrid.Length + ", x: " + x + ", y: " + y);
             }
@@ -34,7 +36,7 @@ namespace WaveFunctionCollapse {
         }
 
         public int GetNeighbourInDirection(int x, int y, Direction dir) {
-            //Debug.Log("Get Neighor in Direction: "+x+", "+y);
+            //Debug.Log("Get Neighor in Direction: "+x+", "+y+", Dir: "+dir);
 
             if (!patternIndicesGrid.CheckJaggedArray2IfIndexIsValid(x, y)) {
                 return -1;
@@ -43,6 +45,8 @@ namespace WaveFunctionCollapse {
             bool even = x % 2 == 0 ? true : false;
 
             //dir = DirectionHelper.GetOppositeDirectionTo(dir);
+
+
 
             switch (dir)
             {
@@ -64,8 +68,8 @@ namespace WaveFunctionCollapse {
                         return GetIndexAt(x + 1, y + 1);
                     return -1;
                 case Direction.D:
-                    if (valid(x, y - 1))
-                        return GetIndexAt(x, y - 1);
+                    if (valid(x, y + 1))
+                        return GetIndexAt(x, y + 1);
                     return -1;
                 case Direction.E:
                     if (even && valid(x - 1, y))
