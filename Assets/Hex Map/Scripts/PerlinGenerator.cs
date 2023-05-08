@@ -69,6 +69,49 @@ public class PerlinGenerator : MonoBehaviour
         hexes.Clear();
     }
 
+    public void InstantiateHexes(List<List<GameObject>> hexPrefabs, int mapWidth, int mapHeight) {
+
+        hexes.Clear();
+
+        for (int x = 0; x < mapWidth; x++)
+        {
+
+            List<GameObject> row = new List<GameObject>();
+
+            for (int y = 0; y < mapHeight; y++)
+            {
+                GameObject hex = Instantiate(hexPrefabs[x][y]);
+
+                if (y % 2 == 0)
+                {
+                    hex.transform.position = new Vector3(x * xSpacing, 0, y * ySpacing);
+                }
+                else
+                {
+                    hex.transform.position = new Vector3(x * xSpacing + xSpacing / 2, 0, y * ySpacing);
+                }
+
+                hex.name = x + ", " + y;
+                if (hex.GetComponent<HexCord>() == null)
+                {
+                    hex.GetComponentInChildren<HexCord>().x = x;
+                    hex.GetComponentInChildren<HexCord>().y = y;
+                }
+                else
+                {
+                    hex.GetComponent<HexCord>().x = x;
+                    hex.GetComponent<HexCord>().y = y;
+                }
+
+
+                hex.transform.parent = gameObject.transform;
+                row.Add(hex);
+            }
+            hexes.Add(row);
+        }
+
+    }
+
     public void CreateTileMap()
     {
         ClearMap();
@@ -350,7 +393,10 @@ public class PerlinGenerator : MonoBehaviour
         TileMapOutput output = new TileMapOutput(valueManager, outputTileMap);
         var result = core.CreateOutputGrid();
         output.CreateOutput(patternManager, result, wfcOutputWidth, wfcOutputHeight);
-        output.OutputImage.SwapTiles();
+        //output.OutputImage.SwapTiles();
+        ClearMap();
+        output.OutputImage.CreateTiles(wfcOutputHeight, wfcOutputWidth);
+        
     }
 
     void SetTownCoordinates()

@@ -31,6 +31,27 @@ public class Tilemap : MonoBehaviour
         tiles.Add(new Vector2Int(row, col), tile);
     }
 
+    public void CreateTiles(int height, int width) {
+        Debug.Log("Tiles Count: "+tiles.Count+", Height: "+height+", Width: "+width);
+        List<List<GameObject>> hexPrefabs = new List<List<GameObject>>();
+        for (int i = 0; i < height; i++) {
+            List<GameObject> row = new List<GameObject>();
+
+            for (int j = 0; j < width; j++) {
+                row.Add(null);
+            }
+            hexPrefabs.Add(row);
+        }
+
+        foreach (var tile in tiles)
+        {
+            hexPrefabs[tile.Key.y][tile.Key.x] = GetPrefab(tile.Value.hexType);
+        }
+
+        PerlinGenerator.instance.InstantiateHexes(hexPrefabs, height, width);
+
+    }
+
     public void SwapTiles() {
         Debug.Log("Number of Tiles: "+tiles.Count);
         foreach (var tile in tiles) {
