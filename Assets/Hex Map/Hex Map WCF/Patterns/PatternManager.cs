@@ -31,6 +31,7 @@ namespace WaveFunctionCollapse {
             int patternOutputWidth = outputValues[0].Length;
             int patternOutputHeight = outputValues.Length;
 
+
             int valueGridWidth = patternOutputWidth + patternSize - 1;
             int valueGridHeight = patternOutputHeight + patternSize - 1;
             int[][] valueGrid = MyCollectionExtension.CreateJaggedArray<int[][]>(valueGridHeight, valueGridWidth);
