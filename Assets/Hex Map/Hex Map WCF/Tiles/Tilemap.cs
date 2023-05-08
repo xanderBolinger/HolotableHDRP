@@ -32,6 +32,7 @@ public class Tilemap : MonoBehaviour
     }
 
     public void SwapTiles() {
+        Debug.Log("Number of Tiles: "+tiles.Count);
         foreach (var tile in tiles) {
             GameObject prefab = GetPrefab(tile.Value.hexType);
             GameObject newHex = HexMap.SwapHex(prefab, PerlinGenerator.instance.hexes[tile.Key.y][tile.Key.x]);

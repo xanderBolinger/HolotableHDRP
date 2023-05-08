@@ -12,6 +12,8 @@ public class PerlinGenerator : MonoBehaviour
 
     public int mapWidth = 25;
     public int mapHeight = 12;
+    public int wfcOutputHeight = 30;
+    public int wfcOutputWidth = 30;
 
     float xSpacing = 0.19f;
     float ySpacing = 0.165f;
@@ -340,14 +342,14 @@ public class PerlinGenerator : MonoBehaviour
     }
 
     public void RunWFC() {
-        WFCCore core = new WFCCore(mapWidth, mapHeight, maximumIterations, patternManager);
+        WFCCore core = new WFCCore(wfcOutputWidth, wfcOutputHeight, maximumIterations, patternManager);
 
         Tilemap outputTileMap = new Tilemap();
         outputTileMap.initTilemap();
 
         TileMapOutput output = new TileMapOutput(valueManager, outputTileMap);
         var result = core.CreateOutputGrid();
-        output.CreateOutput(patternManager, result, mapWidth, mapHeight);
+        output.CreateOutput(patternManager, result, wfcOutputWidth, wfcOutputHeight);
         output.OutputImage.SwapTiles();
     }
 
