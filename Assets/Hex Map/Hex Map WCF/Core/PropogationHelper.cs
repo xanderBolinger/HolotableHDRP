@@ -24,15 +24,15 @@ namespace WaveFunctionCollapse {
         }
 
         public bool CheckIfPairShouldBeProcessed(VectorPair propogatePair) {
-            return outputGrid.CheckIfValidPosition(propogatePair.cellToPropogatePosition) &&
+            return outputGrid.CheckIfValidPosition(propogatePair.cellToPropagatePosition) &&
                 !propogatePair.AreWeCheckingPreviousCellAgain();
         }
 
         public void AnalyzePropogationResults(VectorPair propogatePair, int startCount, int newPossiblePatternCount) {
             
             if (newPossiblePatternCount > 1 && startCount > newPossiblePatternCount) {
-                AddNewPairsToPropogateQueue(propogatePair.cellToPropogatePosition, propogatePair.baseCellPosition);
-                AddToLowEntropySet(propogatePair.cellToPropogatePosition);
+                AddNewPairsToPropagateQueue(propogatePair.cellToPropagatePosition, propogatePair.baseCellPosition);
+                AddToLowEntropySet(propogatePair.cellToPropagatePosition);
             }
 
             if (newPossiblePatternCount == 0) {
@@ -40,7 +40,7 @@ namespace WaveFunctionCollapse {
             }
 
             if (newPossiblePatternCount == 1) {
-                cellWithNoSolutionPresent = coreHelper.CheckCellSolutionForCollision(propogatePair.cellToPropogatePosition, outputGrid);
+                cellWithNoSolutionPresent = coreHelper.CheckCellSolutionForCollisions(propogatePair.cellToPropagatePosition, outputGrid);
             }
 
         }
@@ -71,10 +71,20 @@ namespace WaveFunctionCollapse {
             }
         }
 
-        public void AddNewPairsToPropogateQueue(Vector2Int cellToPropogatePosition, Vector2Int previousCell)
+        /*public void AddNewPairsToPropogateQueue(Vector2Int cellToPropogatePosition, Vector2Int previousCell)
         {
             var list = coreHelper.CreateSixDirectionNeighbours(cellToPropogatePosition, previousCell);
             foreach (var item in list) {
+                pairsToPropogate.Enqueue(item);
+            }
+
+        }*/
+
+        public void AddNewPairsToPropagateQueue(Vector2Int cellCoordinates, Vector2Int previousCell)
+        {
+            var list = coreHelper.Create4DirectionNeighbours(cellCoordinates, previousCell);
+            foreach (var item in list)
+            {
                 pairsToPropogate.Enqueue(item);
             }
 

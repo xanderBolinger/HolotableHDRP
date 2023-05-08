@@ -50,7 +50,7 @@ namespace WaveFunctionCollapse {
         private void ProcessCell(VectorPair propogatePair)
         {
 
-            if (outputGrid.CheckIfCellIsCollapsed(propogatePair.cellToPropogatePosition))
+            if (outputGrid.CheckIfCellIsCollapsed(propogatePair.cellToPropagatePosition))
             {
                 propogationHelper.EnqueueUncollapseNeighbours(propogatePair);
             }
@@ -62,7 +62,7 @@ namespace WaveFunctionCollapse {
 
         private void PropogateNeighbour(VectorPair propogatePair)
         {
-            var possibleValuesAtNeighbour = outputGrid.GetPossibleValueForPosition(propogatePair.cellToPropogatePosition);
+            var possibleValuesAtNeighbour = outputGrid.GetPossibleValuesForPosition(propogatePair.cellToPropagatePosition);
             int startCount = possibleValuesAtNeighbour.Count;
 
             RemoveImpossibleNeighbours(propogatePair, possibleValuesAtNeighbour);
@@ -77,8 +77,8 @@ namespace WaveFunctionCollapse {
         {
             HashSet<int> possibleIndices = new HashSet<int>();
 
-            foreach (var patternIndexAtBase in outputGrid.GetPossibleValueForPosition(propogatePair.baseCellPosition)) {
-                var possibleNeighboursForBase = patternManager.GetPossibleNeighoursForPatternInDirection(patternIndexAtBase, propogatePair.directionFromBase);
+            foreach (var patternIndexAtBase in outputGrid.GetPossibleValuesForPosition(propogatePair.baseCellPosition)) {
+                var possibleNeighboursForBase = patternManager.GetPossibleNeighoursForPatternInDirection(patternIndexAtBase, propogatePair.DiectionFromBase);
                 possibleIndices.UnionWith(possibleNeighboursForBase);
             }
 
@@ -99,7 +99,7 @@ namespace WaveFunctionCollapse {
         }
 
         public void CollapseCell(Vector2Int cellCoordinates) {
-            var possibleValue = outputGrid.GetPossibleValueForPosition(cellCoordinates).ToList();
+            var possibleValue = outputGrid.GetPossibleValuesForPosition(cellCoordinates).ToList();
 
             // List is collapsed or collision
             if (possibleValue.Count == 0 || possibleValue.Count == 1)
@@ -109,9 +109,9 @@ namespace WaveFunctionCollapse {
                 outputGrid.SetPatternOnPosition(cellCoordinates.x, cellCoordinates.y, possibleValue[index]);
             }
 
-            if (!coreHelper.CheckCellSolutionForCollision(cellCoordinates, outputGrid))
+            if (!coreHelper.CheckCellSolutionForCollisions(cellCoordinates, outputGrid))
             {
-                propogationHelper.AddNewPairsToPropogateQueue(cellCoordinates, cellCoordinates);
+                propogationHelper.AddNewPairsToPropagateQueue(cellCoordinates, cellCoordinates);
             }
             else {
                 propogationHelper.SetConflictFlag();

@@ -21,7 +21,7 @@ namespace WaveFunctionCollapse {
 
         public void ProcessGrid<T>(ValueManager<T> valueManager, bool equalWeights, string strategyName = null) {
             NeighbourStrategyFactory strategyFactory = new NeighbourStrategyFactory();
-            strategy = strategyFactory.CreateInstance(strategyName == null ? patternSize + "" : strategyName);
+            strategy = strategyFactory.CreateInstance(strategyName == null ? 2 + "" : strategyName);
             CreatePatterns(valueManager, strategy, equalWeights);
 
         }

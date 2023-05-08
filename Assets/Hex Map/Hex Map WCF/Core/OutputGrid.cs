@@ -48,10 +48,10 @@ namespace WaveFunctionCollapse {
         }
 
         public bool CheckIfCellIsCollapsed(Vector2Int position) {
-            return GetPossibleValueForPosition(position).Count <= 1;
+            return GetPossibleValuesForPosition(position).Count <= 1;
         }
 
-        public HashSet<int> GetPossibleValueForPosition(Vector2Int position)
+        public HashSet<int> GetPossibleValuesForPosition(Vector2Int position)
         {
             int index = GetIndexFromCoordinates(position);
             if (indexPossiblePatternDictionary.ContainsKey(index)) {
@@ -70,7 +70,7 @@ namespace WaveFunctionCollapse {
 
                 for (int c = 0; c < this.width; c++)
                 {
-                    var result = GetPossibleValueForPosition(new Vector2Int(c, r));
+                    var result = GetPossibleValuesForPosition(new Vector2Int(c, r));
                     if (result.Count == 1)
                     {
                         builder.Append(result.First() + " ");

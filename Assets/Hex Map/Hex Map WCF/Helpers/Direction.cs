@@ -6,12 +6,16 @@ namespace WaveFunctionCollapse
 {
     public enum Direction
     {
-        A,
+        /*A,
         B,
         C,
         D,
         E,
-        F
+        F*/
+        Up,
+        Down,
+        Left, 
+        Right
     }
 
     public static class DirectionHelper
@@ -20,7 +24,20 @@ namespace WaveFunctionCollapse
         {
             switch (direction)
             {
-                case Direction.A:
+
+                case Direction.Up:
+                    return Direction.Down;
+                case Direction.Down:
+                    return Direction.Up;
+                case Direction.Left:
+                    return Direction.Right;
+                case Direction.Right:
+                    return Direction.Left;
+                default:
+                    return direction;
+            
+
+                /*case Direction.A:
                     return Direction.D;
                 case Direction.B:
                     return Direction.E;
@@ -33,13 +50,12 @@ namespace WaveFunctionCollapse
                 case Direction.F:
                     return Direction.C;
                 default:
-                    return direction;
+                    return direction;*/
             }
         }
 
-       
 
-        public static List<Vector2Int> GetHexNeighbours(Vector2Int pos) {
+        /*public static List<Vector2Int> GetHexNeighbours(Vector2Int pos) {
             var neighbors = new List<Vector2Int>();
 
             // A
@@ -73,9 +89,9 @@ namespace WaveFunctionCollapse
                 neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
 
             return neighbors;
-        }
+        }*/
 
-        public static Vector2Int GetHexInDirection(Direction dir, Vector2Int pos) {
+        /*public static Vector2Int GetHexInDirection(Direction dir, Vector2Int pos) {
 
             var neighbours = GetHexNeighbours(pos);
 
@@ -96,7 +112,7 @@ namespace WaveFunctionCollapse
                 default:
                     throw new System.Exception("Hex direction not found, dir: "+dir+", pos: "+pos);
             }
-        }
+        }*/
 
     }
 }

@@ -55,7 +55,24 @@ namespace WaveFunctionCollapse {
             return possibleValues.Select(patternManager.GetPatternFrequency).ToList();
         }
 
-        public List<VectorPair> CreateSixDirectionNeighbours(Vector2Int cellCoordinates, Vector2Int previousCell) {
+        public List<VectorPair> Create4DirectionNeighbours(Vector2Int cellCoordinates, Vector2Int previousCell)
+        {
+            List<VectorPair> list = new List<VectorPair>()
+            {
+                new VectorPair(cellCoordinates, cellCoordinates + new Vector2Int(1, 0), Direction.Right,previousCell),
+                new VectorPair(cellCoordinates, cellCoordinates + new Vector2Int(-1, 0), Direction.Left, previousCell),
+                new VectorPair(cellCoordinates, cellCoordinates + new Vector2Int(0, 1), Direction.Up, previousCell),
+                new VectorPair(cellCoordinates, cellCoordinates + new Vector2Int(0, -1), Direction.Down, previousCell)
+            };
+            return list;
+        }
+
+        public List<VectorPair> Create4DirectionNeighbours(Vector2Int cellCoordinates)
+        {
+            return Create4DirectionNeighbours(cellCoordinates, cellCoordinates);
+        }
+
+        /*public List<VectorPair> CreateSixDirectionNeighbours(Vector2Int cellCoordinates, Vector2Int previousCell) {
             List<VectorPair> list = new List<VectorPair>();
 
             foreach (Direction dir in typeof(Direction).GetEnumValues()) {
@@ -70,12 +87,12 @@ namespace WaveFunctionCollapse {
 
         public List<VectorPair> CreateSixDirectionNeighbours(Vector2Int cellCoordinates) {
             return CreateSixDirectionNeighbours(cellCoordinates, cellCoordinates);
-        }
+        }*/
 
         public float CalculateEntropy(Vector2Int position, OutputGrid outputGrid) {
             float sum = 0;
             
-            foreach (var possibleIndex in outputGrid.GetPossibleValueForPosition(position)) {
+            foreach (var possibleIndex in outputGrid.GetPossibleValuesForPosition(position)) {
                 totalFrequency += patternManager.GetPatternFrequency(possibleIndex);
                 sum += patternManager.GetPatternFrequencyLog2(possibleIndex);
             }
@@ -85,7 +102,40 @@ namespace WaveFunctionCollapse {
             return totalFrequencyLog - (sum / totalFrequency);
         }
 
-        public List<VectorPair> CheckIfNeighboursAreCollapsed(VectorPair pairToCheck, OutputGrid outputGrid) {
+        public List<VectorPair> CheckIfNeighboursAreCollapsed(VectorPair pairToCheck, OutputGrid outputGrid)
+        {
+
+            return Create4DirectionNeighbours(pairToCheck.cellToPropagatePosition, pairToCheck.baseCellPosition)
+                .Where(x => outputGrid.CheckIfValidPosition(x.cellToPropagatePosition) && outputGrid.CheckIfCellIsCollapsed(x.cellToPropagatePosition) == false)
+                .ToList();
+
+        }
+
+        public bool CheckCellSolutionForCollisions(Vector2Int cellCoordinates, OutputGrid outputGrid)
+        {
+            foreach (var neighbour in Create4DirectionNeighbours(cellCoordinates))
+            {
+                if (outputGrid.CheckIfValidPosition(neighbour.cellToPropagatePosition) == false)
+                {
+                    continue;
+                }
+                HashSet<int> possibleIndices = new HashSet<int>();
+                foreach (var patternIndexAtNeighbour in outputGrid.GetPossibleValuesForPosition(neighbour.cellToPropagatePosition))
+                {
+                    var possibleNeighborusForBase = patternManager.GetPossibleNeighoursForPatternInDirection(patternIndexAtNeighbour, neighbour.DiectionFromBase.GetOppositeDirectionTo());
+                    possibleIndices.UnionWith(possibleNeighborusForBase);
+                }
+                if (possibleIndices.Contains(outputGrid.GetPossibleValuesForPosition(cellCoordinates).First()) == false)
+                {
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /*public List<VectorPair> CheckIfNeighboursAreCollapsed(VectorPair pairToCheck, OutputGrid outputGrid) {
             return CreateSixDirectionNeighbours(pairToCheck.cellToPropogatePosition, pairToCheck.baseCellPosition)
                 .Where(x => outputGrid.CheckIfValidPosition(x.cellToPropogatePosition) 
                 && outputGrid.CheckIfCellIsCollapsed(x.cellToPropogatePosition)==false)
@@ -118,7 +168,7 @@ namespace WaveFunctionCollapse {
             }
 
             return false;
-        }
+        }*/
 
     }
 }
