@@ -1,3 +1,4 @@
+using HexMapper;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,17 +33,67 @@ public class UrbanGenerator : MonoBehaviour
 
     public void Generate() {
         CalculateUrbanPoints();
+        CalculateSurroundingPoints();
         SwapOriginalHexes();
+        SwapUrbanHexes(urbanPoints);
+        SwapUrbanHexes(surroundingPoints);
+        CreatePaths();
+        CreateHighways();
 
-        foreach (var point in urbanPoints) {
+    }
+
+    public void CreatePaths()
+    {
+        List<RoadPoint> pathPoints = new List<RoadPoint>();
+
+        foreach (var point in urbanPoints)
+        {
+            if (point.Value != UrbanType.Town)
+                continue;
+
+            pathPoints.Add(new RoadPoint(point.Key, point.Value == UrbanType.City ? HexCord.HexType.CITY : HexCord.HexType.TOWN));
+        }
+
+        List<RoadPoint> tour = UrbanRoadGenerator.CalculateTour(pathPoints);
+
+        Dictionary<Vector2Int, UrbanType> pathTiles = UrbanRoadGenerator.GetRoadTiles(tour, UrbanType.Town);
+
+        SwapUrbanHexes(pathTiles, true);
+    }
+
+    public void CreateHighways() {
+        List<RoadPoint> highwayPoints = new List<RoadPoint>();
+
+        foreach (var point in urbanPoints)
+        {
+            if (point.Value != UrbanType.City)
+                continue;
+
+            highwayPoints.Add(new RoadPoint(point.Key, point.Value == UrbanType.City ? HexCord.HexType.CITY : HexCord.HexType.TOWN));
+        }
+
+        List<RoadPoint> tour = UrbanRoadGenerator.CalculateTour(highwayPoints);
+
+        Dictionary<Vector2Int, UrbanType> highwayTiles = UrbanRoadGenerator.GetRoadTiles(tour, UrbanType.City);
+
+        SwapUrbanHexes(highwayTiles, true);
+    }
+
+    public void SwapUrbanHexes(Dictionary<Vector2Int, UrbanType> urbanPoints, bool road=false) {
+        foreach (var point in urbanPoints)
+        {
             GameObject prefab;
 
             if (point.Value == UrbanType.City)
-                prefab = MapGenerator.instance.cityPrefab;
+                prefab = road == false ? MapGenerator.instance.cityPrefab : MapGenerator.instance.highwayPrefab;
             else
-                prefab = MapGenerator.instance.townPrefab;
+                prefab = road == false ? MapGenerator.instance.townPrefab : MapGenerator.instance.pathPrefab;
 
-            GameObject original = MapGenerator.instance.hexes[point.Key.y][point.Key.x];
+            if (point.Key.x < 0 || point.Key.y < 0 || point.Key.x >= MapGenerator.instance.hexes.Count
+                || point.Key.y >= MapGenerator.instance.hexes[0].Count)
+                continue;
+
+            GameObject original = MapGenerator.instance.hexes[point.Key.x][point.Key.y];
 
             HexCord.HexType hexType;
 
@@ -51,17 +102,16 @@ public class UrbanGenerator : MonoBehaviour
             else
                 hexType = original.GetComponentInChildren<HexCord>().hexType;
 
-            originalHexes.Add(point.Key, HexMap.GetPrefab(hexType));
+            originalHexes.TryAdd(point.Key, HexMap.GetPrefab(hexType));
 
             HexMap.SwapHex(prefab, original);
         }
-
     }
 
     public void SwapOriginalHexes() {
         foreach (var hex in originalHexes)
         {
-            HexMap.SwapHex(hex.Value, MapGenerator.instance.hexes[hex.Key.y][hex.Key.x]);
+            HexMap.SwapHex(hex.Value, MapGenerator.instance.hexes[hex.Key.x][hex.Key.y]);
         }
 
         originalHexes.Clear();
@@ -77,27 +127,104 @@ public class UrbanGenerator : MonoBehaviour
         AddUrbanPoints(numberOfCities, mapWidth, mapHeight, UrbanType.City);
         AddUrbanPoints(numberOfTowns, mapWidth, mapHeight, UrbanType.Town);
 
-        /*foreach (var point in urbanPoints) {
-            Debug.Log("Point: "+point.Value+", "+point.Key);
-        }*/
+    }
+
+    public void CalculateSurroundingPoints() {
+        surroundingPoints.Clear();
+        AddSurroundingPoints(cityDensity, UrbanType.City);
+        AddSurroundingPoints(townDensity, UrbanType.Town);
 
     }
 
     public void AddSurroundingPoints(Density density, UrbanType urbanType) {
 
-        surroundingPoints.Clear();
+
 
         foreach (var point in urbanPoints) {
             if (point.Value != urbanType)
                 continue;
-
-            int amount = GetDensityAmount(density);
             
+            int amount = GetDensityAmount(density);
+            List<Vector2Int> points = GetHexPoints(amount, point.Key);
+
+            foreach (var surroundingPoint in points) {
+
+                if (urbanType == UrbanType.City) {
+                    Debug.Log("Add surrounding point city");
+                }
+
+                surroundingPoints.Add(surroundingPoint, urbanType);
+            }
 
         }
 
     }
 
+
+    // First 1/2 of surrounding hexes, random 6 directions
+    // Others go to random closest hex to original point
+    // 50/50 chance to go in a random direction
+    public List<Vector2Int> GetHexPoints(int startingAmount, Vector2Int originalPoint) {
+        List<Vector2Int> points = new List<Vector2Int>();
+
+        Vector2Int currentPoint = originalPoint;
+        int amount = startingAmount;
+        while (amount > 0)
+        {
+
+
+            int iteration = 0;
+
+            var neigbour = GetNeighbour(amount <= startingAmount / 2, originalPoint, currentPoint);
+
+            while ((points.Contains(neigbour) || urbanPoints.ContainsKey(neigbour) || surroundingPoints.ContainsKey(neigbour)) && iteration < 10)
+            {
+                neigbour = GetNeighbour(amount <= startingAmount / 2, originalPoint, currentPoint);
+                iteration++; 
+            }
+
+
+            if (!points.Contains(neigbour) && !urbanPoints.ContainsKey(neigbour) && !surroundingPoints.ContainsKey(neigbour))
+            {
+                points.Add(neigbour);
+                currentPoint = neigbour;
+            }
+
+            amount--;
+        }
+
+        return points;
+    }
+
+    public Vector2Int GetNeighbour(bool closest, Vector2Int originalPoint, Vector2Int currentPoint) {
+
+        var neighbours = HexDirection.GetHexNeighbours(currentPoint);
+
+        if (!closest || DiceRoller.Roll(1,100) <= 50)
+            return neighbours[DiceRoller.Roll(0, 5)];
+
+        var closestPoint = neighbours[DiceRoller.Roll(0, 5)];
+        int closestPointDistance = HexMap.GetDistance(closestPoint, originalPoint);
+
+        foreach (var point in neighbours) {
+            if (point == closestPoint)
+                continue;
+            if (HexMap.GetDistance(point, originalPoint) < closestPointDistance) {
+                closestPoint = point;
+                closestPointDistance = HexMap.GetDistance(closestPoint, originalPoint);
+            }
+        }
+
+        List<Vector2Int> closestPoints = new List<Vector2Int>();
+
+        foreach (var point in neighbours) {
+            if (HexMap.GetDistance(point, originalPoint) == closestPointDistance)
+                closestPoints.Add(point);
+        }
+
+        return closestPoints[DiceRoller.Roll(0,closestPoints.Count-1)];
+
+    }
 
     public int GetDensityAmount(Density density) {
         int amount;
@@ -170,10 +297,6 @@ public class UrbanGenerator : MonoBehaviour
             default:
                 throw new System.Exception("Amount not found: " + cityAmount);
         }
-    }
-
-    public void DrawUrbanAreas() { 
-    
     }
 
 }

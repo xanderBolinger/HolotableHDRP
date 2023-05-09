@@ -99,6 +99,10 @@ public class HexMap : MonoBehaviour
             Destroy(hex);
         }
 
+        if (MapGenerator.instance != null) {
+            MapGenerator.instance.hexes[x][y] = newHex;
+        }
+
         return newHex;
     }
 
