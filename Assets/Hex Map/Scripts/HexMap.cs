@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -99,6 +100,32 @@ public class HexMap : MonoBehaviour
         }
 
         return newHex;
+    }
+
+    public static int GetDistance(Vector2Int a, Vector2Int b)
+    {
+        int x0 = a.x - (int)Mathf.Floor(a.y / 2);
+        int y0 = a.y;
+        int x1 = b.x - (int)Mathf.Floor(b.y / 2);
+        int y1 = b.y;
+        int dx = x1 - x0;
+        int dy = y1 - y0;
+        return Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy), Mathf.Abs(dx + dy));
+    }
+
+    public static GameObject GetPrefab(HexCord.HexType hexType)
+    {
+        return hexType switch
+        {
+            HexCord.HexType.CLEAR => MapGenerator.instance.grassPrefab,
+            HexCord.HexType.WOODS => MapGenerator.instance.treePrefab,
+            HexCord.HexType.MOUNTAIN => MapGenerator.instance.mountainPrefab,
+            HexCord.HexType.CITY => MapGenerator.instance.cityPrefab,
+            HexCord.HexType.TOWN => MapGenerator.instance.townPrefab,
+            HexCord.HexType.PATH => MapGenerator.instance.pathPrefab,
+            HexCord.HexType.HIGHWAY => MapGenerator.instance.highwayPrefab,
+            _ => throw new Exception("Tile prefab not found for hex type: " + hexType),
+        };
     }
 
 }

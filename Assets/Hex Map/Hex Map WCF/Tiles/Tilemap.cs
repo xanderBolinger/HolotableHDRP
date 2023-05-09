@@ -48,7 +48,7 @@ public class Tilemap : MonoBehaviour
 
         foreach (var tile in tiles)
         {
-            hexPrefabs[tile.Key.y][tile.Key.x] = GetPrefab(tile.Value.hexType);
+            hexPrefabs[tile.Key.y][tile.Key.x] = HexMap.GetPrefab(tile.Value.hexType);
         }
 
         MapGenerator.instance.InstantiateHexes(hexPrefabs, height, width);
@@ -58,7 +58,7 @@ public class Tilemap : MonoBehaviour
     public void SwapTiles() {
         Debug.Log("Number of Tiles: "+tiles.Count);
         foreach (var tile in tiles) {
-            GameObject prefab = GetPrefab(tile.Value.hexType);
+            GameObject prefab = HexMap.GetPrefab(tile.Value.hexType);
             GameObject newHex = HexMap.SwapHex(prefab, MapGenerator.instance.hexes[tile.Key.y][tile.Key.x]);
 
             MapGenerator.instance.hexes[tile.Key.y][tile.Key.x] = newHex;
@@ -66,18 +66,5 @@ public class Tilemap : MonoBehaviour
         }
     }
 
-    private GameObject GetPrefab(HexCord.HexType hexType)
-    {
-        return hexType switch
-        {
-            HexCord.HexType.CLEAR => MapGenerator.instance.grassPrefab,
-            HexCord.HexType.WOODS => MapGenerator.instance.treePrefab,
-            HexCord.HexType.MOUNTAIN => MapGenerator.instance.mountainPrefab,
-            HexCord.HexType.CITY => MapGenerator.instance.cityPrefab,
-            HexCord.HexType.TOWN => MapGenerator.instance.townPrefab,
-            HexCord.HexType.PATH => MapGenerator.instance.pathPrefab,
-            HexCord.HexType.HIGHWAY => MapGenerator.instance.highwayPrefab,
-            _ => throw new Exception("Tile prefab not found for hex type: " + hexType),
-        };
-    }
+    
 }

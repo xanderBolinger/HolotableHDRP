@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7426664799223326270}
   - component: {fileID: 7426664799223326265}
   - component: {fileID: 1532262772331819118}
+  - component: {fileID: 7165795077134045715}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -45,10 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1744ef6a231333644a51e77b4d6637f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidth: 5
-  mapHeight: 5
-  wfcOutputHeight: 20
-  wfcOutputWidth: 20
+  mapWidth: 100
+  mapHeight: 100
+  wfcOutputHeight: 100
+  wfcOutputWidth: 100
   mapName: BaseName
   treePrefab: {fileID: 5097640567127986391, guid: d5db1828bbf20aa459a3cf419648b1cd,
     type: 3}
@@ -66,9 +67,9 @@ MonoBehaviour:
     type: 3}
   mountainFrequency: 3
   treeFrequency: 4
-  cityFrequency: 1
-  townFrequency: 2
-  patternSize: 1
+  cityFrequency: 0
+  townFrequency: 0
+  patternSize: 2
   maximumIterations: 100
   k: 4
 --- !u!114 &1532262772331819118
@@ -85,3 +86,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapWidth: 10
   mapHeight: 10
+--- !u!114 &7165795077134045715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7426664799223326264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67ea24c0704b2c46ad54c25b56abfdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  townAmount: 1
+  cityAmount: 1
+  townDensity: 0
+  cityDensity: 0
+  mapWidth: 100
+  mapHeight: 100
