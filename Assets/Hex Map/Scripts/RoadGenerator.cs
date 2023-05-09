@@ -15,10 +15,10 @@ public class RoadGenerator
 
         Dictionary<Vector2Int, int> grid = new Dictionary<Vector2Int, int>();
 
-        for (int i = 0; i < PerlinGenerator.instance.mapWidth; i++)
+        for (int i = 0; i < MapGenerator.instance.mapWidth; i++)
         {
 
-            for (int j = 0; j < PerlinGenerator.instance.mapHeight; j++)
+            for (int j = 0; j < MapGenerator.instance.mapHeight; j++)
             {
 
                 grid.Add(new Vector2Int(i, j), 0);

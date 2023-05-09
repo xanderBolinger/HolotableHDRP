@@ -5,10 +5,11 @@ using UnityEngine;
 using WaveFunctionCollapse;
 using System.Text;
 using System.Linq;
+using UnityEditor;
 
-public class PerlinGenerator : MonoBehaviour
+public class MapGenerator : MonoBehaviour
 {
-    public static PerlinGenerator instance;
+    public static MapGenerator instance;
 
     public int mapWidth = 25;
     public int mapHeight = 12;
@@ -17,6 +18,8 @@ public class PerlinGenerator : MonoBehaviour
 
     float xSpacing = 0.19f;
     float ySpacing = 0.165f;
+
+    public string mapName;
 
     public GameObject treePrefab;
     public GameObject mountainPrefab;
@@ -69,6 +72,18 @@ public class PerlinGenerator : MonoBehaviour
         hexes.Clear();
     }
 
+    public void SaveTilemap()
+    {
+        Destroy(gameObject.GetComponent<MapGenerator>().gameObject);
+        Destroy(gameObject.GetComponent<Tilemap>().gameObject);
+        gameObject.AddComponent<Map>();
+
+        foreach (Transform child in transform)
+        {
+            child.transform.parent = gameObject.transform;
+        }
+        PrefabUtility.SaveAsPrefabAsset(gameObject, "Assets/Hex Map/Saved Maps/"+mapName+".prefab");
+    }
     public void InstantiateHexes(List<List<GameObject>> hexPrefabs, int mapWidth, int mapHeight) {
 
         hexes.Clear();
@@ -215,76 +230,6 @@ public class PerlinGenerator : MonoBehaviour
 
 
         SetInputReader();
-
-        /*TileBase woods = new TileBase(HexCord.HexType.WOODS);
-        TileBase woods1 = new TileBase(HexCord.HexType.WOODS);
-        TileBase citytb = new TileBase(HexCord.HexType.CITY);
-
-        TileBaseValue woodsValue = new TileBaseValue(woods);
-        TileBaseValue woods1Value = new TileBaseValue(woods);
-        TileBaseValue cityValue = new TileBaseValue(citytb);
-
-        if (woods == woods1) {
-            Debug.Log("Comparison pass 0");
-        }
-        if (woods == citytb)
-        {
-            Debug.Log("Comparison pass 00");
-        }
-
-
-        if (woodsValue == woods1Value)
-        {
-            Debug.Log("Comparison pass 1");
-        }
-        else {
-            Debug.Log("Comparison fail 1");
-        }
-
-        if (cityValue != woods1Value)
-        {
-            Debug.Log("Comparison pass 2");
-        }
-        else
-        {
-            Debug.Log("Comparison fail 2");
-        }
-
-        if (woodsValue.Equals(woods1Value))
-        {
-            Debug.Log("Comparison pass 3");
-        }
-        else
-        {
-            Debug.Log("Comparison fail 3");
-        }
-
-        if (!cityValue.Equals(woods1Value))
-        {
-            Debug.Log("Comparison pass 4");
-        }
-        else
-        {
-            Debug.Log("Comparison fail 4");
-        }*/
-
-        /* StringBuilder builder = null;
-         List<string> list = new List<string>();
-         for (int r = -1; r < grid.Length; r++) {
-             builder = new StringBuilder();
-
-             for (int c = -1; c < grid[0].Length; c++) {
-                 builder.Append(valueManager.GetGridValuesIncludingOffset(c, r)+" ");
-             }
-
-             list.Add(builder.ToString());
-
-         }
-
-         list.Reverse();
-         foreach (var str in list) {
-             Debug.Log(str);
-         } */
 
     }
 
@@ -525,23 +470,6 @@ public class PerlinGenerator : MonoBehaviour
         return Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy), Mathf.Abs(dx + dy));
     }
 
-    /*GameObject GetHex(int x, int y)
-    {
-        
-        float rawPerlin = Mathf.PerlinNoise(
-            (x - xOffset) / magnification,
-            (y - yOffset) / magnification
-        );
-        float clampPerlin = Mathf.Clamp01(rawPerlin);
-        float scaledPerlin = clampPerlin * hexPrefabs.Count;
-
-        if (scaledPerlin == hexPrefabs.Count)
-        {
-            scaledPerlin = (hexPrefabs.Count - 1);
-        }
-        return hexPrefabs[Mathf.FloorToInt(scaledPerlin)];
-    }*/
-
     List<List<int>> NoiseMap(HexFrequency freq)
     {
         int densityLower = freq.densityLower; 
@@ -565,27 +493,6 @@ public class PerlinGenerator : MonoBehaviour
         return map;
 
     }
-
-
-    /*List<List<int>> NoiseMap() {
-        List<List<int>> map = new List<List<int>>();
-
-        float magnification = UnityEngine.Random.Range(lowerMagnification, upperMagnification);
-        System.Random rand = new System.Random();
-
-
-        int density = UnityEngine.Random.Range(densityLower, densityUpper); 
-        int number = rand.Next(lowerOffset, upperOffset);
-        int xOffset = number;
-        int yOffset = number;
-        Debug.Log("Offset: " + number + ", Magnification: " + magnification+", Density: "+density);
-
-        CalculatePerlin(xOffset, yOffset, magnification, density, map);
-
-        return map;
-
-    }*/
-
     void CalculatePerlin(int xOffset, int yOffset, float magnification, int density, List<List<int>> map) {
         for (int x = 0; x < mapWidth; x++)
         {

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(PerlinGenerator))]
+[CustomEditor(typeof(MapGenerator))]
 public class InspectorGui : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        PerlinGenerator myScript = (PerlinGenerator)target;
+        MapGenerator myScript = (MapGenerator)target;
 
         if (GUILayout.Button("Run WFC")) {
             myScript.RunWFC();
@@ -22,6 +22,11 @@ public class InspectorGui : Editor
         if (GUILayout.Button("Create Tilemap"))
         {
             myScript.CreateTileMap();
+        }
+
+        if (GUILayout.Button("Save Tilemap"))
+        {
+            myScript.SaveTilemap();
         }
 
     }

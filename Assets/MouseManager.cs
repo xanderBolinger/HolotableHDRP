@@ -54,9 +54,9 @@ public class MouseManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space)) {
             Debug.Log("Refresh Map");
-            PerlinGenerator.instance.ClearMap();
+            MapGenerator.instance.ClearMap();
             
-            PerlinGenerator.instance.CreateTileMap();
+            MapGenerator.instance.CreateTileMap();
             
         }
  
@@ -101,8 +101,8 @@ public class MouseManager : MonoBehaviour
                 
                 GameObject newHex = HexMap.SwapHex(selectedHexPrefab, hitObject);
 
-                if (PerlinGenerator.instance != null) {
-                    PerlinGenerator.instance.hexes[x][y] = newHex;
+                if (MapGenerator.instance != null) {
+                    MapGenerator.instance.hexes[x][y] = newHex;
                     Debug.Log("set hex");
                 }
 

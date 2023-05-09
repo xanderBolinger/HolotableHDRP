@@ -8,21 +8,24 @@ public class Tilemap : MonoBehaviour
 {
 
     public List<List<GameObject>> hexes;
+
+    [HideInInspector]
     public int mapWidth;
+    [HideInInspector]
     public int mapHeight;
 
     Dictionary<Vector2Int, TileBase> tiles = new Dictionary<Vector2Int, TileBase>();
 
     public void initTilemap()
     {
-        hexes = PerlinGenerator.instance.hexes;
-        mapHeight = PerlinGenerator.instance.mapHeight;
-        mapWidth = PerlinGenerator.instance.mapWidth;
+        hexes = MapGenerator.instance.hexes;
+        mapHeight = MapGenerator.instance.mapHeight;
+        mapWidth = MapGenerator.instance.mapWidth;
         
     }
 
     public void ClearAllTiles() {
-        hexes = PerlinGenerator.instance.hexes;
+        hexes = MapGenerator.instance.hexes;
         tiles.Clear();
     }
 
@@ -48,7 +51,7 @@ public class Tilemap : MonoBehaviour
             hexPrefabs[tile.Key.y][tile.Key.x] = GetPrefab(tile.Value.hexType);
         }
 
-        PerlinGenerator.instance.InstantiateHexes(hexPrefabs, height, width);
+        MapGenerator.instance.InstantiateHexes(hexPrefabs, height, width);
 
     }
 
@@ -56,10 +59,10 @@ public class Tilemap : MonoBehaviour
         Debug.Log("Number of Tiles: "+tiles.Count);
         foreach (var tile in tiles) {
             GameObject prefab = GetPrefab(tile.Value.hexType);
-            GameObject newHex = HexMap.SwapHex(prefab, PerlinGenerator.instance.hexes[tile.Key.y][tile.Key.x]);
+            GameObject newHex = HexMap.SwapHex(prefab, MapGenerator.instance.hexes[tile.Key.y][tile.Key.x]);
 
-            PerlinGenerator.instance.hexes[tile.Key.y][tile.Key.x] = newHex;
-            hexes = PerlinGenerator.instance.hexes;
+            MapGenerator.instance.hexes[tile.Key.y][tile.Key.x] = newHex;
+            hexes = MapGenerator.instance.hexes;
         }
     }
 
@@ -67,13 +70,13 @@ public class Tilemap : MonoBehaviour
     {
         return hexType switch
         {
-            HexCord.HexType.CLEAR => PerlinGenerator.instance.grassPrefab,
-            HexCord.HexType.WOODS => PerlinGenerator.instance.treePrefab,
-            HexCord.HexType.MOUNTAIN => PerlinGenerator.instance.mountainPrefab,
-            HexCord.HexType.CITY => PerlinGenerator.instance.cityPrefab,
-            HexCord.HexType.TOWN => PerlinGenerator.instance.townPrefab,
-            HexCord.HexType.PATH => PerlinGenerator.instance.pathPrefab,
-            HexCord.HexType.HIGHWAY => PerlinGenerator.instance.highwayPrefab,
+            HexCord.HexType.CLEAR => MapGenerator.instance.grassPrefab,
+            HexCord.HexType.WOODS => MapGenerator.instance.treePrefab,
+            HexCord.HexType.MOUNTAIN => MapGenerator.instance.mountainPrefab,
+            HexCord.HexType.CITY => MapGenerator.instance.cityPrefab,
+            HexCord.HexType.TOWN => MapGenerator.instance.townPrefab,
+            HexCord.HexType.PATH => MapGenerator.instance.pathPrefab,
+            HexCord.HexType.HIGHWAY => MapGenerator.instance.highwayPrefab,
             _ => throw new Exception("Tile prefab not found for hex type: " + hexType),
         };
     }
