@@ -1,0 +1,16 @@
+{
+    "name": "UnitsScripts",
+    "rootNamespace": "",
+    "references": [
+        "GUID:161e3af76a6cee14d91dab3a092bd7c3"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

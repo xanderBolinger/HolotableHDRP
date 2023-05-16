@@ -700,7 +700,7 @@ Transform:
   - {fileID: 554272574}
   - {fileID: 1183367830}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &694129435 stripped
 Transform:
@@ -1097,7 +1097,7 @@ PrefabInstance:
     - target: {fileID: 7190832981444180737, guid: 540acc7a818b364419d7e31494363586,
         type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7190832981444180737, guid: 540acc7a818b364419d7e31494363586,
         type: 3}
@@ -4114,7 +4114,7 @@ PrefabInstance:
     - target: {fileID: 1196190991417634093, guid: cb4059f8249987b4e82e928d519bec77,
         type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 1196190991417634093, guid: cb4059f8249987b4e82e928d519bec77,
         type: 3}
@@ -4198,7 +4198,7 @@ PrefabInstance:
     - target: {fileID: 7426664799223326264, guid: 428edb91d5ca16646a959e2968d8a8c3,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7426664799223326270, guid: 428edb91d5ca16646a959e2968d8a8c3,
         type: 3}
@@ -4341,7 +4341,7 @@ PrefabInstance:
     - target: {fileID: 3140797236741821141, guid: e215a097dc20c5b4b981af17a1d850b8,
         type: 3}
       propertyPath: m_RootOrder
-      value: 21
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3140797236741821141, guid: e215a097dc20c5b4b981af17a1d850b8,
         type: 3}
@@ -4530,6 +4530,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689424761329221501, guid: 6efdf695834da0540827174545d13dd8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6efdf695834da0540827174545d13dd8, type: 3}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1196190991417634093}
   - component: {fileID: 1196190991417634092}
+  - component: {fileID: 8038318505877973805}
   m_Layer: 0
   m_Name: MouseManager
   m_TagString: Untagged
@@ -58,3 +59,17 @@ MonoBehaviour:
     type: 3}
   pathHexPrefab: {fileID: 6529803778590227509, guid: 78db26855199cb84797c65dab566e290,
     type: 3}
+  unitPrefab: {fileID: 9207953180838444180, guid: e45836d914079a64b93fbc067a2c4df3,
+    type: 3}
+--- !u!114 &8038318505877973805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196190991417634095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a3254a64fddeb47909833f909c3620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
