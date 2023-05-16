@@ -59,7 +59,7 @@ MonoBehaviour:
     type: 3}
   pathHexPrefab: {fileID: 6529803778590227509, guid: 78db26855199cb84797c65dab566e290,
     type: 3}
-  unitPrefab: {fileID: 9207953180838444180, guid: e45836d914079a64b93fbc067a2c4df3,
+  unitPrefab: {fileID: 3914645779809767574, guid: e45836d914079a64b93fbc067a2c4df3,
     type: 3}
 --- !u!114 &8038318505877973805
 MonoBehaviour:
