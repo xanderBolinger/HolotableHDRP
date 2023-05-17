@@ -21,6 +21,7 @@ namespace Operation {
         public VehicleType vehicleType;
         public string vehicleClass;
         public bool repulsorCraft;
+        public bool disabled;
         public int transportCapacity;
         public string identifier;
 
@@ -32,6 +33,7 @@ namespace Operation {
             this.repulsorCraft = repulsorCraft;
             this.transportCapacity = transportCapacity;
             this.identifier = Identifier.GenerateIdentifier();
+            disabled = false;
         }
 
         public Vehicle(VehicleClass vicClass, string callsign) {

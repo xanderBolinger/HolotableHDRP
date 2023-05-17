@@ -30,8 +30,8 @@ public class OperationUnitTests
         Vehicle mechanized = new Vehicle("mechanized", Vehicle.VehicleType.MECHANIZED, "Mechanized", false, 20);
         Vehicle armor = new Vehicle(Vehicle.VehicleClass.AAT, "armor");
         Vehicle heavyWalker = new Vehicle(Vehicle.VehicleClass.ATTE, "heavy walker");
-        Vehicle lightWalker = new Vehicle("light walker", Vehicle.VehicleType.LIGHT_WALKER, "Light Walker", false, 1);
-        Vehicle speeder = new Vehicle("speeder", Vehicle.VehicleType.SPEEDER, "speeder", true, 1);
+        Vehicle lightWalker = new Vehicle("light walker", Vehicle.VehicleType.LIGHT_WALKER, "Light Walker", false, 2);
+        Vehicle speeder = new Vehicle("speeder", Vehicle.VehicleType.SPEEDER, "speeder", true, 2);
 
         motorizedUnit = new Unit("motorizedUnit");
         motorizedUnit.AddTrooper(trooper);
@@ -116,6 +116,11 @@ public class OperationUnitTests
         ou.AddUnit(speederUnit);
         Assert.AreEqual(UnitType.SPEEDER, ou.unitType);
 
+        ou.RemoveUnit(speederUnit);
+        Assert.AreEqual(UnitType.INF, ou.unitType);
+
+        ou.AddUnit(speederUnit);
+
         ou.AddUnit(lightWalkerUnit);
         Assert.AreEqual(UnitType.LIGHT_WALKER, ou.unitType);
 
@@ -133,5 +138,61 @@ public class OperationUnitTests
         
     }
 
+    [Test]
+    public void OperationUnitTransportTest()
+    {
+        OperationUnit ou = new OperationUnit("ou1", new GameObject(), new Vector2Int(0, 0), Side.BLUFOR);
 
+        Vehicle motorized = new Vehicle("motorized", Vehicle.VehicleType.MOTORIZED, "Truck", false, 0);
+        infUnit.AddVehicle(motorized);
+
+        ou.AddUnit(infUnit);
+
+        Assert.AreEqual(UnitType.INF, ou.unitType);
+        Assert.AreEqual(1, ou.maxMPTS);
+        Assert.AreEqual(2, ou.maxMPTSExtended);
+        Assert.AreEqual(4, ou.maxMPTU);
+        Assert.AreEqual(6, ou.maxMPTUExtended);
+
+        Vehicle motorized2 = new Vehicle("motorized", Vehicle.VehicleType.MOTORIZED, "Truck", false, 1);
+        Vehicle motorized3 = new Vehicle("motorized", Vehicle.VehicleType.MOTORIZED, "Truck", false, 1);
+
+        ou.RemoveUnit(infUnit);
+        infUnit.AddVehicle(motorized2);
+        ou.AddUnit(infUnit);
+
+        Assert.AreEqual(UnitType.MOTORIZED, ou.unitType);
+        Assert.AreEqual(2, ou.maxMPTS);
+        Assert.AreEqual(4, ou.maxMPTSExtended);
+        Assert.AreEqual(8, ou.maxMPTU);
+        Assert.AreEqual(12, ou.maxMPTUExtended);
+
+        
+        ou.RemoveUnit(infUnit);
+
+        
+        infUnit.AddTrooper(trooper2);
+        ou.AddUnit(infUnit);
+
+        Assert.AreEqual(UnitType.INF, ou.unitType);
+        Assert.AreEqual(1, ou.maxMPTS);
+        Assert.AreEqual(2, ou.maxMPTSExtended);
+        Assert.AreEqual(4, ou.maxMPTU);
+        Assert.AreEqual(6, ou.maxMPTUExtended);
+
+        ou.RemoveUnit(infUnit);
+        infUnit.AddVehicle(motorized3);
+        motorized3.disabled = true;
+        motorized.disabled = true;
+
+        ou.AddUnit(infUnit);
+
+        Assert.AreEqual(UnitType.MOTORIZED, ou.unitType);
+        Assert.AreEqual(2, ou.maxMPTS);
+        Assert.AreEqual(4, ou.maxMPTSExtended);
+        Assert.AreEqual(8, ou.maxMPTU);
+        Assert.AreEqual(12, ou.maxMPTUExtended);
+        Assert.AreEqual(false, ou.CanMoveDisabledVehicles());
+
+    }
 }

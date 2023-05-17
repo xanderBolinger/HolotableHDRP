@@ -11,9 +11,9 @@ namespace Operation {
 
         public int hour;
         public TimeUnit timeUnit;
+        public Dictionary<OperationUnit, List<Vector2Int>> plannedMovement;
 
         List<string> records;
-        Dictionary<OperationUnit, List<Vector2Int>> plannedMovement;
 
 
         public TimeSegment(int hour, TimeUnit timeUnit) {

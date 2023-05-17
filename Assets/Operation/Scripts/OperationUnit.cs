@@ -25,7 +25,15 @@ namespace Operation {
         public string unitName;
         public GameObject unitGameobject;
         public Vector2Int hexPosition;
-        public int spentMP;
+
+        public int tacticalMovement;
+        public double spentMPTU;
+        public double spentMPTS;
+
+        public double maxMPTS;
+        public double maxMPTSExtended;
+        public double maxMPTU;
+        public double maxMPTUExtended;
 
         public bool inConflict;
         public bool avoidConflict;
@@ -52,7 +60,9 @@ namespace Operation {
             advancingCombat = true;
             spentFreeConflictResultMovement = false;
             unitType = UnitType.INF;
-            spentMP = 0;
+            spentMPTS = 0;
+            spentMPTU = 0;
+            tacticalMovement = 0;
 
             units = new List<Unit>();
         }
@@ -104,18 +114,21 @@ namespace Operation {
         {
             units.Add(unit);
             DetermineUnitType();
+            DetermineMP();
         }
 
         public void RemoveUnit(int index)
         {
             units.RemoveAt(index);
             DetermineUnitType();
+            DetermineMP();
         }
 
         public void RemoveUnit(Unit unit)
         {
             units.Remove(unit);
             DetermineUnitType();
+            DetermineMP();
         }
 
         public HexType GetTerrainType(List<List<HexCord>> hexes)
@@ -133,6 +146,43 @@ namespace Operation {
             }
 
             return HexDirection.GetHexNeighbours(hexPosition);
+        }
+
+        public bool RepulsorEquipped()
+        {
+            foreach (var unit in units)
+            {
+                foreach (var victor in unit.GetVehicles())
+                {
+                    if (!victor.repulsorCraft)
+                        return false;
+                }
+            }
+
+            return unitType == UnitType.INF ? false : true;
+        }
+
+        public bool CanMoveDisabledVehicles() {
+            int disabledVehicles = 0;
+            int towingVehicles = 0;
+
+            foreach (var unit in units)
+            {
+                foreach (var victor in unit.GetVehicles())
+                {
+                    if (victor.disabled)
+                        disabledVehicles++;
+                    else if (victor.vehicleType == Vehicle.VehicleType.ARMOR
+                        || victor.vehicleType == Vehicle.VehicleType.HEAVY_WALKER
+                        || victor.vehicleType == Vehicle.VehicleType.MECHANIZED
+                        || victor.vehicleType == Vehicle.VehicleType.MOTORIZED) {
+                        towingVehicles++;
+                    }
+
+                }
+            }
+
+            return towingVehicles >= disabledVehicles;
         }
 
         private void DetermineUnitType()
@@ -173,9 +223,90 @@ namespace Operation {
                 {
                     unitType = UnitType.SPEEDER;
                 }
+                else if (unit.unitType == UnitType.INF && unitType != UnitType.MECHANIZED
+                    && unitType != UnitType.ARMOR && unitType != UnitType.HEAVY_WALKER
+                    && unitType != UnitType.MOTORIZED && unitType != UnitType.LIGHT_WALKER && unitType != UnitType.SPEEDER)
+                {
+                    unitType = UnitType.INF;
+                }
+            }
+
+            if (!CanTransportAll())
+                unitType = UnitType.INF;
+
+        }
+
+        private void DetermineMP()
+        {
+
+            
+
+            switch (unitType)
+            {
+                case UnitType.INF:
+                    maxMPTS = 1;
+                    maxMPTSExtended = 2;
+                    maxMPTU = 4;
+                    maxMPTUExtended = 6;
+                    break;
+                case UnitType.SPEEDER:
+                    maxMPTS = 5;
+                    maxMPTSExtended = 6;
+                    maxMPTU = 18;
+                    maxMPTUExtended = 24;
+                    break;
+                case UnitType.LIGHT_WALKER:
+                    maxMPTS = 2;
+                    maxMPTSExtended = 3;
+                    maxMPTU = 6;
+                    maxMPTUExtended = 9;
+                    break;
+                case UnitType.HEAVY_WALKER:
+                    maxMPTS = 2;
+                    maxMPTSExtended = 3;
+                    maxMPTU = 5;
+                    maxMPTUExtended = 7;
+                    break;
+                case UnitType.ARMOR:
+                    maxMPTS = 2;
+                    maxMPTSExtended = 3;
+                    maxMPTU = 5;
+                    maxMPTUExtended = 7;
+                    break;
+                case UnitType.MECHANIZED:
+                    maxMPTS = 2;
+                    maxMPTSExtended = 3;
+                    maxMPTU = 6;
+                    maxMPTUExtended = 9;
+                    break;
+                case UnitType.MOTORIZED:
+                    maxMPTS = 2;
+                    maxMPTSExtended = 4;
+                    maxMPTU = 8;
+                    maxMPTUExtended = 12;
+                    break;
+
             }
         }
 
+        private bool CanTransportAll() {
+
+            int totalInf = 0;
+            int totalTransportCapacity = 0;
+
+            foreach (var unit in units)
+            {
+                totalInf += unit.GetTroopers().Count;
+                foreach (var victor in unit.GetVehicles())
+                {
+                    totalTransportCapacity += victor.transportCapacity;
+                }
+            }
+
+            return totalInf <= totalTransportCapacity;
+        }
+
+        
     }
 
 }

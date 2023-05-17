@@ -5,7 +5,7 @@ using static Operation.TimeSegment;
 
 namespace Operation {
 
-    public class Operation : MonoBehaviour
+    public class OperationManager : MonoBehaviour
     {
         public int startTime = 5; 
 
@@ -13,10 +13,13 @@ namespace Operation {
         public List<TimeSegment> timeSegments;
         [HideInInspector]
         public List<OperationUnit> operationUnits;
-
-        private TimeSegment currentTimeSegment;
+        [HideInInspector]
+        public TimeSegment currentTimeSegment;
 
         public void CreateOperation() {
+
+            timeSegments = new List<TimeSegment>();
+            operationUnits = new List<OperationUnit>();
 
             for (int i = 1; i <= 24; i++) {
 
@@ -75,15 +78,23 @@ namespace Operation {
 
             if (nextTS.timeUnit != currentTimeSegment.timeUnit)
                 NewTU();
+            NewTS();
 
             currentTimeSegment = nextTS;
+        }
+
+        private void NewTS() {
+            foreach (var unit in operationUnits) {
+                unit.spentMPTS = 0;
+            }
         }
 
         private void NewTU() {
             foreach (var unit in operationUnits) {
                 unit.spentFreeConflictResultMovement = false;
                 unit.moveType = OperationUnit.MoveType.NONE;
-                unit.spentMP = 0;
+                unit.spentMPTU = 0;
+                unit.tacticalMovement = 0;
             }
         }
 

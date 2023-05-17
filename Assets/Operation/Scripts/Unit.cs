@@ -93,9 +93,17 @@ namespace Operation {
             DetermineUnitType();
         }
 
+        public List<Trooper> GetTroopers() {
+            return troopers;
+        }
+
         public Vehicle GetVehicle(int index)
         {
             return vehicles[index];
+        }
+
+        public List<Vehicle> GetVehicles() {
+            return vehicles;
         }
 
         public Vehicle GetVehicle(string identifier)
