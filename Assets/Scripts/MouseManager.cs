@@ -1,3 +1,4 @@
+using Operation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,13 +61,13 @@ public class MouseManager : MonoBehaviour
         if (hitObject.tag == "Hex" && shift) {
             GameObject newUnitObj = Instantiate(unitPrefab);
 
-            Unit newUnit = new Unit
+            OperationUnit newUnit = new OperationUnit
             {
                 unitName = newUnitObj.name,
                 unitGameobject = newUnitObj
             };
             var cord = GetCordFromHex(hitObject);
-            newUnit.cord = cord;
+            newUnit.hexPosition = cord;
             gridMover.MoveUnit(newUnit, cord, newUnitObj.transform.position, hitObject.transform.position);
         }
         else if (hitObject.tag == "Unit")
@@ -75,7 +76,7 @@ public class MouseManager : MonoBehaviour
         } else if (hitObject.tag == "Hex" && selectedUnit != null) {
             var cord = GetCordFromHex(hitObject);
             var unit = gridMover.GetClickedUnit(selectedUnit);
-            var oldPosition = MapGenerator.instance.hexes[unit.cord.x][unit.cord.y].transform.position;
+            var oldPosition = MapGenerator.instance.hexes[unit.hexPosition.x][unit.hexPosition.y].transform.position;
             gridMover.MoveUnit(unit, cord, oldPosition, hitObject.transform.position);
         }
 
