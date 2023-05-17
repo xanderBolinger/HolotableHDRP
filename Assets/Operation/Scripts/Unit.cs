@@ -36,13 +36,13 @@ namespace Operation {
                 {
                     unitType = UnitType.ARMOR;
                 }
-                else if (vic.vehicleType == Vehicle.VehicleType.MECHANIZED && unitType != UnitType.ARMOR) {
-                    unitType = UnitType.MECHANIZED;
-                }
-                else if (vic.vehicleType == Vehicle.VehicleType.HEAVY_WALKER && unitType != UnitType.MECHANIZED 
+                else if (vic.vehicleType == Vehicle.VehicleType.HEAVY_WALKER 
                     && unitType != UnitType.ARMOR)
                 {
                     unitType = UnitType.HEAVY_WALKER;
+                }
+                else if (vic.vehicleType == Vehicle.VehicleType.MECHANIZED && unitType != UnitType.ARMOR && unitType != UnitType.HEAVY_WALKER) {
+                    unitType = UnitType.MECHANIZED;
                 }
                 else if (vic.vehicleType == Vehicle.VehicleType.MOTORIZED && unitType != UnitType.MECHANIZED 
                     && unitType != UnitType.ARMOR && unitType != UnitType.HEAVY_WALKER) {
@@ -64,6 +64,19 @@ namespace Operation {
 
         }
 
+        public Trooper GetTrooper(int index) {
+            return troopers[index];
+        }
+
+        public Trooper GetTrooper(string identifier) {
+            foreach (Trooper trooper in troopers) {
+                if (trooper.identifier == identifier)
+                    return trooper;
+            }
+
+            return null;
+        }
+
         public void AddTrooper(Trooper trooper) {
             troopers.Add(trooper);
             DetermineUnitType();
@@ -78,6 +91,22 @@ namespace Operation {
         public void RemoveTrooper(Trooper trooper) {
             troopers.Remove(trooper);
             DetermineUnitType();
+        }
+
+        public Vehicle GetVehicle(int index)
+        {
+            return vehicles[index];
+        }
+
+        public Vehicle GetVehicle(string identifier)
+        {
+            foreach (Vehicle vic in vehicles)
+            {
+                if (vic.identifier == identifier)
+                    return vic;
+            }
+
+            return null;
         }
 
         public void AddVehicle(Vehicle vehicle)
