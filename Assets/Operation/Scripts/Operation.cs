@@ -120,6 +120,7 @@ namespace Operation {
                 NewTU();
             NewTS();
 
+            currentTimeSegment.plannedMovement.Clear();
             currentTimeSegment = nextTS;
         }
 

@@ -55,6 +55,11 @@ namespace Operation {
 
         public void CreateGame() { 
         
+            // Get hexes 
+            // Get hex cords 
+            // Create OPM 
+            // Call set hexes on OPM
+
         }
 
         public void AdvanceTimeSegment()
@@ -69,8 +74,35 @@ namespace Operation {
                 return;
             }
 
+            var selectedUnit = selectedUnitObject.GetComponent<OperationUnitData>().ou;
 
+            if (subUnitIndex < 0 || subUnitIndex >= selectedUnit.GetUnits().Count) {
+                Debug.Log("Subunit index out of bounds: "+subUnitIndex);
+                return;
+            }
 
+            selectedUnit.GetUnit(subUnitIndex).unitStatus = appliedStatus;
+            selectedUnit.UnitStatusUpdate();
+
+        }
+
+        public void SetUnitMoveType(MoveType moveType) {
+            if (selectedUnitObject == null)
+            {
+                Debug.Log("Select a Operation Unit to change move type.");
+                return;
+            }
+
+            var selectedUnit = selectedUnitObject.GetComponent<OperationUnitData>().ou;
+
+            if (selectedUnit.moveType == MoveType.NONE)
+            {
+                selectedUnit.moveType = moveType;
+                Debug.Log("Set move type.");
+            }
+            else {
+                Debug.Log("Could not set move type. Move type already chosen for this time unit.");
+            }
 
         }
 
@@ -84,7 +116,7 @@ namespace Operation {
                 RetreatAdvance(clickedHex);
             }
             else {
-                AddPlannedMovement();
+                AddPlannedMovement(clickedHex);
             }
 
         }
@@ -112,8 +144,12 @@ namespace Operation {
                 opm.hexes[cord.x][cord.y].transform.position);
         }
 
-        private void AddPlannedMovement() { 
-        
+        private void AddPlannedMovement(GameObject clickedHex) {
+            var hexCord = clickedHex.GetComponent<HexCord>() != null ? clickedHex.GetComponent<HexCord>() : clickedHex.GetComponentInChildren<HexCord>();
+            var movingUnit = selectedUnitObject.GetComponent<OperationUnitData>().ou;
+
+            OperationMovement.AddPlannedMovement(opm, movingUnit, hexCord, opm.hexCords, movingUnit.hexPosition);
+
         }
 
         private GameObject GetClickedObject()

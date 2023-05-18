@@ -172,6 +172,8 @@ namespace Operation {
                 AddPlannedHex(opm, operationUnit, hexCord);
                 return true;
             }
+
+            Debug.LogError("Could not add planned hex for uncaught reason.");
             return false;
 
         }
