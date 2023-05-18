@@ -1365,7 +1365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7802e1dd960638043b5c0443c346bcf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ocmEnabled: 0
+  ocmEnabled: 1
   status: 1
   appliedMoveType: 1
   appliedStatus: 0
@@ -4275,6 +4275,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1196190991417634092, guid: cb4059f8249987b4e82e928d519bec77,
+        type: 3}
+      propertyPath: mouseManagerOn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1196190991417634093, guid: cb4059f8249987b4e82e928d519bec77,
         type: 3}
       propertyPath: m_RootOrder
