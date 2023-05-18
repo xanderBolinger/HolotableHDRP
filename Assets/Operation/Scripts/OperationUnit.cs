@@ -361,7 +361,29 @@ namespace Operation {
             return totalInf <= totalTransportCapacity;
         }
 
-        
+
+        public void Output(OperationManager opm) {
+
+            string output = "Unit Output: \n";
+            output += unitName + ", Unit Type: "+unitType+", Move Type: " + moveType+" Status: "+unitStatus + "\n";
+
+            foreach (var unit in units) {
+                output += unit.GetOutput() + "\n";
+            }
+
+            output += "used free move: " + spentFreeConflictResultMovement + " \n";
+
+            output += "Spent MP " + spentMPTS + "/" + spentMPTU + ", Max MP: "+maxMPTS+"+"+(maxMPTSExtended-maxMPTS)+"/" +
+                +maxMPTU + "+" + (maxMPTUExtended - maxMPTU) + "\n";
+
+            if (opm.currentTimeSegment.plannedMovement.ContainsKey(this))
+                output += "Planned Movement: " + opm.currentTimeSegment.plannedMovement[this].ToString();
+            else
+                output += "No planned movement this TS";
+            Debug.Log(output);
+
+        }
+
     }
 
 }

@@ -14,23 +14,25 @@ namespace Operation {
 
             OperationControlsManager ocm = (OperationControlsManager)target;
 
-            /*if (GUILayout.Button("Run WFC"))
+            if (GUILayout.Button("Create Game"))
             {
-                myScript.RunWFC();
-            }
-            if (GUILayout.Button("Refresh Input Grid"))
-            {
-                myScript.SetInputReader();
-            }
-            if (GUILayout.Button("Create Tilemap"))
-            {
-                myScript.CreateTileMap();
+                ocm.CreateGame();
             }
 
-            if (GUILayout.Button("Save Tilemap"))
+            if (GUILayout.Button("Advance Segment"))
             {
-                myScript.SaveTilemap();
-            }*/
+                ocm.AdvanceTimeSegment();
+            }
+
+            if (GUILayout.Button("Set Unit Move Type"))
+            {
+                ocm.SetUnitMoveType();
+            }
+
+            if (GUILayout.Button("Set Sub-unit Status"))
+            {
+                ocm.SetUnitStatus();
+            }
 
         }
 

@@ -13,8 +13,11 @@ namespace Operation {
 
         public bool ocmEnabled = false;
         public ControlsStatus status;
+        public MoveType appliedMoveType = MoveType.REGULAR;
         public UnitStatus appliedStatus = UnitStatus.FRESH;
         public int subUnitIndex = 0;
+
+        public GameObject unitPrefab;
 
         GameObject selectedUnitObject;
         OperationManager opm;
@@ -31,8 +34,20 @@ namespace Operation {
                 return;
             }
 
-            if (!Input.GetMouseButtonDown(0) || !ocmEnabled)
+            if (!ocmEnabled)
             {
+                return;
+            }
+
+            if (selectedUnitObject != null && Input.GetKeyDown(KeyCode.X)) {
+                var selectedUnit = selectedUnitObject.GetComponent<OperationUnitData>().ou;
+                if (opm.currentTimeSegment.plannedMovement.ContainsKey(selectedUnit)) {
+                    opm.currentTimeSegment.plannedMovement.Remove(selectedUnit);
+                    Debug.Log("Cleared Planned Movement For: "+selectedUnit.unitName);
+                }
+            }
+
+            if (!Input.GetMouseButtonDown(0)) {
                 return;
             }
 
@@ -45,6 +60,7 @@ namespace Operation {
             else if (hitObject.tag == "Unit")
             {
                 selectedUnitObject = hitObject;
+                selectedUnitObject.GetComponent<OperationUnitData>().ou.Output(opm);
             }
             else {
                 selectedUnitObject = null;
@@ -53,13 +69,75 @@ namespace Operation {
 
         }
 
-        public void CreateGame() { 
-        
+        public void CreateGame() {
+
             // Get hexes 
             // Get hex cords 
             // Create OPM 
             // Call set hexes on OPM
 
+            opm.CreateOperation();
+
+            OperationUnit ou = new OperationUnit("ou1", new GameObject(), new Vector2Int(0, 0), Side.BLUFOR);
+
+            ou.AddUnit(new Unit("g1"));
+            ou.AddUnit(new Unit("g2"));
+            ou.AddUnit(new Unit("g3"));
+            ou.AddUnit(new Unit("g4"));
+
+            OperationUnit ou2 = new OperationUnit("ou2", new GameObject(), new Vector2Int(0, 3), Side.BLUFOR);
+
+            ou2.AddUnit(new Unit("g1"));
+            ou2.AddUnit(new Unit("g2"));
+            ou2.AddUnit(new Unit("g3"));
+            ou2.AddUnit(new Unit("g4"));
+
+            OperationUnit ou3 = new OperationUnit("ou3", new GameObject(), new Vector2Int(1, 1), Side.OPFOR);
+
+            ou3.AddUnit(new Unit("c1"));
+            ou3.AddUnit(new Unit("c2"));
+            ou3.AddUnit(new Unit("c3"));
+            ou3.AddUnit(new Unit("c4"));
+            ou3.AddUnit(new Unit("c5"));
+            ou3.AddUnit(new Unit("c6"));
+            ou3.AddUnit(new Unit("c7"));
+
+            OperationUnit ou4 = new OperationUnit("ou4", new GameObject(), new Vector2Int(5, 3), Side.OPFOR);
+
+            ou4.AddUnit(new Unit("c1"));
+            ou4.AddUnit(new Unit("c2"));
+            ou4.AddUnit(new Unit("c3"));
+            ou4.AddUnit(new Unit("c4"));
+            ou4.AddUnit(new Unit("c5"));
+            ou4.AddUnit(new Unit("c6"));
+            ou4.AddUnit(new Unit("c7"));
+
+            var unitPref1 = Instantiate(unitPrefab);
+            unitPref1.GetComponent<OperationUnitData>().ou = ou;
+            var unitPref2 = Instantiate(unitPrefab);
+            unitPref2.GetComponent<OperationUnitData>().ou = ou2;
+            var unitPref3 = Instantiate(unitPrefab);
+            unitPref3.GetComponent<OperationUnitData>().ou = ou3;
+            var unitPref4 = Instantiate(unitPrefab);
+            unitPref4.GetComponent<OperationUnitData>().ou = ou4;
+
+            opm.AddOU(ou);
+            opm.AddOU(ou2);
+            opm.AddOU(ou3);
+            opm.AddOU(ou4);
+
+            opm.SetHexes(MapGenerator.instance.hexes);
+
+            MoveStartingUnit(ou, unitPref1);
+            MoveStartingUnit(ou2, unitPref2);
+            MoveStartingUnit(ou3, unitPref3);
+            MoveStartingUnit(ou4, unitPref4);
+
+        }
+
+        private void MoveStartingUnit(OperationUnit ou, GameObject unitPref) {
+            opm.gridMover.MoveUnit(ou, ou.hexPosition,
+                    unitPref.transform.position, opm.hexes[ou.hexPosition.x][ou.hexPosition.y].transform.position);
         }
 
         public void AdvanceTimeSegment()
@@ -86,7 +164,7 @@ namespace Operation {
 
         }
 
-        public void SetUnitMoveType(MoveType moveType) {
+        public void SetUnitMoveType() {
             if (selectedUnitObject == null)
             {
                 Debug.Log("Select a Operation Unit to change move type.");
@@ -95,13 +173,13 @@ namespace Operation {
 
             var selectedUnit = selectedUnitObject.GetComponent<OperationUnitData>().ou;
 
-            if (selectedUnit.moveType == MoveType.NONE)
+            if (selectedUnit.moveType == MoveType.NONE && appliedMoveType != MoveType.NONE)
             {
-                selectedUnit.moveType = moveType;
+                selectedUnit.moveType = appliedMoveType;
                 Debug.Log("Set move type.");
             }
             else {
-                Debug.Log("Could not set move type. Move type already chosen for this time unit.");
+                Debug.Log("Could not set move type. Move type NONE or already chosen for this time unit.");
             }
 
         }
@@ -149,7 +227,7 @@ namespace Operation {
             var movingUnit = selectedUnitObject.GetComponent<OperationUnitData>().ou;
 
             OperationMovement.AddPlannedMovement(opm, movingUnit, hexCord, opm.hexCords, movingUnit.hexPosition);
-
+            
         }
 
         private GameObject GetClickedObject()

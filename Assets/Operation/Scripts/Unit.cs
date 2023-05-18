@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -134,6 +135,25 @@ namespace Operation {
             vehicles.Remove(vehicle);
             DetermineUnitType();
         }
+
+        public string GetOutput()
+        {
+            string output = name + ", Unit Type: "+unitType+", Unit Status: "+unitStatus+"\n";
+            output += "     -Troopers: \n";
+            foreach (var trooper in troopers) {
+                output += "         "+trooper.name +", SL:"+trooper.sl+ "\n";    
+            }
+            output += "     -Vehicles: \n";
+            foreach (var vehicle in vehicles)
+            {
+                output += "         " + vehicle.callsign + ", Class: " + vehicle.vehicleClass+", Type: "+vehicle.vehicleType+", Disabled: "+vehicle.disabled
+                    + ", Repulsor Craft: " + vehicle.repulsorCraft+", Transport Capacity: "+ vehicle.transportCapacity +  "\n";
+            }
+
+            return output;
+        }
+
+
 
     }
 }

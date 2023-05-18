@@ -116,12 +116,26 @@ namespace Operation {
             OperationMovement.MoveUnits(this, currentTimeSegment, gridMover);
             var conflicts = OperationMovement.GetConflicts(this);
 
+            foreach (var c in conflicts) {
+
+                string output = "Conflict, Aggressor: " + c.aggressor.unitName;
+                output += ", Targets: ";
+
+                foreach (var target in c.targets) {
+                    output += target.unitName + ", ";
+                }
+
+                Debug.Log(output);
+
+            }
+
             if (nextTS.timeUnit != currentTimeSegment.timeUnit)
                 NewTU();
             NewTS();
 
             currentTimeSegment.plannedMovement.Clear();
             currentTimeSegment = nextTS;
+            Debug.Log("Time Segment: "+currentTimeSegment.hour+" "+currentTimeSegment.timeUnit);
         }
 
         
