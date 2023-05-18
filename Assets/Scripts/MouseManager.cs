@@ -8,6 +8,7 @@ public class MouseManager : MonoBehaviour
 {
 
     GameObject selectedHexPrefab;
+    public bool mouseManagerOn = true;
     public GameObject hillHexPrefab;
     public GameObject grassHexPrefab;
     public GameObject treeHexPrefab;
@@ -33,6 +34,9 @@ public class MouseManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!mouseManagerOn)
+            return;
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             creatingTiles = !creatingTiles;

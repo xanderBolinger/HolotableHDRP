@@ -9,6 +9,74 @@ namespace Operation {
     public class OperationMovement
     {
 
+        public static void MoveUnits(OperationManager opm, TimeSegment currentTimeSegment, GridMover gridMover)
+        {
+            if (gridMover == null)
+                return;
+            var order = GetMoveOrder(currentTimeSegment);
+            foreach (var unit in order) {
+                foreach (var cord in currentTimeSegment.plannedMovement[unit]) {
+                    if (!CheckZOC(opm, unit, cord))
+                        continue;
+                    gridMover.MoveUnit(unit, cord, unit.unitGameobject.transform.position, opm.hexes[cord.x][cord.y].transform.position);
+                    unit.spentMPTS += GetMovementCost(unit.unitType, opm.hexCords[cord.x][cord.y].hexType, unit.RepulsorEquipped());
+                    unit.spentMPTU += GetMovementCost(unit.unitType, opm.hexCords[cord.x][cord.y].hexType, unit.RepulsorEquipped());
+                }
+            }
+
+        }
+
+        private static List<OperationUnit> GetMoveOrder(TimeSegment currentTimeSegment) {
+            List<OperationUnit> order = new List<OperationUnit>();
+            List<OperationUnit> freshUnits = new List<OperationUnit>();
+            List<OperationUnit> disorientedUnits = new List<OperationUnit>();
+            List<OperationUnit> fracturedUnits = new List<OperationUnit>();
+            List<OperationUnit> routedUnits = new List<OperationUnit>();
+
+            foreach (var dict in currentTimeSegment.plannedMovement)
+            {
+                var unit = dict.Key;
+
+                switch (unit.unitStatus)
+                {
+                    case UnitStatus.FRESH:
+                        freshUnits.Add(unit);
+                        break;
+                    case UnitStatus.DISORDERED:
+                        disorientedUnits.Add(unit);
+                        break;
+                    case UnitStatus.FRACTURED:
+                        fracturedUnits.Add(unit);
+                        break;
+                    case UnitStatus.ROUTED:
+                        routedUnits.Add(unit);
+                        break;
+                }
+
+            }
+
+            foreach (var unit in ShuffleList(freshUnits))
+                order.Add(unit);
+            foreach (var unit in ShuffleList(disorientedUnits))
+                order.Add(unit);
+            foreach (var unit in ShuffleList(fracturedUnits))
+                order.Add(unit);
+            foreach (var unit in ShuffleList(routedUnits))
+                order.Add(unit);
+            return order;
+        }
+
+        private static List<T> ShuffleList<T>(List<T> alpha) {
+            for (int i = 0; i < alpha.Count; i++)
+            {
+                var temp = alpha[i];
+                int randomIndex = Random.Range(i, alpha.Count);
+                alpha[i] = alpha[randomIndex];
+                alpha[randomIndex] = temp;
+            }
+            return alpha;
+        }
+
         public static double GetMovementCost(UnitType unitType, HexType hexType, bool repulsorEquipped)
         {
             int BASE = 0, REPULSOR = 1, TRACKED = 2, WHEELED = 3;
@@ -73,7 +141,8 @@ namespace Operation {
             var legalHexes = HexDirection.GetHexNeighbours(lastPosition);
 
             if (moveType == MoveType.NONE || !operationUnit.CanMoveDisabledVehicles() 
-                || !legalHexes.Contains(new Vector2Int(hexCord.x, hexCord.y))) {
+                || !legalHexes.Contains(new Vector2Int(hexCord.x, hexCord.y))
+                || !CheckZOC(opm, operationUnit, new Vector2Int(hexCord.x, hexCord.y))) {
                 Debug.Log("Cannot add planned movement for unit: "+operationUnit.unitName
                     +", Move Type: "+moveType+", Can Tow Disabled Vehicles: "+operationUnit.CanMoveDisabledVehicles()
                     +", Move to position: "+ new Vector2Int(hexCord.x, hexCord.y));
@@ -107,7 +176,28 @@ namespace Operation {
 
         }
 
-        private static double GetPreviouslyPlannedMovmentCost(OperationManager opm, OperationUnit operationUnit, List<List<HexCord>> hexes, bool repulsorEquipped) {
+        private static bool CheckZOC(OperationManager opm, OperationUnit operationUnit, Vector2Int cord) {
+
+            if (operationUnit.moveType == MoveType.TACTICAL)
+                return true;
+
+            foreach (var unit in opm.operationUnits) {
+                if (unit.side == operationUnit.side || unit.unitStatus == UnitStatus.FRACTURED 
+                    || unit.unitStatus == UnitStatus.ROUTED
+                    || unit.avoidConflict) {
+                    continue;
+                }
+
+                if (HexDirection.GetHexNeighbours(unit.hexPosition).Contains(cord))
+                    return false;
+
+            } 
+
+            return true;
+        }
+
+        private static double GetPreviouslyPlannedMovmentCost(OperationManager opm, OperationUnit operationUnit, 
+            List<List<HexCord>> hexes, bool repulsorEquipped) {
             double total = 0;
 
             if (opm.currentTimeSegment.plannedMovement.ContainsKey(operationUnit))
@@ -131,19 +221,56 @@ namespace Operation {
             }
         }
 
-        private static List<Conflict> GetConflicts(OperationManager opm) {
+        public static List<Conflict> GetConflicts(OperationManager opm) {
             List<Conflict> conflicts = new List<Conflict>();
 
-            var currentTimeSegment = opm.currentTimeSegment;
 
+            // There are two cases in which a conflict can be created 
+            // When two opposing units have overlapping zone of control, both units have to not be avoiding conflict.
+            // Or when one OU is projecting a zone of control and not avoiding conflict 
+            foreach (var unit in opm.operationUnits)
+            {
+                if (unit.avoidConflict || unit.moveType == MoveType.EXTENDED)
+                    continue;
 
+                var zoc = HexDirection.GetHexNeighbours(unit.hexPosition);
+
+                List<OperationUnit> targets = new List<OperationUnit>();
+
+                foreach (var compareUnit in opm.operationUnits)
+                {
+                    if (compareUnit.side == unit.side)
+                        continue;
+
+                    if (zoc.Contains(compareUnit.hexPosition))
+                    {
+                        targets.Add(compareUnit);
+                    }
+                    else if (!compareUnit.avoidConflict 
+                        && OverlappingZOC(zoc, HexDirection.GetHexNeighbours(compareUnit.hexPosition)))
+                    {
+                        targets.Add(compareUnit);
+                    }
+
+                }
+
+                if (targets.Count > 0) {
+                    conflicts.Add(new Conflict(unit, targets));
+                }
+
+            }
 
 
             return conflicts;
         }
 
-        private static void AddConflictToList(Conflict conflict, List<Conflict> conflicts) { 
-        
+        private static bool OverlappingZOC(List<Vector2Int> a, List<Vector2Int> b) {
+            foreach(var item in a) {
+                if (b.Contains(item))
+                    return true;
+            }
+
+            return false;
         }
 
     }

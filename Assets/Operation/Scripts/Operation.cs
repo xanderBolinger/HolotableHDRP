@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Operation.OperationUnit;
 using static Operation.TimeSegment;
 
 namespace Operation {
@@ -15,6 +16,42 @@ namespace Operation {
         public List<OperationUnit> operationUnits;
         [HideInInspector]
         public TimeSegment currentTimeSegment;
+        [HideInInspector]
+        public GridMover gridMover;
+        [HideInInspector]
+        public List<List<GameObject>> hexes;
+        [HideInInspector]
+        public List<List<HexCord>> hexCords;
+
+        public void Start()
+        {
+            if (GetComponent<GridMover>() != null)
+                gridMover = GetComponent<GridMover>();
+        }
+
+        public void SetHexes(List<List<GameObject>> hexes) {
+            this.hexes = hexes;
+            hexCords = new List<List<HexCord>>();
+
+            for (int row = 0; row < hexes.Count; row++) {
+
+                List<HexCord> hexCordRow = new List<HexCord>();
+
+                for (int col = 0; col < hexes[0].Count; col++) {
+                    var hex = hexes[row][col];
+                    if (hex.GetComponent<HexCord>() != null)
+                    {
+                        hexCordRow.Add(hex.GetComponent<HexCord>());
+                    }
+                    else {
+                        hexCordRow.Add(hex.GetComponentInChildren<HexCord>());
+                    }
+                }
+
+                hexCords.Add(hexCordRow);
+            }
+
+        }
 
         public void CreateOperation() {
 
@@ -76,12 +113,17 @@ namespace Operation {
 
             var nextTS = GetNextTS();
 
+            OperationMovement.MoveUnits(this, currentTimeSegment, gridMover);
+            var conflicts = OperationMovement.GetConflicts(this);
+
             if (nextTS.timeUnit != currentTimeSegment.timeUnit)
                 NewTU();
             NewTS();
 
             currentTimeSegment = nextTS;
         }
+
+        
 
         private void NewTS() {
             foreach (var unit in operationUnits) {
@@ -99,12 +141,10 @@ namespace Operation {
         }
 
         private TimeSegment GetNextTS() {
-            TimeSegment nextTS = null;
 
             if (currentTimeSegment.hour == timeSegments.Count)
             {
-                nextTS = timeSegments[0];
-                return nextTS;
+                return timeSegments[0];
             }
 
             foreach (var ts in timeSegments)

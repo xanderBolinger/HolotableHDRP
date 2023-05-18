@@ -7,15 +7,17 @@ namespace Operation {
 
     public class Conflict
     {
-        public Dictionary<OperationUnit, List<Vector2Int>> participants;
+        public OperationUnit aggressor;
+        public List<OperationUnit> targets;
 
-        public Conflict() {
-            participants = new Dictionary<OperationUnit, List<Vector2Int>>();
+
+
+        public Conflict(OperationUnit a, List<OperationUnit> b)
+        {
+            aggressor = a;
+            targets = b;
         }
 
-        public void AddParticipant(OperationUnit ou, List<Vector2Int> cords) {
-            participants.Add(ou, cords);
-        }
 
     }
 

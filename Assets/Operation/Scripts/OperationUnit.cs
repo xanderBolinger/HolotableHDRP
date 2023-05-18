@@ -32,6 +32,7 @@ namespace Operation {
 
         public double maxMPTS;
         public double maxMPTSExtended;
+
         public double maxMPTU;
         public double maxMPTUExtended;
 
@@ -69,6 +70,11 @@ namespace Operation {
 
         public OperationUnit()
         {
+        }
+
+        public List<Unit> GetUnits()
+        {
+            return units;
         }
 
         public Unit GetUnit(int index)
@@ -115,6 +121,7 @@ namespace Operation {
             units.Add(unit);
             DetermineUnitType();
             DetermineMP();
+            UnitStatusUpdate();
         }
 
         public void RemoveUnit(int index)
@@ -122,6 +129,7 @@ namespace Operation {
             units.RemoveAt(index);
             DetermineUnitType();
             DetermineMP();
+            UnitStatusUpdate();
         }
 
         public void RemoveUnit(Unit unit)
@@ -129,6 +137,53 @@ namespace Operation {
             units.Remove(unit);
             DetermineUnitType();
             DetermineMP();
+            UnitStatusUpdate();
+        }
+
+        public void UnitStatusUpdate()
+        {
+            int fresh = 0, disoriented = 0, fractured = 0, routed = 0;
+
+            foreach (var subUnit in GetUnits())
+            {
+                switch (subUnit.unitStatus)
+                {
+
+                    case UnitStatus.FRESH:
+                        fresh++;
+                        break;
+                    case UnitStatus.DISORDERED:
+                        disoriented++;
+                        break;
+                    case UnitStatus.FRACTURED:
+                        fractured++;
+                        break;
+                    case UnitStatus.ROUTED:
+                        routed++;
+                        break;
+
+                }
+            }
+
+            int max4 = System.Math.Max(System.Math.Max(fresh, disoriented), System.Math.Max(fractured, routed));
+
+            if (max4 == fresh)
+            {
+                unitStatus = UnitStatus.FRESH;
+            }
+            else if (max4 == disoriented)
+            {
+                unitStatus = UnitStatus.DISORDERED;
+            }
+            else if (max4 == fractured)
+            {
+                unitStatus = UnitStatus.FRACTURED;
+            }
+            else if (max4 == routed)
+            {
+                unitStatus = UnitStatus.ROUTED;
+            }
+
         }
 
         public HexType GetTerrainType(List<List<HexCord>> hexes)
