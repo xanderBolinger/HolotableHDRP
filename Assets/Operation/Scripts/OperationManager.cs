@@ -138,8 +138,6 @@ namespace Operation {
             Debug.Log("Time Segment: "+currentTimeSegment.hour+" "+currentTimeSegment.timeUnit);
         }
 
-        
-
         private void NewTS() {
             foreach (var unit in operationUnits) {
                 unit.spentMPTS = 0;

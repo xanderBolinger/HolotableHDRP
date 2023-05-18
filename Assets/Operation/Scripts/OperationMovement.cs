@@ -18,9 +18,18 @@ namespace Operation {
                 foreach (var cord in currentTimeSegment.plannedMovement[unit]) {
                     if (!CheckZOC(opm, unit, cord))
                         continue;
-                    gridMover.MoveUnit(unit, cord, unit.unitGameobject.transform.position, opm.hexes[cord.x][cord.y].transform.position);
-                    unit.spentMPTS += GetMovementCost(unit.unitType, opm.hexCords[cord.x][cord.y].hexType, unit.RepulsorEquipped());
-                    unit.spentMPTU += GetMovementCost(unit.unitType, opm.hexCords[cord.x][cord.y].hexType, unit.RepulsorEquipped());
+                    bool clear = opm.hexCords[cord.x][cord.y].hexType == HexType.CLEAR ? true : false;
+                    gridMover.MoveUnit(unit, cord, unit.unitGameobject.transform.position, opm.hexes[cord.x][cord.y].transform.position,
+                        clear);
+                    if (unit.moveType != MoveType.TACTICAL)
+                    {
+                        unit.spentMPTS += GetMovementCost(unit.unitType, opm.hexCords[cord.x][cord.y].hexType, unit.RepulsorEquipped());
+                        unit.spentMPTU += GetMovementCost(unit.unitType, opm.hexCords[cord.x][cord.y].hexType, unit.RepulsorEquipped());
+                    }
+                    else {
+                        unit.tacticalMovement++;
+                    }
+
                 }
             }
 
@@ -139,10 +148,14 @@ namespace Operation {
             MoveType moveType = operationUnit.moveType;
 
             var legalHexes = HexDirection.GetHexNeighbours(lastPosition);
+            bool repulsorEquipped = operationUnit.RepulsorEquipped();
+            double cost = GetMovementCost(operationUnit.unitType, hexCord.hexType, repulsorEquipped)
+                + GetPreviouslyPlannedMovmentCost(opm, operationUnit, hexes, repulsorEquipped);
 
             if (moveType == MoveType.NONE || !operationUnit.CanMoveDisabledVehicles() 
                 || !legalHexes.Contains(new Vector2Int(hexCord.x, hexCord.y))
-                || !CheckZOC(opm, operationUnit, new Vector2Int(hexCord.x, hexCord.y))) {
+                || !CheckZOC(opm, operationUnit, new Vector2Int(hexCord.x, hexCord.y))
+                || (cost <= 0 && moveType != MoveType.TACTICAL)) {
                 Debug.Log("Cannot add planned movement for unit: "+operationUnit.unitName
                     +", Move Type: "+moveType+", Can Tow Disabled Vehicles: "+operationUnit.CanMoveDisabledVehicles()
                     +", Move to position: "+ new Vector2Int(hexCord.x, hexCord.y));
@@ -151,10 +164,6 @@ namespace Operation {
 
             if (moveType != MoveType.TACTICAL)
             {
-                bool repulsorEquipped = operationUnit.RepulsorEquipped();
-                double cost = GetMovementCost(operationUnit.unitType, hexCord.hexType, repulsorEquipped)
-                    + GetPreviouslyPlannedMovmentCost(opm, operationUnit, hexes, repulsorEquipped);
-
                 // extended movement not ending in enemy ZOC
 
                 if (operationUnit.spentMPTS + cost <= (moveType == MoveType.REGULAR ? operationUnit.maxMPTS : operationUnit.maxMPTSExtended)

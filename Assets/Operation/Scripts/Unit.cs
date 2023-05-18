@@ -139,15 +139,20 @@ namespace Operation {
         public string GetOutput()
         {
             string output = name + ", Unit Type: "+unitType+", Unit Status: "+unitStatus+"\n";
+
+            int trooperCount = 1;
             output += "     -Troopers: \n";
             foreach (var trooper in troopers) {
-                output += "         "+trooper.name +", SL:"+trooper.sl+ "\n";    
+                output += "         "+trooperCount+": "+trooper.name +", SL:"+trooper.sl+ "\n";
+                trooperCount++;
             }
             output += "     -Vehicles: \n";
+            int vehicleCount = 1;
             foreach (var vehicle in vehicles)
             {
-                output += "         " + vehicle.callsign + ", Class: " + vehicle.vehicleClass+", Type: "+vehicle.vehicleType+", Disabled: "+vehicle.disabled
+                output += "         " +vehicleCount+": " +vehicle.callsign + ", Class: " + vehicle.vehicleClass+", Type: "+vehicle.vehicleType+", Disabled: "+vehicle.disabled
                     + ", Repulsor Craft: " + vehicle.repulsorCraft+", Transport Capacity: "+ vehicle.transportCapacity +  "\n";
+                vehicleCount++;
             }
 
             return output;

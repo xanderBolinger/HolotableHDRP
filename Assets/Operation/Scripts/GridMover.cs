@@ -9,12 +9,17 @@ public class GridMover : MonoBehaviour
 
     public Dictionary<Vector2Int, List<OperationUnit>> unitLocations;
 
-    public void MoveUnit(OperationUnit unit, Vector2Int cord, Vector3 oldPosition, Vector3 moveToPosition) {
+    public void MoveUnit(OperationUnit unit, Vector2Int cord, Vector3 oldPosition, Vector3 moveToPosition, bool clear=false) {
         if(unitLocations == null)
             unitLocations = new Dictionary<Vector2Int, List<OperationUnit>>();
 
         RemoveUnit(unit, cord, oldPosition);
         AddUnit(unit, cord, moveToPosition);
+
+        if(clear)
+            unit.unitGameobject.transform.position = new Vector3(unit.unitGameobject.transform.position.x, unit.unitGameobject.transform.position.y - 0.1f,
+                unit.unitGameobject.transform.position.z);
+
     }
 
     
@@ -30,6 +35,8 @@ public class GridMover : MonoBehaviour
         {
             y += 0.15f + 0.025f * unitIndex;
         }
+
+
 
         return y;
     }

@@ -1370,7 +1370,9 @@ MonoBehaviour:
   appliedMoveType: 1
   appliedStatus: 0
   subUnitIndex: 0
-  unitPrefab: {fileID: 3914645779809767574, guid: e45836d914079a64b93fbc067a2c4df3,
+  bluforPrefab: {fileID: 3914645779809767574, guid: e45836d914079a64b93fbc067a2c4df3,
+    type: 3}
+  opforPrefab: {fileID: 2287761489389596363, guid: 8a1c6ca8d64feed41b9ded162a323b3a,
     type: 3}
 --- !u!114 &1162171870
 MonoBehaviour:

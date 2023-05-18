@@ -17,7 +17,8 @@ namespace Operation {
         public UnitStatus appliedStatus = UnitStatus.FRESH;
         public int subUnitIndex = 0;
 
-        public GameObject unitPrefab;
+        public GameObject bluforPrefab;
+        public GameObject opforPrefab;
 
         GameObject selectedUnitObject;
         OperationManager opm;
@@ -78,21 +79,36 @@ namespace Operation {
 
             opm.CreateOperation();
 
-            OperationUnit ou = new OperationUnit("ou1", new GameObject(), new Vector2Int(0, 0), Side.BLUFOR);
+            var unitPref1 = Instantiate(bluforPrefab);
+            unitPref1.transform.position = new Vector3(0, 0, 0);
+
+
+            var unitPref2 = Instantiate(bluforPrefab);
+            unitPref2.transform.position = new Vector3(0, 0, 0);
+
+
+            var unitPref3 = Instantiate(opforPrefab);
+            unitPref3.transform.position = new Vector3(0, 0, 0);
+
+
+            var unitPref4 = Instantiate(opforPrefab);
+            unitPref4.transform.position = new Vector3(0, 0, 0);
+
+            OperationUnit ou = new OperationUnit("ou1", unitPref1, new Vector2Int(0, 0), Side.BLUFOR);
 
             ou.AddUnit(new Unit("g1"));
             ou.AddUnit(new Unit("g2"));
             ou.AddUnit(new Unit("g3"));
             ou.AddUnit(new Unit("g4"));
 
-            OperationUnit ou2 = new OperationUnit("ou2", new GameObject(), new Vector2Int(0, 3), Side.BLUFOR);
+            OperationUnit ou2 = new OperationUnit("ou2", unitPref2, new Vector2Int(0, 3), Side.BLUFOR);
 
             ou2.AddUnit(new Unit("g1"));
             ou2.AddUnit(new Unit("g2"));
             ou2.AddUnit(new Unit("g3"));
             ou2.AddUnit(new Unit("g4"));
 
-            OperationUnit ou3 = new OperationUnit("ou3", new GameObject(), new Vector2Int(1, 1), Side.OPFOR);
+            OperationUnit ou3 = new OperationUnit("ou3", unitPref3, new Vector2Int(1, 1), Side.OPFOR);
 
             ou3.AddUnit(new Unit("c1"));
             ou3.AddUnit(new Unit("c2"));
@@ -102,7 +118,7 @@ namespace Operation {
             ou3.AddUnit(new Unit("c6"));
             ou3.AddUnit(new Unit("c7"));
 
-            OperationUnit ou4 = new OperationUnit("ou4", new GameObject(), new Vector2Int(5, 3), Side.OPFOR);
+            OperationUnit ou4 = new OperationUnit("ou4", unitPref4, new Vector2Int(5, 3), Side.OPFOR);
 
             ou4.AddUnit(new Unit("c1"));
             ou4.AddUnit(new Unit("c2"));
@@ -112,13 +128,16 @@ namespace Operation {
             ou4.AddUnit(new Unit("c6"));
             ou4.AddUnit(new Unit("c7"));
 
-            var unitPref1 = Instantiate(unitPrefab);
+            
+
+            unitPref1.name = ou.unitName;
+            unitPref2.name = ou2.unitName;
+            unitPref3.name = ou3.unitName;
+            unitPref4.name = ou4.unitName;
+
             unitPref1.GetComponent<OperationUnitData>().ou = ou;
-            var unitPref2 = Instantiate(unitPrefab);
             unitPref2.GetComponent<OperationUnitData>().ou = ou2;
-            var unitPref3 = Instantiate(unitPrefab);
             unitPref3.GetComponent<OperationUnitData>().ou = ou3;
-            var unitPref4 = Instantiate(unitPrefab);
             unitPref4.GetComponent<OperationUnitData>().ou = ou4;
 
             opm.AddOU(ou);

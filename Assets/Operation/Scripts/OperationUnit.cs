@@ -365,10 +365,12 @@ namespace Operation {
         public void Output(OperationManager opm) {
 
             string output = "Unit Output: \n";
-            output += unitName + ", Unit Type: "+unitType+", Move Type: " + moveType+" Status: "+unitStatus + "\n";
+            output += side+":: " + unitName + ", Status: " + unitStatus + ", Unit Type: " +unitType+", Move Type: " + moveType+ "\n";
 
+            int unitCount = 1;
             foreach (var unit in units) {
-                output += unit.GetOutput() + "\n";
+                output += unitCount + ": "+ unit.GetOutput() + "\n";
+                unitCount++;
             }
 
             output += "used free move: " + spentFreeConflictResultMovement + " \n";
