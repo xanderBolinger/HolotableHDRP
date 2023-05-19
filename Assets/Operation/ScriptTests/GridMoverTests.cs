@@ -21,16 +21,19 @@ public class GridMoverTests
         unit = new OperationUnit();
         unit.unitName = "unit 1";
         unit.unitGameobject = new GameObject();
+        unit.unitGameobject.AddComponent<OperationUnitData>();
         unit.unitGameobject.transform.position = new Vector3(0, 0, 0);
 
         unit2 = new OperationUnit();
         unit2.unitName = "unit 2";
         unit2.unitGameobject = new GameObject();
+        unit2.unitGameobject.AddComponent<OperationUnitData>();
         unit2.unitGameobject.transform.position = new Vector3(0, 0, 0);
 
         unit3 = new OperationUnit();
         unit3.unitName = "unit 3";
         unit3.unitGameobject = new GameObject();
+        unit3.unitGameobject.AddComponent<OperationUnitData>();
         unit3.unitGameobject.transform.position = new Vector3(0, 0, 0);
 
         hex1pos = new Vector3Int(1, 0, 1);

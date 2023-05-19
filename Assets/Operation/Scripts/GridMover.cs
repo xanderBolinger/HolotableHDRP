@@ -17,7 +17,9 @@ public class GridMover : MonoBehaviour
         AddUnit(unit, cord, moveToPosition);
 
         if(clear)
-            unit.unitGameobject.transform.position = new Vector3(unit.unitGameobject.transform.position.x, unit.unitGameobject.transform.position.y - 0.1f,
+            unit.unitGameobject.GetComponent<OperationUnitData>().destination = 
+                new Vector3(unit.unitGameobject.transform.position.x, 
+                unit.unitGameobject.transform.position.y - 0.1f,
                 unit.unitGameobject.transform.position.z);
 
     }
@@ -60,7 +62,8 @@ public class GridMover : MonoBehaviour
 
         var y = GetUnitElevation(units, worldPosition);
 
-        unit.unitGameobject.transform.position = new Vector3(worldPosition.x, y, worldPosition.z);
+        unit.unitGameobject.GetComponent<OperationUnitData>().destination = new Vector3(worldPosition.x, y, worldPosition.z);
+        
         unitLocations[cord].Add(unit);
         unit.hexPosition = cord;
 
@@ -83,7 +86,8 @@ public class GridMover : MonoBehaviour
             units.Remove(unit);
 
             for (int i = 0; i < units.Count; i++) {
-                units[i].unitGameobject.transform.position = new Vector3(oldPosition.x, GetUnitElevation(i, oldPosition), oldPosition.z);
+                units[i].unitGameobject.GetComponent<OperationUnitData>().destination
+                    = new Vector3(oldPosition.x, GetUnitElevation(i, oldPosition), oldPosition.z);
             }
             
         }
