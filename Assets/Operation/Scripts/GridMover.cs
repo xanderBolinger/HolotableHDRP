@@ -18,9 +18,9 @@ public class GridMover : MonoBehaviour
 
         if(clear)
             unit.unitGameobject.GetComponent<OperationUnitData>().destination = 
-                new Vector3(unit.unitGameobject.transform.position.x, 
-                unit.unitGameobject.transform.position.y - 0.1f,
-                unit.unitGameobject.transform.position.z);
+                new Vector3(unit.unitGameobject.GetComponent<OperationUnitData>().destination.x,
+                unit.unitGameobject.GetComponent<OperationUnitData>().destination.y - 0.10f,
+                unit.unitGameobject.GetComponent<OperationUnitData>().destination.z);
 
     }
 

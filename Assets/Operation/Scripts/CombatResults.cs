@@ -10,7 +10,7 @@ namespace Operation {
         public static void AdvanceOrRetreat(OperationManager opm, OperationUnit unit, Vector2Int cord, Vector3 startPos, Vector3 endPos)
         {
             unit.spentFreeConflictResultMovement = true;
-            opm.gridMover.MoveUnit(unit, cord, startPos, endPos);
+            opm.gridMover.MoveUnit(unit, cord, startPos, endPos, opm.hexCords[cord.x][cord.y].hexType == HexCord.HexType.CLEAR);
         }
 
         public static void SetUnitStatus(OperationUnit unit, int subUnitIndex, UnitStatus status) {

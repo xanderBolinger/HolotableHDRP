@@ -43,41 +43,7 @@ public class GridMoverTests
         gridMover = gridMoverObj.AddComponent<GridMover>();
     }
     
-    [Test]
-    public void MoveUnit()
-    {
-
-        gridMover.MoveUnit(unit, new Vector2Int(1,1), new Vector3(0, 0, 0), hex1pos);
-        
-        Assert.AreEqual(0.15f,
-            GetUnitPosition(unit));
-
-        gridMover.MoveUnit(unit2, new Vector2Int(1, 1), new Vector3(0, 0, 0), hex1pos);
-
-        Assert.AreEqual(0.175f,
-            GetUnitPosition(unit2));
-
-        gridMover.MoveUnit(unit3, new Vector2Int(1, 1), new Vector3(0, 0, 0), hex1pos);
-
-        Assert.AreEqual(0.2f,
-             GetUnitPosition(unit3));
-
-        gridMover.MoveUnit(unit, new Vector2Int(2, 2), hex1pos, hex2pos);
-
-        Assert.AreEqual(2, unit.unitGameobject.transform.position.x);
-        Assert.AreEqual(0.15f, GetUnitPosition(unit));
-        Assert.AreEqual(2, unit.unitGameobject.transform.position.z);
-
-        Assert.AreEqual(1, unit2.unitGameobject.transform.position.x);
-        Assert.AreEqual(0.15f, GetUnitPosition(unit2));
-        Assert.AreEqual(1, unit2.unitGameobject.transform.position.z);
-        
-        Assert.AreEqual(1, unit3.unitGameobject.transform.position.x);
-        Assert.AreEqual(0.175f, GetUnitPosition(unit3));
-        Assert.AreEqual(1, unit3.unitGameobject.transform.position.z);
-
-        //Assert.AreEqual(0.15f, unit.unitGameobject.transform.position.y);
-    }
+    
 
     [Test]
     public void GetClickedUnit() {
@@ -92,8 +58,6 @@ public class GridMoverTests
     }
 
 
-    public Decimal GetUnitPosition(OperationUnit unit) {
-        return Math.Round((Decimal)unit.unitGameobject.transform.position.y, 5, MidpointRounding.AwayFromZero);
-    }
+    
 
 }

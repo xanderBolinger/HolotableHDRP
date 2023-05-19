@@ -23,6 +23,10 @@ namespace Operation {
         GameObject selectedUnitObject;
         OperationManager opm;
 
+        
+        public Material selectedBluforUnitMaterial;
+
+
         private void Start()
         {
             opm = GetComponent<OperationManager>();
@@ -30,11 +34,6 @@ namespace Operation {
 
         void Update()
         {
-            if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) {
-                selectedUnitObject = null;
-                return;
-            }
-
             if (!ocmEnabled)
             {
                 return;
@@ -42,6 +41,7 @@ namespace Operation {
 
             if (selectedUnitObject != null && Input.GetKeyDown(KeyCode.X)) {
                 var selectedUnit = selectedUnitObject.GetComponent<OperationUnitData>().ou;
+                
                 if (opm.currentTimeSegment.plannedMovement.ContainsKey(selectedUnit)) {
                     opm.currentTimeSegment.plannedMovement.Remove(selectedUnit);
                     Debug.Log("Cleared Planned Movement For: "+selectedUnit.unitName);
@@ -61,6 +61,7 @@ namespace Operation {
             else if (hitObject.tag == "Unit")
             {
                 selectedUnitObject = hitObject;
+                selectedUnitObject.GetComponent<Renderer>().material = selectedBluforUnitMaterial;
                 selectedUnitObject.GetComponent<OperationUnitData>().ou.Output(opm);
             }
             else {
@@ -147,16 +148,20 @@ namespace Operation {
 
             opm.SetHexes(MapGenerator.instance.hexes);
 
-            MoveStartingUnit(ou, unitPref1);
-            MoveStartingUnit(ou2, unitPref2);
-            MoveStartingUnit(ou3, unitPref3);
-            MoveStartingUnit(ou4, unitPref4);
+            MoveStartingUnit(ou, unitPref1, Clear(ou));
+            MoveStartingUnit(ou2, unitPref2, Clear(ou2));
+            MoveStartingUnit(ou3, unitPref3, Clear(ou3));
+            MoveStartingUnit(ou4, unitPref4, Clear(ou4));
 
         }
 
-        private void MoveStartingUnit(OperationUnit ou, GameObject unitPref) {
+        private bool Clear(OperationUnit ou) { 
+            return opm.hexCords[ou.hexPosition.x][ou.hexPosition.y].hexType == HexCord.HexType.CLEAR;
+        }
+
+        private void MoveStartingUnit(OperationUnit ou, GameObject unitPref, bool clear) {
             opm.gridMover.MoveUnit(ou, ou.hexPosition,
-                    unitPref.transform.position, opm.hexes[ou.hexPosition.x][ou.hexPosition.y].transform.position);
+                    unitPref.transform.position, opm.hexes[ou.hexPosition.x][ou.hexPosition.y].transform.position, clear);
         }
 
         public void AdvanceTimeSegment()

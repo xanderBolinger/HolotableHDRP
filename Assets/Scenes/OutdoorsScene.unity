@@ -1374,6 +1374,8 @@ MonoBehaviour:
     type: 3}
   opforPrefab: {fileID: 2287761489389596363, guid: 8a1c6ca8d64feed41b9ded162a323b3a,
     type: 3}
+  selectedBluforUnitMaterial: {fileID: 2100000, guid: ffc98958ee1583a409416e02636e70e0,
+    type: 2}
 --- !u!114 &1162171870
 MonoBehaviour:
   m_ObjectHideFlags: 0
