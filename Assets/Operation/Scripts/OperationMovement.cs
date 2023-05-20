@@ -157,7 +157,7 @@ namespace Operation {
                 || !CheckZOC(opm, operationUnit, new Vector2Int(hexCord.x, hexCord.y))
                 || (cost <= 0 && moveType != MoveType.TACTICAL)
                 || (opm.currentTimeSegment.plannedMovement.ContainsKey(operationUnit) &&
-                    opm.currentTimeSegment.plannedMovement[operationUnit].Count > 1 &&
+                    opm.currentTimeSegment.plannedMovement[operationUnit].Count >= 1 &&
                     moveType == MoveType.TACTICAL)) {
                 Debug.Log("Cannot add planned movement for unit: "+operationUnit.unitName
                     +", Move Type: "+moveType+", Can Tow Disabled Vehicles: "+operationUnit.CanMoveDisabledVehicles()

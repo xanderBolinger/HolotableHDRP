@@ -63,15 +63,20 @@ namespace Operation {
                 if (selectedUnitObject != null)
                     SelectUnitColor(selectedUnitObject);
             }
+            else if (hitObject.tag == "Unit" && selectedUnitObject != null && selectedUnitObject == hitObject) {
+                UnselectUnitColor(selectedUnitObject);
+                selectedUnitObject = null;
+            }
             else if (hitObject.tag == "Unit")
             {
-                if(selectedUnitObject != null)
+                if (selectedUnitObject != null)
                     UnselectUnitColor(selectedUnitObject);
                 selectedUnitObject = hitObject;
                 selectedUnitObject.GetComponent<OperationUnitData>().ou.Output(opm);
                 SelectUnitColor(selectedUnitObject);
             }
-            else if(selectedUnitObject != null) {
+            else if (selectedUnitObject != null)
+            {
                 UnselectUnitColor(selectedUnitObject);
                 selectedUnitObject = null;
             }
