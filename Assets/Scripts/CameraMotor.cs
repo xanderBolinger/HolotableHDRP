@@ -14,6 +14,10 @@ public class CameraMotor : MonoBehaviour
 
     void Update()
     {
+        if (Commands.consoleActive)
+            return; 
+
+
         translateCamera();
 
         rotateCamera();

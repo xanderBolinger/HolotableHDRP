@@ -20,15 +20,20 @@ namespace Operation {
         public GameObject bluforPrefab;
         public GameObject opforPrefab;
 
-        GameObject selectedUnitObject;
-        OperationManager opm;
+        [HideInInspector]
+        public GameObject selectedUnitObject;
+        [HideInInspector]
+        public OperationManager opm;
+        [HideInInspector]
+        public GameObject selectedHex;
 
-        
         public Material selectedBluforUnitMaterial;
         public Material selectedOpforUnitMaterial;
         public Material bluforUnitMaterial;
         public Material opforUnitMaterial;
         public Material plannedHexMaterial;
+
+
 
         private void Start()
         {
@@ -49,6 +54,8 @@ namespace Operation {
                     opm.currentTimeSegment.plannedMovement.Remove(selectedUnit);
                     Debug.Log("Cleared Planned Movement For: "+selectedUnit.unitName);
                 }
+                UnselectUnitColor(selectedUnitObject);
+                SelectUnitColor(selectedUnitObject);
             }
 
             if (!Input.GetMouseButtonDown(0)) {
@@ -57,15 +64,29 @@ namespace Operation {
 
             var hitObject = GetClickedObject();
 
+            ResolveHitObject(hitObject);
+
+
+        }
+
+        private void ResolveHitObject(GameObject hitObject) {
             if (hitObject.tag == "Hex")
             {
                 ClickHex(hitObject);
+
                 if (selectedUnitObject != null)
                     SelectUnitColor(selectedUnitObject);
+                else
+                {
+                    selectedHex = hitObject;
+                    Debug.Log("Selected Hex: " + HexCord.GetHexCord(selectedHex).GetCord());
+                }
             }
-            else if (hitObject.tag == "Unit" && selectedUnitObject != null && selectedUnitObject == hitObject) {
+            else if (hitObject.tag == "Unit" && selectedUnitObject != null && selectedUnitObject == hitObject)
+            {
                 UnselectUnitColor(selectedUnitObject);
                 selectedUnitObject = null;
+                selectedHex = null;
             }
             else if (hitObject.tag == "Unit")
             {
@@ -74,14 +95,21 @@ namespace Operation {
                 selectedUnitObject = hitObject;
                 selectedUnitObject.GetComponent<OperationUnitData>().ou.Output(opm);
                 SelectUnitColor(selectedUnitObject);
+                selectedHex = null;
             }
             else if (selectedUnitObject != null)
             {
                 UnselectUnitColor(selectedUnitObject);
                 selectedUnitObject = null;
+                selectedHex = null;
             }
+        }
 
-
+        public void DeseletUnit() {
+            if (selectedUnitObject == null)
+                return;
+            UnselectUnitColor(selectedUnitObject);
+            selectedUnitObject = null;
         }
 
         private void UnselectUnitColor(GameObject selectedUnitObject) {
@@ -178,37 +206,37 @@ namespace Operation {
 
             OperationUnit ou = new OperationUnit("ou1", unitPref1, new Vector2Int(0, 0), Side.BLUFOR);
 
-            ou.AddUnit(new Unit("g1"));
-            ou.AddUnit(new Unit("g2"));
-            ou.AddUnit(new Unit("g3"));
-            ou.AddUnit(new Unit("g4"));
+            ou.AddUnit(new Unit("plt1-g1"));
+            ou.AddUnit(new Unit("plt1-g2"));
+            ou.AddUnit(new Unit("plt1-g3"));
+            ou.AddUnit(new Unit("plt1-g4"));
 
             OperationUnit ou2 = new OperationUnit("ou2", unitPref2, new Vector2Int(0, 3), Side.BLUFOR);
 
-            ou2.AddUnit(new Unit("g1"));
-            ou2.AddUnit(new Unit("g2"));
-            ou2.AddUnit(new Unit("g3"));
-            ou2.AddUnit(new Unit("g4"));
+            ou2.AddUnit(new Unit("plt2-g1"));
+            ou2.AddUnit(new Unit("plt2-g2"));
+            ou2.AddUnit(new Unit("plt2-g3"));
+            ou2.AddUnit(new Unit("plt2-g4"));
 
             OperationUnit ou3 = new OperationUnit("ou3", unitPref3, new Vector2Int(1, 1), Side.OPFOR);
 
-            ou3.AddUnit(new Unit("c1"));
-            ou3.AddUnit(new Unit("c2"));
-            ou3.AddUnit(new Unit("c3"));
-            ou3.AddUnit(new Unit("c4"));
-            ou3.AddUnit(new Unit("c5"));
-            ou3.AddUnit(new Unit("c6"));
-            ou3.AddUnit(new Unit("c7"));
+            ou3.AddUnit(new Unit("plt1-c1"));
+            ou3.AddUnit(new Unit("plt1-c2"));
+            ou3.AddUnit(new Unit("plt1-c3"));
+            ou3.AddUnit(new Unit("plt1-c4"));
+            ou3.AddUnit(new Unit("plt1-c5"));
+            ou3.AddUnit(new Unit("plt1-c6"));
+            ou3.AddUnit(new Unit("plt1-c7"));
 
             OperationUnit ou4 = new OperationUnit("ou4", unitPref4, new Vector2Int(5, 3), Side.OPFOR);
 
-            ou4.AddUnit(new Unit("c1"));
-            ou4.AddUnit(new Unit("c2"));
-            ou4.AddUnit(new Unit("c3"));
-            ou4.AddUnit(new Unit("c4"));
-            ou4.AddUnit(new Unit("c5"));
-            ou4.AddUnit(new Unit("c6"));
-            ou4.AddUnit(new Unit("c7"));
+            ou4.AddUnit(new Unit("plt2-c1"));
+            ou4.AddUnit(new Unit("plt2-c2"));
+            ou4.AddUnit(new Unit("plt2-c3"));
+            ou4.AddUnit(new Unit("plt2-c4"));
+            ou4.AddUnit(new Unit("plt2-c5"));
+            ou4.AddUnit(new Unit("plt2-c6"));
+            ou4.AddUnit(new Unit("plt2-c7"));
 
             
 
