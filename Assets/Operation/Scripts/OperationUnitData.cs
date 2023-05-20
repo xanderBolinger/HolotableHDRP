@@ -12,6 +12,9 @@ namespace Operation {
         public Vector3 destination;
         float speed = 0.5f;
 
+        public Dictionary<Renderer, Material> plannedHexMaterials = new Dictionary<Renderer, Material>();
+
+
         public void Update()
         {
             if(transform.localPosition != destination) 

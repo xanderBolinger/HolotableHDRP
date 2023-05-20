@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SelectedBluforUnitMaterial
+  m_Name: SelectedOpforUnitMaterial
   m_Shader: {fileID: -6465566751694194690, guid: 4f190a0b7fa97da47a1c4cf1c89f38f6,
     type: 3}
   m_ValidKeywords:
@@ -135,7 +135,7 @@ Material:
     - _ATDistance: 1
     - _AddPrecomputedVelocity: 0
     - _AlbedoAffectEmissive: 0
-    - _Alpha: 0.36
+    - _Alpha: 0.8
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
     - _AlphaCutoffPostpass: 0.5
@@ -173,7 +173,7 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnableGeometricSpecularAA: 0
     - _EnergyConservingSpecularColor: 1
-    - _Fresnel_Power: 0.75
+    - _Fresnel_Power: 1.28
     - _HeightAmplitude: 0.02
     - _HeightCenter: 0.5
     - _HeightMapParametrization: 0
@@ -256,11 +256,11 @@ Material:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
-    - _Fresnel_Color: {r: 0, g: 11.966783, b: 21.361254, a: 0}
+    - _Fresnel_Color: {r: 19.950605, g: 0, b: 0, a: 0}
     - _Hologram_Tiling: {r: 1, g: 3, b: 0, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
-    - _Main_Color: {r: 0.43867922, g: 0.6812253, b: 1, a: 0}
+    - _Main_Color: {r: 1, g: 0.4765816, b: 0.3820755, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}
@@ -268,7 +268,7 @@ Material:
     - _UVMappingMask: {r: 1, g: 0, b: 0, a: 0}
     - _UVMappingMaskEmissive: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &6828871064429712198
+--- !u!114 &568756538482168469
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

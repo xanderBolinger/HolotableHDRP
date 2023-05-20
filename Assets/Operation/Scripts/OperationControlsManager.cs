@@ -25,7 +25,10 @@ namespace Operation {
 
         
         public Material selectedBluforUnitMaterial;
-
+        public Material selectedOpforUnitMaterial;
+        public Material bluforUnitMaterial;
+        public Material opforUnitMaterial;
+        public Material plannedHexMaterial;
 
         private void Start()
         {
@@ -61,14 +64,75 @@ namespace Operation {
             else if (hitObject.tag == "Unit")
             {
                 selectedUnitObject = hitObject;
-                selectedUnitObject.GetComponent<Renderer>().material = selectedBluforUnitMaterial;
                 selectedUnitObject.GetComponent<OperationUnitData>().ou.Output(opm);
+                SelectUnitColor(selectedUnitObject);
             }
-            else {
+            else if(selectedUnitObject != null) {
+                UnselectUnitColor(selectedUnitObject);
                 selectedUnitObject = null;
             }
 
 
+        }
+
+        private void UnselectUnitColor(GameObject selectedUnitObject) {
+            var ou = selectedUnitObject.GetComponent<OperationUnitData>().ou;
+
+            if (ou.side == Side.BLUFOR)
+            {
+                selectedUnitObject.GetComponent<Renderer>().material = bluforUnitMaterial;
+            }
+            else {
+                selectedUnitObject.GetComponent<Renderer>().material = opforUnitMaterial;
+            }
+
+            foreach (var plannedHex in selectedUnitObject.GetComponent<OperationUnitData>().plannedHexMaterials) {
+                plannedHex.Key.material = plannedHex.Value;
+            }
+
+            selectedUnitObject.GetComponent<OperationUnitData>().plannedHexMaterials.Clear();
+
+        }
+
+        private void SelectUnitColor(GameObject selectedUnitObject) {
+            var ou = selectedUnitObject.GetComponent<OperationUnitData>().ou;
+
+            if (ou.side == Side.BLUFOR)
+            {
+                selectedUnitObject.GetComponent<Renderer>().material = bluforUnitMaterial;
+            }
+            else
+            {
+                selectedUnitObject.GetComponent<Renderer>().material = opforUnitMaterial;
+            }
+
+            if (!opm.currentTimeSegment.plannedMovement.ContainsKey(ou))
+                return;
+
+            SelectPlannedHexes();
+            
+
+        }
+
+        private void SelectPlannedHexes() {
+            var ou = selectedUnitObject.GetComponent<OperationUnitData>().ou;
+            selectedUnitObject.GetComponent<OperationUnitData>().plannedHexMaterials.Clear();
+            foreach (var plannedHex in opm.currentTimeSegment.plannedMovement[ou])
+            {
+                var hex = opm.hexes[plannedHex.x][plannedHex.y];
+                if (hex.GetComponent<HexCord>() != null)
+                {
+                    var renderer = hex.GetComponent<Renderer>();
+                    selectedUnitObject.GetComponent<OperationUnitData>().plannedHexMaterials.Add(renderer, renderer.material);
+                    hex.GetComponent<Renderer>().material = plannedHexMaterial;
+                }
+                else
+                {
+                    var renderer = hex.GetComponentInChildren<Renderer>();
+                    selectedUnitObject.GetComponent<OperationUnitData>().plannedHexMaterials.Add(renderer, renderer.material);
+                    renderer.material = plannedHexMaterial;
+                }
+            }
         }
 
         public void CreateGame() {
