@@ -60,9 +60,13 @@ namespace Operation {
             if (hitObject.tag == "Hex")
             {
                 ClickHex(hitObject);
+                if (selectedUnitObject != null)
+                    SelectUnitColor(selectedUnitObject);
             }
             else if (hitObject.tag == "Unit")
             {
+                if(selectedUnitObject != null)
+                    UnselectUnitColor(selectedUnitObject);
                 selectedUnitObject = hitObject;
                 selectedUnitObject.GetComponent<OperationUnitData>().ou.Output(opm);
                 SelectUnitColor(selectedUnitObject);
@@ -99,11 +103,11 @@ namespace Operation {
 
             if (ou.side == Side.BLUFOR)
             {
-                selectedUnitObject.GetComponent<Renderer>().material = bluforUnitMaterial;
+                selectedUnitObject.GetComponent<Renderer>().material = selectedBluforUnitMaterial;
             }
             else
             {
-                selectedUnitObject.GetComponent<Renderer>().material = opforUnitMaterial;
+                selectedUnitObject.GetComponent<Renderer>().material = selectedOpforUnitMaterial;
             }
 
             if (!opm.currentTimeSegment.plannedMovement.ContainsKey(ou))
@@ -116,20 +120,28 @@ namespace Operation {
 
         private void SelectPlannedHexes() {
             var ou = selectedUnitObject.GetComponent<OperationUnitData>().ou;
-            selectedUnitObject.GetComponent<OperationUnitData>().plannedHexMaterials.Clear();
+            var plannedHexes = selectedUnitObject.GetComponent<OperationUnitData>().plannedHexMaterials;
+
+
+
             foreach (var plannedHex in opm.currentTimeSegment.plannedMovement[ou])
             {
                 var hex = opm.hexes[plannedHex.x][plannedHex.y];
                 if (hex.GetComponent<HexCord>() != null)
                 {
                     var renderer = hex.GetComponent<Renderer>();
-                    selectedUnitObject.GetComponent<OperationUnitData>().plannedHexMaterials.Add(renderer, renderer.material);
-                    hex.GetComponent<Renderer>().material = plannedHexMaterial;
+                    if (!plannedHexes.ContainsKey(renderer))
+                    {
+                        plannedHexes.Add(renderer, renderer.material);
+                    }
+                    renderer.material = plannedHexMaterial;
                 }
                 else
                 {
                     var renderer = hex.GetComponentInChildren<Renderer>();
-                    selectedUnitObject.GetComponent<OperationUnitData>().plannedHexMaterials.Add(renderer, renderer.material);
+                    if (!plannedHexes.ContainsKey(renderer)) { 
+                        plannedHexes.Add(renderer, renderer.material);
+                    }
                     renderer.material = plannedHexMaterial;
                 }
             }
@@ -231,6 +243,10 @@ namespace Operation {
         public void AdvanceTimeSegment()
         {
             opm.AdvanceTS();
+            if (selectedUnitObject != null) { 
+                UnselectUnitColor(selectedUnitObject);
+                SelectUnitColor(selectedUnitObject);
+            }
         }
 
         public void SetUnitStatus() {
@@ -314,7 +330,18 @@ namespace Operation {
             var hexCord = clickedHex.GetComponent<HexCord>() != null ? clickedHex.GetComponent<HexCord>() : clickedHex.GetComponentInChildren<HexCord>();
             var movingUnit = selectedUnitObject.GetComponent<OperationUnitData>().ou;
 
-            OperationMovement.AddPlannedMovement(opm, movingUnit, hexCord, opm.hexCords, movingUnit.hexPosition);
+            Vector2Int lastPosition;
+
+            if (opm.currentTimeSegment.plannedMovement.ContainsKey(movingUnit))
+            {
+                lastPosition = opm.currentTimeSegment.plannedMovement[movingUnit]
+                    [opm.currentTimeSegment.plannedMovement[movingUnit].Count-1];
+            }
+            else {
+                lastPosition = movingUnit.hexPosition;
+            }
+
+            OperationMovement.AddPlannedMovement(opm, movingUnit, hexCord, opm.hexCords, lastPosition);
             
         }
 

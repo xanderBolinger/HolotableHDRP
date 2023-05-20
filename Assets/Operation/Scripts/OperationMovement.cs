@@ -155,7 +155,10 @@ namespace Operation {
             if (moveType == MoveType.NONE || !operationUnit.CanMoveDisabledVehicles() 
                 || !legalHexes.Contains(new Vector2Int(hexCord.x, hexCord.y))
                 || !CheckZOC(opm, operationUnit, new Vector2Int(hexCord.x, hexCord.y))
-                || (cost <= 0 && moveType != MoveType.TACTICAL)) {
+                || (cost <= 0 && moveType != MoveType.TACTICAL)
+                || (opm.currentTimeSegment.plannedMovement.ContainsKey(operationUnit) &&
+                    opm.currentTimeSegment.plannedMovement[operationUnit].Count > 1 &&
+                    moveType == MoveType.TACTICAL)) {
                 Debug.Log("Cannot add planned movement for unit: "+operationUnit.unitName
                     +", Move Type: "+moveType+", Can Tow Disabled Vehicles: "+operationUnit.CanMoveDisabledVehicles()
                     +", Move to position: "+ new Vector2Int(hexCord.x, hexCord.y));
@@ -169,17 +172,20 @@ namespace Operation {
                 if (operationUnit.spentMPTS + cost <= (moveType == MoveType.REGULAR ? operationUnit.maxMPTS : operationUnit.maxMPTSExtended)
                     && operationUnit.spentMPTU + cost <= (moveType == MoveType.REGULAR ? operationUnit.maxMPTU : operationUnit.maxMPTUExtended))
                 {
-                    Debug.Log("Add planned hex: ("+hexCord.x+", "+hexCord.y+")");
+                    Debug.Log("Add planned hex: (" + hexCord.x + ", " + hexCord.y + ")");
                     AddPlannedHex(opm, operationUnit, hexCord);
                     return true;
                 }
-                
+
                 return false;
             }
-            else if(operationUnit.tacticalMovement + 1 <= 2) {
+            else if (operationUnit.tacticalMovement + 1 <= 2) {
                 Debug.Log("Add planned hex: (" + hexCord.x + ", " + hexCord.y + ")");
                 AddPlannedHex(opm, operationUnit, hexCord);
                 return true;
+            } else if (operationUnit.tacticalMovement + 1 > 2) {
+                Debug.Log("Tactical movement expended.");
+                return false;
             }
 
             Debug.LogError("Could not add planned hex for uncaught reason.");
