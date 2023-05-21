@@ -68,6 +68,37 @@ namespace Operation {
             units = new List<Unit>();
         }
 
+        // Copy consturctor 
+        public OperationUnit(OperationUnit original)
+        {
+            unitName = original.unitName;
+            unitGameobject = original.unitGameobject;
+            hexPosition = original.hexPosition;
+
+            tacticalMovement = original.tacticalMovement;
+            spentMPTU = original.spentMPTU;
+            spentMPTS = original.spentMPTS;
+
+            maxMPTS = original.maxMPTS;
+            maxMPTSExtended = original.maxMPTSExtended;
+
+            maxMPTU = original.maxMPTU;
+            maxMPTUExtended = original.maxMPTUExtended;
+
+            inConflict = original.inConflict;
+            avoidConflict = original.avoidConflict;
+            advancingCombat = original.advancingCombat;
+            spentFreeConflictResultMovement = original.spentFreeConflictResultMovement;
+
+            side = original.side;
+            unitStatus = original.unitStatus;
+            unitType = original.unitType;
+            moveType = original.moveType;
+
+            units = new List<Unit>(original.units);
+        }
+
+        // Empty constructor for testing
         public OperationUnit()
         {
         }
@@ -367,21 +398,23 @@ namespace Operation {
             string output = "Unit Output: \n";
             output += side+":: " + unitName + ", Status: " + unitStatus + ", Unit Type: " +unitType+", Move Type: " + moveType+ "\n";
 
+            output += "used free move: " + spentFreeConflictResultMovement + " \n";
+
+            output += "Spent MP " + spentMPTS + "/" + spentMPTU + ", Max MP: " + maxMPTS + "+" + (maxMPTSExtended - maxMPTS) + "/" +
+                +maxMPTU + "+" + (maxMPTUExtended - maxMPTU) + "\n";
+
+            if (opm.currentTimeSegment.plannedMovement.ContainsKey(this))
+                output += "Planned Movement: " + opm.currentTimeSegment.plannedMovement[this].ToString()+"\n";
+            else
+                output += "No planned movement this TS\n";
+
             int unitCount = 1;
             foreach (var unit in units) {
                 output += unitCount + ": "+ unit.GetOutput() + "\n";
                 unitCount++;
             }
 
-            output += "used free move: " + spentFreeConflictResultMovement + " \n";
-
-            output += "Spent MP " + spentMPTS + "/" + spentMPTU + ", Max MP: "+maxMPTS+"+"+(maxMPTSExtended-maxMPTS)+"/" +
-                +maxMPTU + "+" + (maxMPTUExtended - maxMPTU) + "\n";
-
-            if (opm.currentTimeSegment.plannedMovement.ContainsKey(this))
-                output += "Planned Movement: " + opm.currentTimeSegment.plannedMovement[this].ToString();
-            else
-                output += "No planned movement this TS";
+            
             Debug.Log(output);
 
         }

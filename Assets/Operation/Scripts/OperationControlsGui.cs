@@ -34,6 +34,15 @@ namespace Operation {
                 ocm.SetUnitStatus();
             }
 
+            if (GUILayout.Button("Undo"))
+            {
+                ocm.opm.undoRedo.Undo();
+            }
+
+            if (GUILayout.Button("Redo"))
+            {
+                ocm.opm.undoRedo.Redo();
+            }
         }
 
     }

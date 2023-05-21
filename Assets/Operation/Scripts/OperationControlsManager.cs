@@ -261,7 +261,7 @@ namespace Operation {
             MoveStartingUnit(ou2, unitPref2, Clear(ou2));
             MoveStartingUnit(ou3, unitPref3, Clear(ou3));
             MoveStartingUnit(ou4, unitPref4, Clear(ou4));
-
+            opm.undoRedo.AddTurn();
         }
 
         private bool Clear(OperationUnit ou) { 

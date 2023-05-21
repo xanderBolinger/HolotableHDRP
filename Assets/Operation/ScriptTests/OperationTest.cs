@@ -10,18 +10,21 @@ using static Operation.OperationUnit;
 
 public class OperationTest
 {
-
+    
     OperationManager opm;
-    List<List<HexCord>> hexes;
+    List<List<HexCord>> hexCords;
 
     [SetUp]
     public void CreateOperationTest()
     {
         GameObject obj = new GameObject();
+        var gridMover = obj.AddComponent<GridMover>();
         opm = obj.AddComponent<OperationManager>();
         opm.CreateOperation();
-
-        hexes = new List<List<HexCord>>();
+        opm.undoRedo = new UndoRedo(opm);
+        opm.gridMover = gridMover;
+        
+        hexCords = new List<List<HexCord>>();
 
         GameObject t = new GameObject();
         GameObject t1 = new GameObject();
@@ -47,8 +50,15 @@ public class OperationTest
         clear1.x = 1;
         clear1.y = 1;
 
-        hexes.Add(new List<HexCord>() { trees, trees1 });
-        hexes.Add(new List<HexCord>() { clear, clear1 });
+        hexCords.Add(new List<HexCord>() { trees, trees1 });
+        hexCords.Add(new List<HexCord>() { clear, clear1 });
+
+        opm.SetHexes(
+            new List<List<GameObject>> { 
+                new List<GameObject>() { t, t1 },
+                new List<GameObject>() { t2, t3 }
+            }
+        );
 
     }
 
@@ -99,21 +109,45 @@ public class OperationTest
         var infUnit = new Unit("u1");
         infUnit.AddTrooper(trooper);
         ou.AddUnit(infUnit);
-
+        var ouData = ou.unitGameobject.AddComponent<OperationUnitData>();
+        ouData.ou = ou;
         ou.hexPosition = new Vector2Int(0, 0);
+        opm.AddOU(ou);
+        opm.undoRedo.AddTurn();
 
-        OperationMovement.AddPlannedMovement(opm, ou, hexes[1][1], hexes, ou.hexPosition);
+        OperationMovement.AddPlannedMovement(opm, ou, hexCords[1][1], hexCords, ou.hexPosition);
         Assert.AreEqual(0, currentTimeSegment.plannedMovement.Count);
 
         ou.moveType = MoveType.REGULAR;
 
-        OperationMovement.AddPlannedMovement(opm, ou, hexes[0][1], hexes, ou.hexPosition);
+        OperationMovement.AddPlannedMovement(opm, ou, hexCords[0][1], hexCords, ou.hexPosition);
         Assert.AreEqual(1, currentTimeSegment.plannedMovement.Count);
+
+        opm.AdvanceTS();
+        currentTimeSegment = opm.currentTimeSegment;
 
         ou.moveType = MoveType.EXTENDED;
 
-        OperationMovement.AddPlannedMovement(opm, ou, hexes[1][0], hexes, new Vector2Int(0,1));
-        Assert.AreEqual(2, currentTimeSegment.plannedMovement[ou].Count);
+        OperationMovement.AddPlannedMovement(opm, ou, hexCords[1][0], hexCords, new Vector2Int(0, 1));
+        Assert.AreEqual(1, currentTimeSegment.plannedMovement[ou].Count);
+
+        opm.AdvanceTS();
+
+        opm.undoRedo.Undo();
+
+        Assert.AreEqual(new Vector2Int(0, 1), opm.operationUnits[0].hexPosition);
+
+        opm.undoRedo.Undo();
+
+        Assert.AreEqual(new Vector2Int(0, 0), opm.operationUnits[0].hexPosition);
+
+        opm.undoRedo.Redo();
+
+        Assert.AreEqual(new Vector2Int(0, 1), opm.operationUnits[0].hexPosition);
+
+        opm.undoRedo.Redo();
+
+        Assert.AreEqual(new Vector2Int(1, 0), opm.operationUnits[0].hexPosition);
     }
 
 }

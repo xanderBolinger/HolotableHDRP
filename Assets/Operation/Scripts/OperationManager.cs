@@ -8,7 +8,7 @@ namespace Operation {
 
     public class OperationManager : MonoBehaviour
     {
-        public int startTime = 5; 
+        public int startTime = 5;
 
         [HideInInspector]
         public List<TimeSegment> timeSegments;
@@ -22,11 +22,19 @@ namespace Operation {
         public List<List<GameObject>> hexes;
         [HideInInspector]
         public List<List<HexCord>> hexCords;
+        [HideInInspector]
+        public UndoRedo undoRedo;
+
+        private int day = 1;
+
+        
 
         public void Start()
         {
-            if (GetComponent<GridMover>() != null)
-                gridMover = GetComponent<GridMover>();
+            var mover = GetComponent<GridMover>();
+            if (mover != null)
+                gridMover = mover;
+            undoRedo = new UndoRedo(this);
         }
 
         public void SetHexes(List<List<GameObject>> hexes) {
@@ -129,13 +137,17 @@ namespace Operation {
 
             }
 
+            if (nextTS.hour == startTime)
+                day++;
+
             if (nextTS.timeUnit != currentTimeSegment.timeUnit)
                 NewTU();
             NewTS();
 
             currentTimeSegment.plannedMovement.Clear();
             currentTimeSegment = nextTS;
-            Debug.Log("Time Segment: "+currentTimeSegment.hour+" "+currentTimeSegment.timeUnit);
+            undoRedo.AddTurn();
+            Debug.Log("Day: "+day+", Time Segment: "+currentTimeSegment.hour+" "+currentTimeSegment.timeUnit);
         }
 
         private void NewTS() {
