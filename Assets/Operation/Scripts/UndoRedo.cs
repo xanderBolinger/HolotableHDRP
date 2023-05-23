@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,6 +47,8 @@ namespace Operation {
 
             var turn = turns[currentTurn];
 
+            SetUnitObjects(turn);
+
             opm.operationUnits.Clear();
 
             foreach (var unit in turn.operationUnits)
@@ -70,8 +73,13 @@ namespace Operation {
                 var hex = opm.hexes[unit.hexPosition.x][unit.hexPosition.y];
                 var pos = hex.transform.position;
                 var hexCord = HexCord.GetHexCord(hex);
-                int units = opm.gridMover.unitLocations[hexCord.GetCord()].Count;
+
+                int units = opm.gridMover.unitLocations.ContainsKey(hexCord.GetCord()) ? opm.gridMover.unitLocations[hexCord.GetCord()].Count : 0;
+                
                 pos.y = opm.gridMover.GetUnitElevation(units, pos) - (hexCord.hexType == HexCord.HexType.CLEAR ? 0.1f : 0f);
+
+                
+
                 unit.unitGameobject.GetComponent<OperationUnitData>().ou = unit;
                 unit.unitGameobject.GetComponent<OperationUnitData>().destination = pos;
 
@@ -85,8 +93,47 @@ namespace Operation {
 
         }
 
+        private void SetUnitObjects(Turn turn)
+        {
+            foreach (var ouUnit in opm.operationUnits) {
+                bool found = false;
+                foreach (var turnUnit in turn.operationUnits) {
+                    if (ouUnit.unitName == turnUnit.unitName) {
+                        found = true;
+                    }
+                }
 
+                if (!found) {
+                    opm.DeleteUnit(ouUnit.unitGameobject);
+                }
+            }
+
+
+            foreach (var turnUnit in turn.operationUnits)
+            {
+                if(turnUnit.unitGameobject == null)
+                    opm.RecreateUnitGameObject(turnUnit);
+
+
+
+                /*foreach (var ouUnit in opm.operationUnits)
+                {
+                    if (turnUnit.unitName != ouUnit.unitName)
+                    {
+                        continue;
+                    }
+
+                    if (turnUnit.unitGameobject == null && ouUnit.unitGameobject != null)
+                        opm.DeleteUnit(ouUnit.unitGameobject);
+                    else if (turnUnit.unitGameobject != null && ouUnit.unitGameobject == null)
+                        opm.RecreateUnitGameObject(ouUnit);
+
+                }*/
+            }
+        }
     }
+
+
 
     public class Turn {
         public List<OperationUnit> operationUnits;

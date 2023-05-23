@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +28,7 @@ namespace Operation {
 
         private int day = 1;
 
-        
+
 
         public void Start()
         {
@@ -90,6 +91,20 @@ namespace Operation {
 
         public void AddOU(OperationUnit ou) {
             operationUnits.Add(ou);
+        }
+
+        internal void RecreateUnitGameObject(OperationUnit unit)
+        {
+            var ocm = GetComponent<OperationControlsManager>();
+            GameObject newUnitObject = unit.side == Side.BLUFOR ? Instantiate(ocm.bluforPrefab) : Instantiate(ocm.opforPrefab);
+            var ouData = newUnitObject.GetComponent<OperationUnitData>();
+            ouData.ou = unit;
+            unit.unitGameobject = newUnitObject;
+            unit.unitGameobject.transform.position = hexes[0][0].transform.position;
+        }
+
+        public void DeleteUnit(GameObject obj) {
+            Destroy(obj);
         }
 
         public void RemoveOU(OperationUnit ou) {
