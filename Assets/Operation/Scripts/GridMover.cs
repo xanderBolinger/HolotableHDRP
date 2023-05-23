@@ -17,10 +17,10 @@ public class GridMover : MonoBehaviour
         AddUnit(unit, cord, moveToPosition);
 
         if(clear)
-            unit.unitGameobject.GetComponent<OperationUnitData>().destination = 
+            unit.unitGameobject.GetComponent<OperationUnitData>().SetDestination( 
                 new Vector3(unit.unitGameobject.GetComponent<OperationUnitData>().destination.x,
                 unit.unitGameobject.GetComponent<OperationUnitData>().destination.y - 0.1f,
-                unit.unitGameobject.GetComponent<OperationUnitData>().destination.z);
+                unit.unitGameobject.GetComponent<OperationUnitData>().destination.z));
 
     }
 
@@ -62,7 +62,7 @@ public class GridMover : MonoBehaviour
 
         var y = GetUnitElevation(units, worldPosition);
 
-        unit.unitGameobject.GetComponent<OperationUnitData>().destination = new Vector3(worldPosition.x, y, worldPosition.z);
+        unit.unitGameobject.GetComponent<OperationUnitData>().SetDestination(new Vector3(worldPosition.x, y, worldPosition.z));
         
         unitLocations[cord].Add(unit);
         unit.hexPosition = cord;
@@ -86,8 +86,8 @@ public class GridMover : MonoBehaviour
             units.Remove(unit);
 
             for (int i = 0; i < units.Count; i++) {
-                units[i].unitGameobject.GetComponent<OperationUnitData>().destination
-                    = new Vector3(oldPosition.x, GetUnitElevation(i, oldPosition), oldPosition.z);
+                units[i].unitGameobject.GetComponent<OperationUnitData>().SetDestination(
+                    new Vector3(oldPosition.x, GetUnitElevation(i, oldPosition), oldPosition.z));
             }
             
         }

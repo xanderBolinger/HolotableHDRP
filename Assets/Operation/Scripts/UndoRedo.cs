@@ -81,7 +81,7 @@ namespace Operation {
                 
 
                 unit.unitGameobject.GetComponent<OperationUnitData>().ou = unit;
-                unit.unitGameobject.GetComponent<OperationUnitData>().destination = pos;
+                unit.unitGameobject.GetComponent<OperationUnitData>().SetDestination(pos);
 
                 unit.spentMPTS = 0;
             }
