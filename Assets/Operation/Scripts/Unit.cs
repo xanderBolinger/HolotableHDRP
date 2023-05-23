@@ -5,6 +5,7 @@ using UnityEngine;
 using static Operation.OperationUnit;
 
 namespace Operation {
+    [Serializable]
     public class Unit
     {
         public string name;

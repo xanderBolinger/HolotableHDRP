@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Operation {
+    [Serializable]
     public class Trooper
     {
         public string identifier;

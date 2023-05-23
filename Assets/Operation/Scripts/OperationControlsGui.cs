@@ -49,16 +49,26 @@ namespace Operation {
                 ocm.opm.undoRedo.AddTurn();
             }
 
-            if (GUILayout.Button("Load Units"))
+            if (GUILayout.Button("Load Units JSON"))
             {
                 ocm.opjsm.LoadAllUnits();
             }
 
-            if (GUILayout.Button("Load Selected Unit"))
+            if (GUILayout.Button("Load Selected Unit JSON"))
             {
                 ocm.opjsm.LoadSelectedUnit();
             }
 
+
+            if (GUILayout.Button("Save Operation"))
+            {
+                ocm.opm.SaveOperation();
+            }
+
+            if (GUILayout.Button("Load Operation"))
+            {
+                ocm.opm.LoadOperation();
+            }
         }
 
     }

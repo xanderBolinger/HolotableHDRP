@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class HexCord : MonoBehaviour
     public bool urbanHex = false;
     public HexType hexType;
 
+    [Serializable]
     public enum HexType { 
         CLEAR,WOODS,MOUNTAIN,TOWN,CITY,PATH,HIGHWAY
     }

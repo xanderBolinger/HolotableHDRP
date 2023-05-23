@@ -7,26 +7,47 @@ using UnityEngine;
 using static HexCord;
 
 namespace Operation {
+    [Serializable]
     public class OperationUnit
     {
+        [Serializable]
         public enum Side { 
             BLUFOR,OPFOR,IND
         }
+        [Serializable]
         public enum UnitStatus { 
             FRESH,DISORDERED,FRACTURED,ROUTED
         }
+        [Serializable]
         public enum UnitType { 
             INF,ARMOR,MECHANIZED,MOTORIZED,LIGHT_WALKER,HEAVY_WALKER,SPEEDER
         }
+        [Serializable]
         public enum MoveType { 
             NONE,REGULAR,EXTENDED,TACTICAL
         }
 
         public string unitName;
 
+        [NonSerialized]
         public GameObject unitGameobject;
 
-        public Vector2Int hexPosition;
+        [NonSerialized]
+        private Vector2Int _hexPosition;
+
+        public Vector2Int hexPosition
+        {
+            get { return _hexPosition; }
+            set
+            {
+                _hexPosition = value;
+                x = hexPosition.x;
+                y = hexPosition.y;
+            }
+        }
+
+        public int x { get; private set; }
+        public int y { get; private set; }
 
         public int tacticalMovement;
         public double spentMPTU;

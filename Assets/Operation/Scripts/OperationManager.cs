@@ -11,6 +11,8 @@ namespace Operation {
     {
         public int startTime = 5;
 
+        public string operationName;
+
         [HideInInspector]
         public List<TimeSegment> timeSegments;
         [HideInInspector]
@@ -27,8 +29,6 @@ namespace Operation {
         public UndoRedo undoRedo;
 
         private int day = 1;
-
-
 
         public void Start()
         {
@@ -62,7 +62,48 @@ namespace Operation {
 
         }
 
+        public void SaveOperation()
+        {
+            var saveData = OperationSaveRunner.GetOperationSaveData(hexCords, operationUnits, startTime);
+            OperationSaveManager.SaveOperation(saveData, operationName);
+        }
+
+        public void LoadOperation()
+        {
+            CreateOperation();
+            var saveData = OperationSaveManager.LoadOperation(operationName);
+            operationUnits = saveData.operationUnits;
+            currentTimeSegment = timeSegments[saveData.startTime];
+            
+            var mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
+            mapGenerator.ClearMap();
+            List<List<GameObject>> hexPrefabs = new List<List<GameObject>>();
+            foreach (var rowTypes in saveData.hexes)
+            {
+                List<GameObject> row = new List<GameObject>();
+
+                foreach (var colTypes in rowTypes)
+                {
+                    row.Add(HexMap.GetPrefab(colTypes));
+                }
+                hexPrefabs.Add(row);
+            }
+            mapGenerator.InstantiateHexes(hexPrefabs, hexPrefabs[0].Count, hexPrefabs.Count);
+            SetHexes(mapGenerator.hexes);
+
+            foreach (var unit in operationUnits) {
+                RecreateUnitGameObject(unit);
+                gridMover.MoveUnit(unit, unit.hexPosition, new Vector3(0, 0, 0), hexes[unit.x][unit.y].transform.position,
+                    hexCords[unit.x][unit.y].hexType == HexCord.HexType.CLEAR);
+            }
+
+        }
+
         public void CreateOperation() {
+
+            foreach (var unit in operationUnits)
+                if (unit.unitGameobject != null)
+                    Destroy(unit.unitGameobject);
 
             timeSegments = new List<TimeSegment>();
             operationUnits = new List<OperationUnit>();
@@ -97,10 +138,12 @@ namespace Operation {
         {
             var ocm = GetComponent<OperationControlsManager>();
             GameObject newUnitObject = unit.side == Side.BLUFOR ? Instantiate(ocm.bluforPrefab) : Instantiate(ocm.opforPrefab);
+            newUnitObject.transform.position = new Vector3(0, 0, 0);
             var ouData = newUnitObject.GetComponent<OperationUnitData>();
             ouData.ou = unit;
             unit.unitGameobject = newUnitObject;
             unit.unitGameobject.transform.position = hexes[0][0].transform.position;
+            unit.hexPosition = new Vector2Int(unit.x, unit.y);
         }
 
         public void DeleteUnit(GameObject obj) {

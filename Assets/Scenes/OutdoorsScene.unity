@@ -1620,6 +1620,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startTime: 5
+  operationName: Operation 1
+  operationUnits: []
   gridMover: {fileID: 0}
 --- !u!114 &1162171869
 MonoBehaviour:

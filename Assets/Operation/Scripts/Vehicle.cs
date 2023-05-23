@@ -5,14 +5,16 @@ using UnityEngine;
 
 
 namespace Operation {
+    [Serializable]
     public class Vehicle
     {
+        [Serializable]
         public enum VehicleClass { 
             ATTE,
             
             AAT
         }
-
+        [Serializable]
         public enum VehicleType
         {
             ARMOR, MECHANIZED, MOTORIZED, LIGHT_WALKER, HEAVY_WALKER,SPEEDER
