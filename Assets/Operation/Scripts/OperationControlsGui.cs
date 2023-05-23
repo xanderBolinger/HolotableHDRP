@@ -48,6 +48,17 @@ namespace Operation {
             {
                 ocm.opm.undoRedo.AddTurn();
             }
+
+            if (GUILayout.Button("Load Units"))
+            {
+                ocm.opjsm.LoadAllUnits();
+            }
+
+            if (GUILayout.Button("Load Selected Unit"))
+            {
+                ocm.opjsm.LoadSelectedUnit();
+            }
+
         }
 
     }

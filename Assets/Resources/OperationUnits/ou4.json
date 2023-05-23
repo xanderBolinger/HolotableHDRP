@@ -1,0 +1,194 @@
+{
+  "unitName": "ou4",
+  "side": "OPFOR",
+  "units": [
+    {
+      "name": "ou4-c1",
+      "identifier": "6VNCZ8WABD",
+      "troopers": [
+        {
+          "identifier": "Q7CLDDU0WU",
+          "name": "B1",
+          "sl": 12
+        },
+        {
+          "identifier": "27BO8TL93C",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "8QRU7ZSFEN",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "HMPWZER1CC",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "STU958IGJY",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "NAV7Z7H7DO",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "JD4SFV8YQK",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "9NSIKA94DD",
+          "name": "B1",
+          "sl": 11
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "ou4-c2",
+      "identifier": "OXU9LZCBK2",
+      "troopers": [
+        {
+          "identifier": "RAAYUNNHMI",
+          "name": "B1",
+          "sl": 12
+        },
+        {
+          "identifier": "XDRMEKKQP2",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "HFLQ5J7OEF",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "G7U0FCYYDL",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "SHC0IF2WKR",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "NFHIU1JFSY",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "11WLFVLD4C",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "9N6IVM1IM5",
+          "name": "B1",
+          "sl": 11
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "ou4-c3",
+      "identifier": "B8DMVE9545",
+      "troopers": [
+        {
+          "identifier": "5JFSCH8WUR",
+          "name": "B1",
+          "sl": 12
+        },
+        {
+          "identifier": "PZA06TVHBX",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "4QH2DC27WF",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "KSMP4L3T29",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "MHLAQJCT6W",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "KIOZDFRO7P",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "IESLLJBD8U",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "BFT9A48H20",
+          "name": "B1",
+          "sl": 11
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "ou4-c4",
+      "identifier": "3M61FH64FQ",
+      "troopers": [
+        {
+          "identifier": "H7SF5DT4AM",
+          "name": "B1",
+          "sl": 12
+        },
+        {
+          "identifier": "VJRT4C4X9F",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "AYYE1W2G9T",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "PFZ4IW4201",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "RITKIITNSI",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "SQKQID6L6F",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "1IO5Y8CYZZ",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "K4N4E4A9FW",
+          "name": "B1",
+          "sl": 11
+        }
+      ],
+      "vehicles": []
+    }
+  ]
+}

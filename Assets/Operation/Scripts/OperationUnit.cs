@@ -45,7 +45,6 @@ namespace Operation {
         public UnitType unitType;
         public MoveType moveType;
         private List<Unit> units;
-        private string side1;
 
         public OperationUnit(string unitName, GameObject unitGameobject, Vector2Int hexPosition, Side side) {
             this.unitName = unitName;
@@ -105,7 +104,12 @@ namespace Operation {
         public OperationUnit(string unitName, string side1, List<Unit> units)
         {
             this.unitName = unitName;
-            this.side1 = side1;
+            this.side = Enum.Parse<Side>(side1);
+            this.units = units;
+        }
+
+        public void SetUnits(List<Unit> units)
+        {
             this.units = units;
         }
 

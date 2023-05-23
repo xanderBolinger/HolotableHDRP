@@ -1,0 +1,58 @@
+{
+  "unitName": "ou1",
+  "side": "BLUFOR",
+  "units": [
+    {
+      "name": "g",
+      "identifier": "UABXARQMCO",
+      "troopers": [
+        {
+          "identifier": "2QEVLAT9IA",
+          "name": "\"Chopper\" CT-62-3699",
+          "sl": 12
+        },
+        {
+          "identifier": "GUQC4JQ53R",
+          "name": "\"Valiant\" CT-60-3040",
+          "sl": 13
+        },
+        {
+          "identifier": "4NWT8LDQ2O",
+          "name": "\"Ridge\" CT-47-6909",
+          "sl": 13
+        },
+        {
+          "identifier": "FCVSQ9S1WQ",
+          "name": "\"Silver\" CT-45-1011",
+          "sl": 13
+        },
+        {
+          "identifier": "RFBGBFFMOT",
+          "name": "\"Spanner\" CT-29-1237",
+          "sl": 13
+        },
+        {
+          "identifier": "MDFOUG6T7X",
+          "name": "\"Ross\" CT-63-9014",
+          "sl": 13
+        },
+        {
+          "identifier": "63L70L2LSJ",
+          "name": "\"Tor\" CT-73-1494",
+          "sl": 13
+        },
+        {
+          "identifier": "CSDB8SBN1K",
+          "name": "\"Mapper\" CT-78-7429",
+          "sl": 13
+        },
+        {
+          "identifier": "EMG4DDUX4T",
+          "name": "\"Jumper\" CT-64-6301",
+          "sl": 13
+        }
+      ],
+      "vehicles": []
+    }
+  ]
+}

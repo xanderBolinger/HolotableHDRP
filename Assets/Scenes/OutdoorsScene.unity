@@ -1584,6 +1584,7 @@ GameObject:
   - component: {fileID: 1162171868}
   - component: {fileID: 1162171870}
   - component: {fileID: 1162171871}
+  - component: {fileID: 1162171872}
   m_Layer: 0
   m_Name: OperationManager
   m_TagString: Untagged
@@ -1643,6 +1644,7 @@ MonoBehaviour:
     type: 3}
   selectedUnitObject: {fileID: 0}
   opm: {fileID: 0}
+  opjsm: {fileID: 0}
   selectedHex: {fileID: 0}
   selectedBluforUnitMaterial: {fileID: 2100000, guid: ffc98958ee1583a409416e02636e70e0,
     type: 2}
@@ -1676,6 +1678,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   operationControlsManager: {fileID: 1162171869}
+--- !u!114 &1162171872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162171866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1718c3ebdfa42a4c814cc9777eb5bc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1170704471
 PrefabInstance:
   m_ObjectHideFlags: 0

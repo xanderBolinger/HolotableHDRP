@@ -25,6 +25,8 @@ namespace Operation {
         [HideInInspector]
         public OperationManager opm;
         [HideInInspector]
+        public OperationJsonManager opjsm;
+        [HideInInspector]
         public GameObject selectedHex;
 
         public Material selectedBluforUnitMaterial;
@@ -38,6 +40,7 @@ namespace Operation {
         private void Start()
         {
             opm = GetComponent<OperationManager>();
+            opjsm = GetComponent<OperationJsonManager>();
         }
 
         void Update()
