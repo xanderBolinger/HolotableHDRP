@@ -9,12 +9,22 @@ namespace Operation {
     {
         public string name;
         public bool spotted;
+
         public UnitType unitType;
         public UnitStatus unitStatus;
-        public string identifier;
         
-        List<Trooper> troopers;
-        List<Vehicle> vehicles;
+        public string identifier;
+
+        private List<Trooper> troopers;
+        private List<Vehicle> vehicles;
+
+        public Unit(string name, string identifier, List<Trooper> troopers, List<Vehicle> vehicles)
+        {
+            this.name = name;
+            this.identifier = identifier;
+            this.troopers = troopers;
+            this.vehicles = vehicles;
+        }
 
         public Unit(string name) {
             this.name = name;

@@ -23,19 +23,18 @@ namespace Operation {
         }
 
         public string unitName;
+
         public GameObject unitGameobject;
+
         public Vector2Int hexPosition;
 
         public int tacticalMovement;
         public double spentMPTU;
         public double spentMPTS;
-
         public double maxMPTS;
         public double maxMPTSExtended;
-
         public double maxMPTU;
         public double maxMPTUExtended;
-
         public bool inConflict;
         public bool avoidConflict;
         public bool advancingCombat;
@@ -45,8 +44,8 @@ namespace Operation {
         public UnitStatus unitStatus;
         public UnitType unitType;
         public MoveType moveType;
-
-        List<Unit> units;
+        private List<Unit> units;
+        private string side1;
 
         public OperationUnit(string unitName, GameObject unitGameobject, Vector2Int hexPosition, Side side) {
             this.unitName = unitName;
@@ -101,6 +100,13 @@ namespace Operation {
         // Empty constructor for testing
         public OperationUnit()
         {
+        }
+
+        public OperationUnit(string unitName, string side1, List<Unit> units)
+        {
+            this.unitName = unitName;
+            this.side1 = side1;
+            this.units = units;
         }
 
         public List<Unit> GetUnits()

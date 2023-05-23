@@ -16,6 +16,12 @@ namespace Operation {
             this.sl = sl;
         }
 
+        public Trooper(string identifier, string name, int sl)
+        {
+            this.identifier = identifier;
+            this.name = name;
+            this.sl = sl;
+        }
     }
 }
 

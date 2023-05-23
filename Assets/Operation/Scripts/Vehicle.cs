@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,17 @@ namespace Operation {
         public bool disabled;
         public int transportCapacity;
         public string identifier;
+
+        public Vehicle(string callsign, string vehicleType, string vehicleClass, bool repulsorCraft, bool disabled, int transportCapacity, string identifier)
+        {
+            this.callsign = callsign;
+            this.vehicleType = Enum.Parse<VehicleType>(vehicleType);
+            this.vehicleClass = vehicleClass;
+            this.repulsorCraft = repulsorCraft;
+            this.disabled = disabled;
+            this.transportCapacity = transportCapacity;
+            this.identifier = identifier;
+        }
 
         public Vehicle(string callsign, VehicleType vehicleType, string vehicleClass, bool repulsorCraft, int transportCapacity)
         {
@@ -57,6 +69,7 @@ namespace Operation {
 
 
             this.identifier = Identifier.GenerateIdentifier();
+            disabled = false;
         }
 
     }
