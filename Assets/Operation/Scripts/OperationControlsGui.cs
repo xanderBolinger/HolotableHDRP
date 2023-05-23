@@ -43,6 +43,11 @@ namespace Operation {
             {
                 ocm.opm.undoRedo.Redo();
             }
+
+            if (GUILayout.Button("Add Turn"))
+            {
+                ocm.opm.undoRedo.AddTurn();
+            }
         }
 
     }
