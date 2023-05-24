@@ -189,6 +189,147 @@
         }
       ],
       "vehicles": []
+    },
+    {
+      "name": "ou4-at",
+      "identifier": "03NCXJYZQM",
+      "troopers": [
+        {
+          "identifier": "70O70GB5C3",
+          "name": "B1",
+          "sl": 12
+        },
+        {
+          "identifier": "HBZB7H4ANJ",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "QG2AMWJXNM",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "SHZ5EPRXWA",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "KWHEOAZ5O1",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "WA0QHU3NUB",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "LGJHQJ8YPU",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "XOAXI79X7L",
+          "name": "B1",
+          "sl": 11
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "ou4-firesupport",
+      "identifier": "MS5YF6YB5K",
+      "troopers": [
+        {
+          "identifier": "NRN7J4PNAS",
+          "name": "B1",
+          "sl": 12
+        },
+        {
+          "identifier": "E2VD7LBJ5R",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "1SOAPZVR80",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "66WCB3TETU",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "RWBF296MD4",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "QJ12GLW6OU",
+          "name": "B1",
+          "sl": 10
+        },
+        {
+          "identifier": "IYFVY9ZO6O",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "EII7GY3MGC",
+          "name": "B1",
+          "sl": 10
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "ou4-marksman",
+      "identifier": "ZLIWFAZPQK",
+      "troopers": [
+        {
+          "identifier": "X9Q9ADVTHF",
+          "name": "B1",
+          "sl": 12
+        },
+        {
+          "identifier": "V8JU7N9NT0",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "2ONDTIRB9Q",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "O9TA6S5NI5",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "Y1V4B101FO",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "OH9SCUGMBV",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "RC559J0DUH",
+          "name": "B1",
+          "sl": 11
+        },
+        {
+          "identifier": "QIGQKEKCI5",
+          "name": "B1",
+          "sl": 11
+        }
+      ],
+      "vehicles": []
     }
   ]
 }

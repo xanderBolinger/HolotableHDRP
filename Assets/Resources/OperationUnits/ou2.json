@@ -3,111 +3,7 @@
   "side": "BLUFOR",
   "units": [
     {
-      "name": "ou2-g1",
-      "identifier": "024BRH7SEM",
-      "troopers": [
-        {
-          "identifier": "5DXOU3V877",
-          "name": "\"Aranar\" CT-48-5168",
-          "sl": 12
-        },
-        {
-          "identifier": "VDAPYHOCAR",
-          "name": "\"Rod\" CT-90-7429",
-          "sl": 13
-        },
-        {
-          "identifier": "XWIBTKMN77",
-          "name": "\"Ox\" CT-57-8681",
-          "sl": 13
-        },
-        {
-          "identifier": "0V320YF5BI",
-          "name": "\"Moz\" CT-19-3741",
-          "sl": 14
-        },
-        {
-          "identifier": "VJ96IMO48A",
-          "name": "\"Ince\" CT-48-5188",
-          "sl": 13
-        },
-        {
-          "identifier": "G34ONBLA2U",
-          "name": "\"Makin\" CT-54-6130",
-          "sl": 13
-        },
-        {
-          "identifier": "XNVC0GSWEG",
-          "name": "\"Cut\" CT-66-9954",
-          "sl": 13
-        },
-        {
-          "identifier": "TXQD5XCZVF",
-          "name": "\"Zag\" CT-46-2837",
-          "sl": 13
-        },
-        {
-          "identifier": "AAQQ5VWI1H",
-          "name": "\"Joker\" CT-09-7093",
-          "sl": 13
-        }
-      ],
-      "vehicles": []
-    },
-    {
-      "name": "ou2-g2",
-      "identifier": "2TDNRIA067",
-      "troopers": [
-        {
-          "identifier": "OW82M8APA2",
-          "name": "\"Maverick\" CT-97-2398",
-          "sl": 13
-        },
-        {
-          "identifier": "Z9OYKEB1W6",
-          "name": "\"Wooley\" CT-64-5664",
-          "sl": 13
-        },
-        {
-          "identifier": "KSFY5C7N8D",
-          "name": "\"Kupe\" CT-13-0261",
-          "sl": 13
-        },
-        {
-          "identifier": "F9435O6II0",
-          "name": "\"Bravo\" CT-37-0573",
-          "sl": 12
-        },
-        {
-          "identifier": "QW5CT47CCM",
-          "name": "\"Crag\" CT-29-4171",
-          "sl": 12
-        },
-        {
-          "identifier": "S9PA4XQYUJ",
-          "name": "\"Boost\" CT-48-4574",
-          "sl": 13
-        },
-        {
-          "identifier": "DPMOM8FMH3",
-          "name": "\"Prick\" CT-02-2432",
-          "sl": 13
-        },
-        {
-          "identifier": "AZ5IVR38CA",
-          "name": "\"Pi\" CT-70-1351",
-          "sl": 12
-        },
-        {
-          "identifier": "IQWTP6IGE0",
-          "name": "\"Drayk\" CT-13-2379",
-          "sl": 13
-        }
-      ],
-      "vehicles": []
-    },
-    {
-      "name": "ou2-g3",
+      "name": "g3",
       "identifier": "HAIMBW52IY",
       "troopers": [
         {
@@ -159,7 +55,7 @@
       "vehicles": []
     },
     {
-      "name": "ou2-g4",
+      "name": "g4",
       "identifier": "2H5JXFGTLT",
       "troopers": [
         {

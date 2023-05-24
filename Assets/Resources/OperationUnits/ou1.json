@@ -3,53 +3,125 @@
   "side": "BLUFOR",
   "units": [
     {
-      "name": "g",
-      "identifier": "UABXARQMCO",
+      "name": "g1",
+      "identifier": "SR6JG023SE",
       "troopers": [
         {
-          "identifier": "2QEVLAT9IA",
-          "name": "\"Chopper\" CT-62-3699",
+          "identifier": "GU43J9G27D",
+          "name": "\"Hotshot\" CT-10-6874",
+          "sl": 13
+        },
+        {
+          "identifier": "GIEN80P9YP",
+          "name": "\"Colt\" CT-75-1846",
           "sl": 12
         },
         {
-          "identifier": "GUQC4JQ53R",
-          "name": "\"Valiant\" CT-60-3040",
+          "identifier": "6OHLOC26VG",
+          "name": "\"Burk\u0027yc\" CT-78-0597",
+          "sl": 12
+        },
+        {
+          "identifier": "5SM74TGKMX",
+          "name": "\"Swoop\" CT-81-8964",
           "sl": 13
         },
         {
-          "identifier": "4NWT8LDQ2O",
-          "name": "\"Ridge\" CT-47-6909",
+          "identifier": "359N2FPJ5N",
+          "name": "\"Lorka\" CT-48-7287",
+          "sl": 12
+        },
+        {
+          "identifier": "R19I7RXE6M",
+          "name": "\"Cell\" CT-75-5870",
+          "sl": 14
+        },
+        {
+          "identifier": "7G69LA4EA1",
+          "name": "\"Bravo\" CT-44-7928",
           "sl": 13
         },
         {
-          "identifier": "FCVSQ9S1WQ",
-          "name": "\"Silver\" CT-45-1011",
+          "identifier": "DDKZTXYUPM",
+          "name": "\"Jind\" CT-78-4020",
+          "sl": 12
+        },
+        {
+          "identifier": "3ET678IG3K",
+          "name": "\"Ponds\" CT-12-2893",
+          "sl": 11
+        },
+        {
+          "identifier": "GWVAZIN9ZN",
+          "name": "\"Troy\" CT-75-0044",
+          "sl": 12
+        },
+        {
+          "identifier": "TD8GKTWNGD",
+          "name": "Damon Zayne",
           "sl": 13
         },
         {
-          "identifier": "RFBGBFFMOT",
-          "name": "\"Spanner\" CT-29-1237",
+          "identifier": "F9MZPBEZR2",
+          "name": "Rex CT-20-7567",
           "sl": 13
         },
         {
-          "identifier": "MDFOUG6T7X",
-          "name": "\"Ross\" CT-63-9014",
+          "identifier": "ABMC5E6J02",
+          "name": "Alpha CT-62-8075",
+          "sl": 13
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "g2",
+      "identifier": "CV36VCRLQ2",
+      "troopers": [
+        {
+          "identifier": "4P95ICBH1L",
+          "name": "\"Troy\" CT-54-9584",
           "sl": 13
         },
         {
-          "identifier": "63L70L2LSJ",
-          "name": "\"Tor\" CT-73-1494",
+          "identifier": "PO7C4DUH3F",
+          "name": "\"Derel\" CT-55-6171",
+          "sl": 11
+        },
+        {
+          "identifier": "P7UV1YQ9MP",
+          "name": "\"Jek\" CT-30-3076",
           "sl": 13
         },
         {
-          "identifier": "CSDB8SBN1K",
-          "name": "\"Mapper\" CT-78-7429",
+          "identifier": "MMS9MV57TR",
+          "name": "\"Four\" CT-60-2724",
+          "sl": 11
+        },
+        {
+          "identifier": "U92DETVY1Y",
+          "name": "\"Goran\" CT-23-8151",
+          "sl": 12
+        },
+        {
+          "identifier": "U2G47ZPFJI",
+          "name": "\"Turbo\" CT-89-1535",
+          "sl": 12
+        },
+        {
+          "identifier": "EYF6ZUU7BO",
+          "name": "\"Rohlan\" CT-24-3145",
           "sl": 13
         },
         {
-          "identifier": "EMG4DDUX4T",
-          "name": "\"Jumper\" CT-64-6301",
+          "identifier": "7YMTVV9MJL",
+          "name": "\"Kix\" CT-15-1994",
           "sl": 13
+        },
+        {
+          "identifier": "XCKYRM89X9",
+          "name": "\"Deth\" CT-58-9291",
+          "sl": 12
         }
       ],
       "vehicles": []
