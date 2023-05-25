@@ -15,9 +15,15 @@ namespace Operation {
                 return;
             var order = GetMoveOrder(currentTimeSegment);
             foreach (var unit in order) {
+
+                bool zocMove = false;
+
                 foreach (var cord in currentTimeSegment.plannedMovement[unit]) {
-                    if (!CheckZOC(opm, unit, cord))
+                    if ((!CheckZOC(opm, unit, cord) && unit.moveType == MoveType.EXTENDED) || zocMove) {
+                        zocMove = true;
                         continue;
+                    }
+
                     bool clear = opm.hexCords[cord.x][cord.y].hexType == HexType.CLEAR ? true : false;
                     gridMover.MoveUnit(unit, cord, unit.unitGameobject.transform.position, opm.hexes[cord.x][cord.y].transform.position,
                         clear);
@@ -28,6 +34,10 @@ namespace Operation {
                     }
                     else {
                         unit.tacticalMovement++;
+                    }
+
+                    if (!CheckZOC(opm, unit, cord)) {
+                        zocMove = true;
                     }
 
                 }
@@ -154,7 +164,7 @@ namespace Operation {
 
             if (moveType == MoveType.NONE || !operationUnit.CanMoveDisabledVehicles() 
                 || !legalHexes.Contains(new Vector2Int(hexCord.x, hexCord.y))
-                || !CheckZOC(opm, operationUnit, new Vector2Int(hexCord.x, hexCord.y))
+                //|| !CheckZOC(opm, operationUnit, new Vector2Int(hexCord.x, hexCord.y))
                 || (cost <= 0 && moveType != MoveType.TACTICAL)
                 || (opm.currentTimeSegment.plannedMovement.ContainsKey(operationUnit) &&
                     opm.currentTimeSegment.plannedMovement[operationUnit].Count >= 1 &&

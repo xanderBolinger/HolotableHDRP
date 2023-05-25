@@ -64,7 +64,7 @@ namespace Operation {
 
         public void SaveOperation()
         {
-            var saveData = OperationSaveRunner.GetOperationSaveData(hexCords, operationUnits, startTime);
+            var saveData = OperationSaveRunner.GetOperationSaveData(hexCords, operationUnits, currentTimeSegment.hour);
             OperationSaveManager.SaveOperation(saveData, operationName);
         }
 
