@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 4736093170976152413}
   m_Layer: 0
   m_Name: Hex
-  m_TagString: Untagged
+  m_TagString: Hex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -214,7 +214,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 2190622540023885545, guid: a035b2adfca60b6458120975ce2ab9b3, type: 3}
+  m_Mesh: {fileID: -2124705421725058983, guid: 656951c913aafde49a30c04db319cea8, type: 3}
 --- !u!114 &4736093170976152413
 MonoBehaviour:
   m_ObjectHideFlags: 0

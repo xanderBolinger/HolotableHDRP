@@ -318,6 +318,7 @@ namespace Operation {
             if (selectedUnit.moveType == MoveType.NONE && appliedMoveType != MoveType.NONE)
             {
                 selectedUnit.moveType = appliedMoveType;
+                selectedUnit.DetermineMP();
                 Debug.Log("Set move type.");
             }
             else {

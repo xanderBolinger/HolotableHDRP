@@ -3,98 +3,430 @@
   "side": "OPFOR",
   "units": [
     {
-      "name": "c1",
-      "identifier": "D2CIUI5RCW",
+      "name": "cis1-c1",
+      "identifier": "MM174W7H9P",
       "troopers": [
         {
-          "identifier": "N2QW61Q5XU",
-          "name": "B1",
+          "identifier": "N7X5W3MZ1N",
+          "name": "\"Tag\" CT-96-2841",
+          "sl": 13
+        },
+        {
+          "identifier": "JP78C1LYWI",
+          "name": "\"Evader\" CT-18-4029",
           "sl": 12
         },
         {
-          "identifier": "SLPY4EWIKL",
-          "name": "B1",
-          "sl": 11
+          "identifier": "1BKRNAC94X",
+          "name": "\"Eight\" CT-72-8829",
+          "sl": 12
         },
         {
-          "identifier": "SNLGHUZXZO",
-          "name": "B1",
-          "sl": 11
+          "identifier": "UQ99Z4ZJVL",
+          "name": "\"Ward\" CT-68-7095",
+          "sl": 12
         },
         {
-          "identifier": "GR3HLGS2NK",
-          "name": "B1",
-          "sl": 11
+          "identifier": "1IXV7AV941",
+          "name": "\"Slick\" CT-02-0129",
+          "sl": 12
         },
         {
-          "identifier": "VU2NKOHYDA",
-          "name": "B1",
-          "sl": 11
+          "identifier": "V0HU41EXED",
+          "name": "\"Rattl\" CT-14-6627",
+          "sl": 13
         },
         {
-          "identifier": "IZ8XS64HXY",
-          "name": "B1",
-          "sl": 11
+          "identifier": "0Z3BNYP86J",
+          "name": "\"Zeer\" CT-55-0295",
+          "sl": 13
         },
         {
-          "identifier": "GZP56MYFTX",
-          "name": "B1",
-          "sl": 11
+          "identifier": "P8RJLK3A1B",
+          "name": "\"Tag\" CT-04-4255",
+          "sl": 13
         },
         {
-          "identifier": "HA53KOCT9X",
-          "name": "B1",
-          "sl": 11
+          "identifier": "EQ2IMOWTJD",
+          "name": "\"Hardcase\" CT-44-4189",
+          "sl": 12
         }
       ],
       "vehicles": []
     },
     {
-      "name": "c2",
-      "identifier": "4FX14WM9WW",
+      "name": "cis1-c2",
+      "identifier": "ZWFWNE7FOQ",
       "troopers": [
         {
-          "identifier": "H29BE9CZRF",
-          "name": "B1",
+          "identifier": "DNCGIJUFYN",
+          "name": "\"Mort\" CT-71-2064",
           "sl": 12
         },
         {
-          "identifier": "8KL73212R2",
-          "name": "B1",
+          "identifier": "EI0F1WYJ7D",
+          "name": "\"Scaps\" CT-06-9158",
           "sl": 11
         },
         {
-          "identifier": "WG0VYKJ4UM",
-          "name": "B1",
-          "sl": 11
+          "identifier": "KVJXVSE6QQ",
+          "name": "\"Fuhl\" CT-34-4275",
+          "sl": 13
         },
         {
-          "identifier": "Q37JA3BHU1",
-          "name": "B1",
-          "sl": 11
+          "identifier": "JGX8KTTT9N",
+          "name": "\"Puk\" CT-03-1828",
+          "sl": 13
         },
         {
-          "identifier": "2A2TP9F0FS",
-          "name": "B1",
-          "sl": 11
+          "identifier": "KL7HMLUPMJ",
+          "name": "\"Fil\" CT-04-7320",
+          "sl": 13
         },
         {
-          "identifier": "R17RUHKBZL",
-          "name": "B1",
-          "sl": 11
+          "identifier": "JCD7P0F5TP",
+          "name": "\"Munin\" CT-63-3207",
+          "sl": 13
         },
         {
-          "identifier": "UGG3Y2ULZV",
-          "name": "B1",
-          "sl": 11
+          "identifier": "UMMG23T3N0",
+          "name": "\"Sparrow\" CT-00-5401",
+          "sl": 13
         },
         {
-          "identifier": "AA8GOAQJL8",
-          "name": "B1",
-          "sl": 11
+          "identifier": "CYPHR0FCJH",
+          "name": "\"Gearshift\" CT-14-6595",
+          "sl": 13
+        },
+        {
+          "identifier": "PYPZFZLEI7",
+          "name": "\"Three\" CT-93-3218",
+          "sl": 12
         }
       ],
       "vehicles": []
+    },
+    {
+      "name": "cis1-c3",
+      "identifier": "S7GH6SM71K",
+      "troopers": [
+        {
+          "identifier": "2GISQBWVN6",
+          "name": "\"Racket\" CT-91-2494",
+          "sl": 13
+        },
+        {
+          "identifier": "FRZ8FUQVHS",
+          "name": "\"Tenn\" CT-22-2182",
+          "sl": 12
+        },
+        {
+          "identifier": "A3T4AW0LW0",
+          "name": "\"Fives\" CT-66-7921",
+          "sl": 12
+        },
+        {
+          "identifier": "FGWK2TFBLD",
+          "name": "\"Crest\" CT-31-2257",
+          "sl": 11
+        },
+        {
+          "identifier": "E22XPA1CI6",
+          "name": "\"Di\u0027kut\" CT-88-0657",
+          "sl": 13
+        },
+        {
+          "identifier": "XQD1E17PO3",
+          "name": "\"Vere\" CT-36-7945",
+          "sl": 13
+        },
+        {
+          "identifier": "OK0BSHXL04",
+          "name": "\"Gaffa\" CT-36-5085",
+          "sl": 13
+        },
+        {
+          "identifier": "ZHYMYMU2M5",
+          "name": "\"Boost\" CT-66-7820",
+          "sl": 13
+        },
+        {
+          "identifier": "HPABZBYA4M",
+          "name": "\"Gar\" CT-51-4730",
+          "sl": 13
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "cis1-c4",
+      "identifier": "HHFCA1QCVQ",
+      "troopers": [
+        {
+          "identifier": "JULXTP56BE",
+          "name": "\"Taler\" CT-31-5210",
+          "sl": 11
+        },
+        {
+          "identifier": "667TFFBSFC",
+          "name": "\"Gearshift\" CT-10-7687",
+          "sl": 13
+        },
+        {
+          "identifier": "MQL0YST9XJ",
+          "name": "\"Vaize\" CT-28-3008",
+          "sl": 12
+        },
+        {
+          "identifier": "HBEPRYL3BG",
+          "name": "\"Shock\" CT-50-0917",
+          "sl": 12
+        },
+        {
+          "identifier": "SZ7FWRUXFE",
+          "name": "\"Spanner\" CT-23-0859",
+          "sl": 12
+        },
+        {
+          "identifier": "RLQTGFF4RN",
+          "name": "\"Flak\" CT-61-1236",
+          "sl": 13
+        },
+        {
+          "identifier": "OSKZ6MEQOM",
+          "name": "\"Mapper\" CT-48-3957",
+          "sl": 11
+        },
+        {
+          "identifier": "XVHOHL481E",
+          "name": "\"Gar\" CT-50-7244",
+          "sl": 13
+        },
+        {
+          "identifier": "Z31TRHD6SG",
+          "name": "\"Deuce\" CT-26-0662",
+          "sl": 12
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "cis1-c5",
+      "identifier": "IIO581ZEV3",
+      "troopers": [
+        {
+          "identifier": "EBUN71275A",
+          "name": "\"Jind\" CT-08-3042",
+          "sl": 13
+        },
+        {
+          "identifier": "YXLW9NNNHE",
+          "name": "\"Base\" CT-00-6086",
+          "sl": 11
+        },
+        {
+          "identifier": "QGDYGLZ6GI",
+          "name": "\"Lio\" CT-94-7909",
+          "sl": 13
+        },
+        {
+          "identifier": "CLD0XF08I0",
+          "name": "\"Ram\" CT-06-2966",
+          "sl": 13
+        },
+        {
+          "identifier": "89U63AZNDZ",
+          "name": "\"Rattl\" CT-58-5786",
+          "sl": 12
+        },
+        {
+          "identifier": "W4DP4EH8CM",
+          "name": "\"Sparrow\" CT-26-2092",
+          "sl": 13
+        },
+        {
+          "identifier": "XB2Z526XHX",
+          "name": "\"Sigma\" CT-67-2471",
+          "sl": 11
+        },
+        {
+          "identifier": "KFFBBRHUQA",
+          "name": "\"Killer\" CT-75-4611",
+          "sl": 13
+        },
+        {
+          "identifier": "P10BXLE19P",
+          "name": "\"Waxer\" CT-14-0197",
+          "sl": 13
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "cis1-c6",
+      "identifier": "JNUY07XDLX",
+      "troopers": [
+        {
+          "identifier": "WOQDBTLTO0",
+          "name": "\"Cutter\" CT-71-7575",
+          "sl": 11
+        },
+        {
+          "identifier": "TE86MYQZNT",
+          "name": "\"Mixx\" CT-02-4797",
+          "sl": 13
+        },
+        {
+          "identifier": "TSGPCLVP1R",
+          "name": "\"Craze\" CT-84-5438",
+          "sl": 12
+        },
+        {
+          "identifier": "2BAIGEC98V",
+          "name": "\"Splice\" CT-73-0436",
+          "sl": 13
+        },
+        {
+          "identifier": "QAIPG5QGIP",
+          "name": "\"Crasher\" CT-70-0464",
+          "sl": 12
+        },
+        {
+          "identifier": "AOLPVPTN3I",
+          "name": "\"Keller\" CT-37-6563",
+          "sl": 13
+        },
+        {
+          "identifier": "M7EYOKBX3C",
+          "name": "\"Blitz\" CT-28-5378",
+          "sl": 12
+        },
+        {
+          "identifier": "NYCKDVFJED",
+          "name": "\"Pi\" CT-90-5127",
+          "sl": 13
+        },
+        {
+          "identifier": "UK8Y18VV09",
+          "name": "\"Longshot\" CT-28-4384",
+          "sl": 13
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "cis1-c7",
+      "identifier": "93KQOEF5GL",
+      "troopers": [
+        {
+          "identifier": "39HVLQSFBV",
+          "name": "\"Jumper\" CT-57-3266",
+          "sl": 13
+        },
+        {
+          "identifier": "O81JB3F6AV",
+          "name": "\"Brolis\" CT-58-3620",
+          "sl": 13
+        },
+        {
+          "identifier": "K017JAV0HW",
+          "name": "\"Dyre\" CT-22-0144",
+          "sl": 12
+        },
+        {
+          "identifier": "ZJLDOWPKTB",
+          "name": "\"Blackout\" CT-75-2462",
+          "sl": 13
+        },
+        {
+          "identifier": "KL9R02CJT2",
+          "name": "\"Kosmos\" CT-18-0764",
+          "sl": 12
+        },
+        {
+          "identifier": "3IY3NJ9X8E",
+          "name": "\"Dogma\" CT-67-3919",
+          "sl": 13
+        },
+        {
+          "identifier": "LCOAUX4IFT",
+          "name": "\"Lgi\" CT-13-5692",
+          "sl": 13
+        },
+        {
+          "identifier": "CCYIU6MX90",
+          "name": "\"Hez\" CT-83-7875",
+          "sl": 14
+        },
+        {
+          "identifier": "F53ISLW7MF",
+          "name": "\"Dox\" CT-00-6947",
+          "sl": 12
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "a1",
+      "identifier": "Unit1Identifier",
+      "troopers": [
+        {
+          "identifier": "Trooper1Identifier",
+          "name": "Trooper1",
+          "sl": 1
+        },
+        {
+          "identifier": "Trooper2Identifier",
+          "name": "Trooper2",
+          "sl": 2
+        },
+        {
+          "identifier": "Trooper3Identifier",
+          "name": "Trooper3",
+          "sl": 2
+        }
+      ],
+      "vehicles": [
+        {
+          "callsign": "Vehicle1",
+          "vehicleType": "ARMOR",
+          "vehicleClass": "AAT",
+          "repulsorCraft": true,
+          "transportCapacity": 3,
+          "identifier": "Vehicle1Identifier"
+        }
+      ]
+    },
+    {
+      "name": "a2",
+      "identifier": "Unit2Identifier",
+      "troopers": [
+        {
+          "identifier": "Trooper1Identifier1",
+          "name": "Trooper1",
+          "sl": 1
+        },
+        {
+          "identifier": "Trooper2Identifier2",
+          "name": "Trooper2",
+          "sl": 2
+        },
+        {
+          "identifier": "Trooper3Identifier3",
+          "name": "Trooper3",
+          "sl": 2
+        }
+      ],
+      "vehicles": [
+        {
+          "callsign": "Vehicle2",
+          "vehicleType": "ARMOR",
+          "vehicleClass": "AAT",
+          "repulsorCraft": true,
+          "transportCapacity": 3,
+          "identifier": "Vehicle2Identifier"
+        }
+      ]
     }
   ]
 }

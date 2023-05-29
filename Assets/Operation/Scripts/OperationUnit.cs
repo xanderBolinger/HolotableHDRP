@@ -353,7 +353,7 @@ namespace Operation {
 
         }
 
-        private void DetermineMP()
+        public void DetermineMP()
         {
 
             

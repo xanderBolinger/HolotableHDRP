@@ -1,0 +1,214 @@
+{
+  "unitName": "gar3",
+  "side": "BLUFOR",
+  "units": [
+    {
+      "name": "gar3-s1",
+      "identifier": "5VCV9YEH71",
+      "troopers": [
+        {
+          "identifier": "UOFR6OAJMK",
+          "name": "\"Vill\" CT-94-5233",
+          "sl": 12
+        },
+        {
+          "identifier": "AE7T9MPR6D",
+          "name": "\"Niner\" CT-74-7463",
+          "sl": 12
+        },
+        {
+          "identifier": "T4XZGCTSHL",
+          "name": "\"Korbel\" CT-30-0372",
+          "sl": 12
+        },
+        {
+          "identifier": "3JCPFA04H8",
+          "name": "\"Joc\" CT-06-3728",
+          "sl": 12
+        },
+        {
+          "identifier": "95FBGM7GEJ",
+          "name": "\"Bravo\" CT-57-8195",
+          "sl": 13
+        },
+        {
+          "identifier": "Q70WLSJLXL",
+          "name": "\"Tenn\" CT-90-0313",
+          "sl": 14
+        },
+        {
+          "identifier": "8BTOL5K47N",
+          "name": "\"Green\" CT-87-7106",
+          "sl": 13
+        },
+        {
+          "identifier": "1RQP3RBFX8",
+          "name": "\"Zog\" CT-84-2515",
+          "sl": 13
+        },
+        {
+          "identifier": "L0DR6MQ069",
+          "name": "\"Spitter\" CT-98-7463",
+          "sl": 13
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "gar3-s2",
+      "identifier": "HZCBD3XTFH",
+      "troopers": [
+        {
+          "identifier": "CWGAUZKFTG",
+          "name": "\"Marrt\" CT-95-4821",
+          "sl": 12
+        },
+        {
+          "identifier": "RULYAPTVN0",
+          "name": "\"Bev\" CT-42-6803",
+          "sl": 12
+        },
+        {
+          "identifier": "FRIJYIUA38",
+          "name": "\"Star\" CT-95-8089",
+          "sl": 13
+        },
+        {
+          "identifier": "37IET0UBS9",
+          "name": "\"Monnk\" CT-85-9407",
+          "sl": 13
+        },
+        {
+          "identifier": "LG7GTQLLNY",
+          "name": "\"Alpha\" CT-16-7956",
+          "sl": 13
+        },
+        {
+          "identifier": "1Q398O4M4L",
+          "name": "\"Menace\" CT-12-1604",
+          "sl": 14
+        },
+        {
+          "identifier": "V9NSL1AOUE",
+          "name": "\"Hil\" CT-52-2555",
+          "sl": 12
+        },
+        {
+          "identifier": "PXGKPJEETS",
+          "name": "\"Di\u0027kut\" CT-91-3206",
+          "sl": 12
+        },
+        {
+          "identifier": "XRP81IC38Y",
+          "name": "\"Lassar\" CT-25-3119",
+          "sl": 12
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "gar3-s3",
+      "identifier": "ES0IT6Z99D",
+      "troopers": [
+        {
+          "identifier": "GDQ6VSR6PG",
+          "name": "\"Crosshair\" CT-05-0948",
+          "sl": 13
+        },
+        {
+          "identifier": "EJ9HUR444S",
+          "name": "\"Sharp\" CT-81-7058",
+          "sl": 12
+        },
+        {
+          "identifier": "V3I8HMIS5Y",
+          "name": "\"Xoni\" CT-93-8928",
+          "sl": 13
+        },
+        {
+          "identifier": "5YP3KV0F5T",
+          "name": "\"Galle\" CT-19-6379",
+          "sl": 12
+        },
+        {
+          "identifier": "FPGILTBR0T",
+          "name": "\"Bel\" CT-20-3963",
+          "sl": 13
+        },
+        {
+          "identifier": "65U6ELG16C",
+          "name": "\"Fenn\" CT-32-1074",
+          "sl": 13
+        },
+        {
+          "identifier": "9ZED2N8UW3",
+          "name": "\"Crag\" CT-93-9817",
+          "sl": 13
+        },
+        {
+          "identifier": "JYPB18BEAE",
+          "name": "\"Sandcat\" CT-51-7337",
+          "sl": 13
+        },
+        {
+          "identifier": "MBHVFPJL64",
+          "name": "\"Ince\" CT-17-9123",
+          "sl": 13
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "gar3-s4",
+      "identifier": "L0O5O30GVM",
+      "troopers": [
+        {
+          "identifier": "RNCAI6B1YE",
+          "name": "\"Ace\" CT-14-4873",
+          "sl": 12
+        },
+        {
+          "identifier": "55J2TN0ZIG",
+          "name": "\"Evo\" CT-22-2843",
+          "sl": 11
+        },
+        {
+          "identifier": "RTNUIQQUE8",
+          "name": "\"Star\" CT-76-8412",
+          "sl": 12
+        },
+        {
+          "identifier": "CMRKM2JK97",
+          "name": "\"Ross\" CT-96-2043",
+          "sl": 13
+        },
+        {
+          "identifier": "PEHPSIFNRD",
+          "name": "\"Derel\" CT-98-0634",
+          "sl": 13
+        },
+        {
+          "identifier": "9DDXKZ2OFU",
+          "name": "\"Fives\" CT-61-9847",
+          "sl": 13
+        },
+        {
+          "identifier": "OB0MULKQZY",
+          "name": "\"Goran\" CT-98-1776",
+          "sl": 14
+        },
+        {
+          "identifier": "EDFJL7UKWN",
+          "name": "\"Pi\" CT-90-2915",
+          "sl": 14
+        },
+        {
+          "identifier": "Q4IE9CX399",
+          "name": "\"Rod\" CT-06-4038",
+          "sl": 13
+        }
+      ],
+      "vehicles": []
+    }
+  ]
+}

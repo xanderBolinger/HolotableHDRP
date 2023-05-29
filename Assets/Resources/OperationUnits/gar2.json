@@ -1,0 +1,214 @@
+{
+  "unitName": "gar2",
+  "side": "BLUFOR",
+  "units": [
+    {
+      "name": "gar2-s1",
+      "identifier": "PH4WLJIX7Z",
+      "troopers": [
+        {
+          "identifier": "B52Q71QH1S",
+          "name": "\"King\" CT-32-1355",
+          "sl": 13
+        },
+        {
+          "identifier": "NIN2CS2X2L",
+          "name": "\"Taler\" CT-26-1661",
+          "sl": 12
+        },
+        {
+          "identifier": "53Z3XMBUWS",
+          "name": "\"Heavy\" CT-37-9588",
+          "sl": 13
+        },
+        {
+          "identifier": "5K3AU2ULMK",
+          "name": "\"Quick\" CT-66-9338",
+          "sl": 12
+        },
+        {
+          "identifier": "G3IAVFRD0P",
+          "name": "\"X\" CT-14-3786",
+          "sl": 11
+        },
+        {
+          "identifier": "NGLRDJBXY8",
+          "name": "\"Droid Bait\" CT-72-0262",
+          "sl": 13
+        },
+        {
+          "identifier": "YQ465XOKY9",
+          "name": "\"Arrow\" CT-41-6327",
+          "sl": 13
+        },
+        {
+          "identifier": "RPLNLHUI97",
+          "name": "\"Patch\" CT-37-1249",
+          "sl": 13
+        },
+        {
+          "identifier": "U5DK633OS3",
+          "name": "\"Kosmos\" CT-52-4102",
+          "sl": 12
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "gar2-s2",
+      "identifier": "QM6LC3FPRZ",
+      "troopers": [
+        {
+          "identifier": "6A5YQVP10F",
+          "name": "\"Bevik\" CT-66-4783",
+          "sl": 13
+        },
+        {
+          "identifier": "9PP9U43LDR",
+          "name": "\"Cale\" CT-03-3277",
+          "sl": 13
+        },
+        {
+          "identifier": "7WOTLSAS11",
+          "name": "\"Baris\" CT-17-4235",
+          "sl": 12
+        },
+        {
+          "identifier": "1YF90988RJ",
+          "name": "\"Adade\" CT-71-5709",
+          "sl": 12
+        },
+        {
+          "identifier": "AEJU8RSKNK",
+          "name": "\"Faie\" CT-49-1102",
+          "sl": 13
+        },
+        {
+          "identifier": "CCZP7VKCRA",
+          "name": "\"King\" CT-38-6644",
+          "sl": 13
+        },
+        {
+          "identifier": "TX9KLI3WHX",
+          "name": "\"Turbo\" CT-21-6032",
+          "sl": 11
+        },
+        {
+          "identifier": "AMZOA277WH",
+          "name": "\"Bow\" CT-95-0500",
+          "sl": 13
+        },
+        {
+          "identifier": "2H2RV8S7TQ",
+          "name": "\"Fire\" CT-32-0818",
+          "sl": 11
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "gar2-s3",
+      "identifier": "2LF0KIE1SY",
+      "troopers": [
+        {
+          "identifier": "MQF4KQJGRD",
+          "name": "\"Hamm\" CT-28-8025",
+          "sl": 11
+        },
+        {
+          "identifier": "KFEV6U0KXN",
+          "name": "\"Ace\" CT-90-3898",
+          "sl": 11
+        },
+        {
+          "identifier": "4RGWRUX4OL",
+          "name": "\"Aranar\" CT-02-2174",
+          "sl": 12
+        },
+        {
+          "identifier": "PBT3WT1LS3",
+          "name": "\"Wovod\" CT-60-7550",
+          "sl": 13
+        },
+        {
+          "identifier": "G163Y1CY8D",
+          "name": "\"Gaffa\" CT-28-3285",
+          "sl": 13
+        },
+        {
+          "identifier": "C6CALDY3DT",
+          "name": "\"Var\" CT-49-7858",
+          "sl": 12
+        },
+        {
+          "identifier": "K6OKSHA9CG",
+          "name": "\"Engle\" CT-97-2193",
+          "sl": 13
+        },
+        {
+          "identifier": "TSUQATRGE4",
+          "name": "\"Ponds\" CT-08-0590",
+          "sl": 13
+        },
+        {
+          "identifier": "RBIQ5532HD",
+          "name": "\"Striker\" CT-72-2221",
+          "sl": 13
+        }
+      ],
+      "vehicles": []
+    },
+    {
+      "name": "gar2-s4",
+      "identifier": "92RFTVAUZ3",
+      "troopers": [
+        {
+          "identifier": "4OTUC5K7F5",
+          "name": "\"Wad\u0027e\" CT-92-3841",
+          "sl": 13
+        },
+        {
+          "identifier": "CKTY8NXYJZ",
+          "name": "\"Jenks\" CT-98-2215",
+          "sl": 12
+        },
+        {
+          "identifier": "CQATLPMPLD",
+          "name": "\"Space\" CT-84-4481",
+          "sl": 13
+        },
+        {
+          "identifier": "XPOSUG1AH4",
+          "name": "\"Kappa\" CT-26-6623",
+          "sl": 13
+        },
+        {
+          "identifier": "3CVBWKR3PK",
+          "name": "\"Tag\" CT-58-0227",
+          "sl": 13
+        },
+        {
+          "identifier": "K8UQ7VMV5A",
+          "name": "\"Omega\" CT-22-5639",
+          "sl": 13
+        },
+        {
+          "identifier": "ORO671CT4D",
+          "name": "\"Derel\" CT-37-4758",
+          "sl": 13
+        },
+        {
+          "identifier": "HVSJ4E1FXS",
+          "name": "\"Ganch\" CT-84-1994",
+          "sl": 13
+        },
+        {
+          "identifier": "PGMN548JM6",
+          "name": "\"Tucker\" CT-79-9981",
+          "sl": 12
+        }
+      ],
+      "vehicles": []
+    }
+  ]
+}

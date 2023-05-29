@@ -47,6 +47,7 @@ namespace Operation {
                     continue;
 
                 targetOu.SetUnits(ou.GetUnits());
+                targetOu.DetermineMP();
                 Debug.Log("Loaded unit: "+targetOu.unitName);
                 return;
             }

@@ -3,7 +3,7 @@
     "side": "BLUFOR", 
     "units": [
       {
-        "name": "Unit1",
+        "name": "a1",
         "identifier": "Unit1Identifier",
         "troopers": [
           {
@@ -15,18 +15,45 @@
             "identifier": "Trooper2Identifier",
             "name": "Trooper2",
             "sl": 2
+          },
+          {
+            "identifier": "Trooper3Identifier",
+            "name": "Trooper3",
+            "sl": 2
           }
         ],
         "vehicles": [
           {
             "callsign": "Vehicle1",
             "vehicleType": "ARMOR",
-            "vehicleClass": "ATTE",
-            "repulsorCraft": false,
-            "disabled": false,
-            "transportCapacity": 27,
+            "vehicleClass": "AAT",
+            "repulsorCraft": true,
+            "transportCapacity": 3,
             "identifier": "Vehicle1Identifier"
+          }
+        ]
+      },
+      {
+        "name": "a2",
+        "identifier": "Unit2Identifier",
+        "troopers": [
+          {
+            "identifier": "Trooper1Identifier1",
+            "name": "Trooper1",
+            "sl": 1
           },
+          {
+            "identifier": "Trooper2Identifier2",
+            "name": "Trooper2",
+            "sl": 2
+          },
+          {
+            "identifier": "Trooper3Identifier3",
+            "name": "Trooper3",
+            "sl": 2
+          }
+        ],
+        "vehicles": [
           {
             "callsign": "Vehicle2",
             "vehicleType": "ARMOR",
@@ -34,27 +61,6 @@
             "repulsorCraft": true,
             "transportCapacity": 3,
             "identifier": "Vehicle2Identifier"
-          }
-        ]
-      },
-      {
-        "name": "Unit2",
-        "identifier": "Unit2Identifier",
-        "troopers": [
-          {
-            "identifier": "Trooper3Identifier",
-            "name": "Trooper3",
-            "sl": 3
-          }
-        ],
-        "vehicles": [
-          {
-            "callsign": "Vehicle3",
-            "vehicleType": "MECHANIZED",
-            "vehicleClass": "ATTE",
-            "repulsorCraft": false,
-            "transportCapacity": 15,
-            "identifier": "Vehicle3Identifier"
           }
         ]
       }

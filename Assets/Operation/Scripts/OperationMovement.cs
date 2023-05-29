@@ -186,7 +186,7 @@ namespace Operation {
                     AddPlannedHex(opm, operationUnit, hexCord);
                     return true;
                 }
-
+                Debug.Log("Cost to high to move to hex, cost: "+ cost);
                 return false;
             }
             else if (operationUnit.tacticalMovement + 1 <= 2) {
