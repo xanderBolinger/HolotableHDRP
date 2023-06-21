@@ -99,11 +99,18 @@ namespace Operation {
 
         }
 
-        public void CreateOperation() {
+        private void DestroyOperationUnitObjects() {
+            if (operationUnits == null)
+                return;
 
             foreach (var unit in operationUnits)
                 if (unit.unitGameobject != null)
                     Destroy(unit.unitGameobject);
+        }
+
+        public void CreateOperation() {
+
+            DestroyOperationUnitObjects();
 
             timeSegments = new List<TimeSegment>();
             operationUnits = new List<OperationUnit>();

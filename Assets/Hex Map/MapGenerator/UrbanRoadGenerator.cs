@@ -64,7 +64,7 @@ public class UrbanRoadGenerator
     // Curve chance 
     // Enter off map
     // Posibility of cross map highway
-    public static Dictionary<Vector2Int, UrbanType> GetRoadTiles(List<RoadPoint> tour, UrbanType urbanType) {
+    /*public static Dictionary<Vector2Int, UrbanType> GetRoadTiles(List<RoadPoint> tour, UrbanType urbanType) {
         if (tour.Count < 2)
             return new Dictionary<Vector2Int, UrbanType>();
 
@@ -79,10 +79,32 @@ public class UrbanRoadGenerator
         }
 
         return tiles;
+    }*/
+
+    public static List<Vector2Int> GetRoadPoints(List<RoadPoint> tour, UrbanType urbanType)
+    {
+        if (tour.Count < 2)
+            return new List<Vector2Int>();
+
+        Dictionary<Vector2Int, UrbanType> tileDict = new Dictionary<Vector2Int, UrbanType>();
+        List<Vector2Int> tiles = new List<Vector2Int>();
+
+        for (int i = 0; i < tour.Count - 1; i++)
+        {
+            foreach (var tile in GetPathOfTiles(tour[i].cord, tour[i + 1].cord, urbanType, tour, tileDict))
+            {
+                if (!tileDict.ContainsKey(tile.Key)) {
+                    tiles.Add(tile.Key);
+                    tileDict.Add(tile.Key, tile.Value);
+                }
+            }
+        }
+
+        return tiles;
     }
 
 
-    
+
     private static Dictionary<Vector2Int, UrbanType> GetPathOfTiles(Vector2Int a, Vector2Int b, UrbanType urbanType, List<RoadPoint> tour, Dictionary<Vector2Int, UrbanType> roadTiles) {
 
         Dictionary<Vector2Int, UrbanType> tiles = new Dictionary<Vector2Int, UrbanType>();

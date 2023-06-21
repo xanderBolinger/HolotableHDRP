@@ -55,12 +55,15 @@ public class MapGenerator : MonoBehaviour
     List<List<int>> cityCoordinates = new List<List<int>>();
     List<List<int>> townCoordinates = new List<List<int>>();
 
+    public bool createTileMapOnStart = true;
+
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
 
-        CreateTileMap();
+        if(createTileMapOnStart)
+            CreateTileMap();
         
     }
 

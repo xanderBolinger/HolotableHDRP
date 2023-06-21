@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(RoadLineCreator))]
 public class UrbanGenerator : MonoBehaviour
 {
     public enum UrbanType { 
@@ -26,10 +27,17 @@ public class UrbanGenerator : MonoBehaviour
     public int mapWidth = 100;
     public int mapHeight = 100;
 
+    public RoadLineCreator roadLineCreator;
+
     Dictionary<Vector2Int, UrbanType> urbanPoints = new Dictionary<Vector2Int,UrbanType>();
     Dictionary<Vector2Int, UrbanType> surroundingPoints = new Dictionary<Vector2Int, UrbanType>();
 
     Dictionary<Vector2Int, GameObject> originalHexes = new Dictionary<Vector2Int, GameObject>();
+
+    private void Start()
+    {
+        roadLineCreator = GetComponent<RoadLineCreator>();
+    }
 
     public void Generate() {
         CalculateUrbanPoints();
@@ -56,9 +64,10 @@ public class UrbanGenerator : MonoBehaviour
 
         List<RoadPoint> tour = UrbanRoadGenerator.CalculateTour(pathPoints);
 
-        Dictionary<Vector2Int, UrbanType> pathTiles = UrbanRoadGenerator.GetRoadTiles(tour, UrbanType.Town);
+        List<Vector2Int> pathTiles = UrbanRoadGenerator.GetRoadPoints(tour, UrbanType.Town);
 
-        SwapUrbanHexes(pathTiles, true);
+        roadLineCreator.SetPoints(pathTiles, false);
+        //SwapUrbanHexes(pathTiles, true);
     }
 
     public void CreateHighways() {
@@ -74,20 +83,21 @@ public class UrbanGenerator : MonoBehaviour
 
         List<RoadPoint> tour = UrbanRoadGenerator.CalculateTour(highwayPoints);
 
-        Dictionary<Vector2Int, UrbanType> highwayTiles = UrbanRoadGenerator.GetRoadTiles(tour, UrbanType.City);
+        List<Vector2Int> highwayTiles = UrbanRoadGenerator.GetRoadPoints(tour, UrbanType.City);
 
-        SwapUrbanHexes(highwayTiles, true);
+        roadLineCreator.SetPoints(highwayTiles, true);
+        //SwapUrbanHexes(highwayTiles, true);
     }
 
-    public void SwapUrbanHexes(Dictionary<Vector2Int, UrbanType> urbanPoints, bool road=false) {
+    public void SwapUrbanHexes(Dictionary<Vector2Int, UrbanType> urbanPoints) {
         foreach (var point in urbanPoints)
         {
             GameObject prefab;
 
             if (point.Value == UrbanType.City)
-                prefab = road == false ? MapGenerator.instance.cityPrefab : MapGenerator.instance.highwayPrefab;
+                prefab = MapGenerator.instance.cityPrefab;
             else
-                prefab = road == false ? MapGenerator.instance.townPrefab : MapGenerator.instance.pathPrefab;
+                prefab = MapGenerator.instance.townPrefab;
 
             if (point.Key.x < 0 || point.Key.y < 0 || point.Key.x >= MapGenerator.instance.hexes.Count
                 || point.Key.y >= MapGenerator.instance.hexes[0].Count)
@@ -126,7 +136,7 @@ public class UrbanGenerator : MonoBehaviour
 
         AddUrbanPoints(numberOfCities, mapWidth, mapHeight, UrbanType.City);
         AddUrbanPoints(numberOfTowns, mapWidth, mapHeight, UrbanType.Town);
-
+    
     }
 
     public void CalculateSurroundingPoints() {
