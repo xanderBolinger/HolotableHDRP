@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class CameraMotor : MonoBehaviour
 {
+    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float shiftMoveSpeed = 10f;
 
-    public float moveSpeed = 5f;
     float speedH = 2.0f;
     float speedV = 2.0f;
     float yaw = 0.0f;
     float pitch = 20f;
     bool rotating = false;
 
+    Transform _transform;
+
+    private void Awake()
+    {
+        _transform = transform;
+    }
+
     void Update()
     {
-        if (Commands.consoleActive)
-            return; 
-
 
         translateCamera();
 
@@ -24,44 +29,49 @@ public class CameraMotor : MonoBehaviour
 
     }
 
-    public void translateCamera() {
-        transform.eulerAngles = new Vector3(0f, yaw, 0.0f);
-        float y = transform.position.y;
+    public void translateCamera()
+    {
+        _transform.eulerAngles = new Vector3(0f, yaw, 0.0f);
+        float y = _transform.position.y;
+
+        var moveSpeed = Input.GetKey(KeyCode.LeftShift) ? shiftMoveSpeed : this.moveSpeed;
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += transform.forward * Time.deltaTime * moveSpeed;
-            //transform.position = Vector3.Lerp(transform.position, )
+            _transform.position += _transform.forward * Time.deltaTime * moveSpeed;
+            //_transform.position = Vector3.Lerp(_transform.position, )
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position -= transform.forward * Time.deltaTime * moveSpeed;
+            _transform.position -= _transform.forward * Time.deltaTime * moveSpeed;
         }
-        
-        if (Input.GetKey(KeyCode.A)) {
-            transform.position -= transform.right * Time.deltaTime * moveSpeed;
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            _transform.position -= _transform.right * Time.deltaTime * moveSpeed;
         }
-        
+
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += transform.right * Time.deltaTime * moveSpeed;
+            _transform.position += _transform.right * Time.deltaTime * moveSpeed;
         }
 
 
-        float x = transform.position.x;
-        float z = transform.position.z;
+        float x = _transform.position.x;
+        float z = _transform.position.z;
 
-        transform.position = new Vector3(x, y, z);
+        _transform.position = new Vector3(x, y, z);
 
-        Vector3 camera = new Vector3(x, y + Input.GetAxis("Mouse ScrollWheel") * 30, z);
-        
-        transform.position = Vector3.Lerp(transform.position, camera, moveSpeed * Time.deltaTime);
-        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        Vector3 camera = new Vector3(x, y + Input.GetAxis("Mouse ScrollWheel") * 60, z);
+
+        _transform.position = Vector3.Lerp(_transform.position, camera, moveSpeed * Time.deltaTime);
+        _transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
     }
 
 
-    public void rotateCamera() {
+    public void rotateCamera()
+    {
         if (Input.GetKeyDown(KeyCode.Mouse1))
             rotating = true;
         else if (Input.GetKeyUp(KeyCode.Mouse1))
@@ -78,7 +88,7 @@ public class CameraMotor : MonoBehaviour
         pitch = Mathf.Clamp(pitch, -20f, 90f);
         //the rotation range
 
-        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
+        _transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
     }
 
 }
