@@ -68,7 +68,7 @@ public class Commands : MonoBehaviour
 
         opm.gridMover.MoveUnit(ou, ou.hexPosition, unitGameObject.transform.position,
             hexObject.transform.position,
-            hexCord.hexType == HexCord.HexType.CLEAR);
+            hexCord.hexType == HexCord.HexType.Clear);
     }
 
     [ConsoleMethod("delete_ou", "Deletes selected OU removing it from the operation")]

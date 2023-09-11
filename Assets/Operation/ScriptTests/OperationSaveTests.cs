@@ -24,20 +24,20 @@ public class OperationSaveTests
 
 
         var trees = t.AddComponent<HexCord>();
-        trees.hexType = HexType.WOODS;
+        trees.hexType = HexType.HeavyWoods;
         trees.x = 0;
         trees.y = 0;
         var trees1 = t1.AddComponent<HexCord>();
-        trees1.hexType = HexType.WOODS;
+        trees1.hexType = HexType.HeavyWoods;
         trees1.x = 0;
         trees1.y = 1;
 
         var clear = t2.AddComponent<HexCord>();
-        clear.hexType = HexType.CLEAR;
+        clear.hexType = HexType.Clear;
         clear.x = 1;
         clear.y = 0;
         var clear1 = t3.AddComponent<HexCord>();
-        clear1.hexType = HexType.CLEAR;
+        clear1.hexType = HexType.Clear;
         clear1.x = 1;
         clear1.y = 1;
 
@@ -62,8 +62,8 @@ public class OperationSaveTests
 
         var loadData = OperationSaveManager.LoadOperation("testSave");
 
-        Assert.AreEqual(HexType.WOODS, loadData.hexes[0][0]);
-        Assert.AreEqual(HexType.CLEAR, loadData.hexes[1][0]);
+        Assert.AreEqual(HexType.HeavyWoods, loadData.hexes[0][0]);
+        Assert.AreEqual(HexType.Clear, loadData.hexes[1][0]);
         Assert.AreEqual(2, loadData.hexes.Count);
         Assert.AreEqual(2, loadData.hexes[0].Count);
 

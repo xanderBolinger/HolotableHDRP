@@ -24,7 +24,7 @@ namespace Operation {
                         continue;
                     }
 
-                    bool clear = opm.hexCords[cord.x][cord.y].hexType == HexType.CLEAR ? true : false;
+                    bool clear = opm.hexCords[cord.x][cord.y].hexType == HexType.Clear ? true : false;
                     gridMover.MoveUnit(unit, cord, unit.unitGameobject.transform.position, opm.hexes[cord.x][cord.y].transform.position,
                         clear);
                     if (unit.moveType != MoveType.TACTICAL)
@@ -110,11 +110,11 @@ namespace Operation {
             List<double> road = new List<double> { 1, 0.5, 0.5, 0.5 };
             List<double> highway = new List<double> { 1, 0.333, 0.333, 0.333 };
 
-            table.Add(HexType.CLEAR, clear);
-            table.Add(HexType.WOODS, woodedOrRough);
+            table.Add(HexType.Clear, clear);
+            table.Add(HexType.HeavyWoods, woodedOrRough);
             table.Add(HexType.MOUNTAIN, mountain);
-            table.Add(HexType.TOWN, town);
-            table.Add(HexType.CITY, city);
+            table.Add(HexType.Building, town);
+            table.Add(HexType.BigBuilding, city);
             table.Add(HexType.PATH, road);
             table.Add(HexType.HIGHWAY, highway);
 

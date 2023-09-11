@@ -76,7 +76,7 @@ namespace Operation {
 
                 int units = opm.gridMover.unitLocations.ContainsKey(hexCord.GetCord()) ? opm.gridMover.unitLocations[hexCord.GetCord()].Count : 0;
                 
-                pos.y = opm.gridMover.GetUnitElevation(units, pos) - (hexCord.hexType == HexCord.HexType.CLEAR ? 0.1f : 0f);
+                pos.y = opm.gridMover.GetUnitElevation(units, pos) - (hexCord.hexType == HexCord.HexType.Clear ? 0.1f : 0f);
 
                 
 

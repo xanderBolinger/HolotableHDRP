@@ -270,7 +270,7 @@ namespace Operation {
         }
 
         private bool Clear(OperationUnit ou) { 
-            return opm.hexCords[ou.hexPosition.x][ou.hexPosition.y].hexType == HexCord.HexType.CLEAR;
+            return opm.hexCords[ou.hexPosition.x][ou.hexPosition.y].hexType == HexCord.HexType.Clear;
         }
 
         private void MoveStartingUnit(OperationUnit ou, GameObject unitPref, bool clear) {

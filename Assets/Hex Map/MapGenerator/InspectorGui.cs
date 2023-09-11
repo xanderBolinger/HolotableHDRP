@@ -29,6 +29,12 @@ public class InspectorGui : Editor
             myScript.SaveTilemap();
         }
 
+        if (GUILayout.Button("Export Json Tilemap"))
+        {
+            MapExporter.ExportMap();
+        }
+
+
     }
 }
 

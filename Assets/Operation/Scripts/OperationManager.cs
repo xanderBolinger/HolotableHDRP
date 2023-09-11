@@ -94,7 +94,7 @@ namespace Operation {
             foreach (var unit in operationUnits) {
                 RecreateUnitGameObject(unit);
                 gridMover.MoveUnit(unit, unit.hexPosition, new Vector3(0, 0, 0), hexes[unit.x][unit.y].transform.position,
-                    hexCords[unit.x][unit.y].hexType == HexCord.HexType.CLEAR);
+                    hexCords[unit.x][unit.y].hexType == HexCord.HexType.Clear);
             }
 
         }
