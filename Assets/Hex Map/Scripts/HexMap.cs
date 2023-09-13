@@ -123,6 +123,10 @@ public class HexMap : MonoBehaviour
         {
             HexCord.HexType.Clear => MapGenerator.instance.grassPrefab,
             HexCord.HexType.HeavyWoods => MapGenerator.instance.heavyTreePrefab,
+            HexCord.HexType.MediumWoods => MapGenerator.instance.mediumWoodsPrefab,
+            HexCord.HexType.LightWoods => MapGenerator.instance.lightWoodsPrefab,
+            HexCord.HexType.Brush => MapGenerator.instance.brushPrefab,
+            HexCord.HexType.HeavyBrush => MapGenerator.instance.heavyBrushPrefab,
             HexCord.HexType.MOUNTAIN => MapGenerator.instance.mountainPrefab,
             HexCord.HexType.BigBuilding => MapGenerator.instance.cityPrefab,
             HexCord.HexType.Building => MapGenerator.instance.townPrefab,

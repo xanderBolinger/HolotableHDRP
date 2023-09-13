@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3300719480118197639}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.91, y: 0, z: 4.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3300719481622526536}
@@ -147,4 +147,4 @@ MonoBehaviour:
   y: 0
   roadHex: 0
   urbanHex: 0
-  hexType: 0
+  hexType: 5

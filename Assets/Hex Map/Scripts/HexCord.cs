@@ -13,7 +13,7 @@ public class HexCord : MonoBehaviour
 
     [Serializable]
     public enum HexType { 
-        Clear,HeavyWoods,MOUNTAIN,Building,BigBuilding,PATH,HIGHWAY
+        Clear,HeavyWoods,MediumWoods,LightWoods,Brush,HeavyBrush,MOUNTAIN,Building,BigBuilding,PATH,HIGHWAY
     }
 
     public Vector2Int GetCord() {

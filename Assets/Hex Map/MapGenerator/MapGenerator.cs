@@ -9,6 +9,16 @@ using UnityEditor;
 
 public class MapGenerator : MonoBehaviour
 {
+    public int testMargin;
+    public float testMagnification;
+    public int testDensity;
+    public int testMargin2;
+    public float testMagnification2;
+    public int testDensity2;
+    public int testMargin3;
+    public float testMagnification3;
+    public int testDensity3;
+
     public static MapGenerator instance;
 
     public int mapWidth = 25;
@@ -141,7 +151,7 @@ public class MapGenerator : MonoBehaviour
         cityCoordinates.Clear();
         townCoordinates.Clear();
         var mountainStats = new HexFrequency(mountainFrequency);
-        var brushStats = new HexFrequency(mountainFrequency);
+        var brushStats = new HexFrequency(brushFrequency);
         var treeStats = new HexFrequency(treeFrequency);
         var townStats = new HexFrequency(townFrequency);
         var cityStats = new HexFrequency(cityFrequency);
@@ -189,18 +199,18 @@ public class MapGenerator : MonoBehaviour
                 }
                 else if (mountain >= mountainStats.margin)
                     hexPrefab = mountainPrefab;
-                else if (tree >= treeStats.margin)
+                else if (tree >= treeStats.margin + 1)
                     hexPrefab = heavyTreePrefab;
-                else if (tree >= treeStats.margin - 1)
+                else if (tree == treeStats.margin)
                     hexPrefab = mediumWoodsPrefab;
-                else if (tree >= treeStats.margin - 2 && tree != 0)
+                else if (tree == treeStats.margin - 1)
                     hexPrefab = lightWoodsPrefab;
-                else if (brush == 1)
+                else if (brush >= brushStats.margin + 1)
                 {
-                    hexPrefab = brushPrefab;
-                }
-                else if (brush >= 2)
                     hexPrefab = heavyBrushPrefab;
+                }
+                else if (brush == brushStats.margin)
+                    hexPrefab = brushPrefab;
 
                 GameObject hex = Instantiate(hexPrefab);
                 
