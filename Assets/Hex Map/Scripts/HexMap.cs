@@ -122,7 +122,7 @@ public class HexMap : MonoBehaviour
         return hexType switch
         {
             HexCord.HexType.Clear => MapGenerator.instance.grassPrefab,
-            HexCord.HexType.HeavyWoods => MapGenerator.instance.treePrefab,
+            HexCord.HexType.HeavyWoods => MapGenerator.instance.heavyTreePrefab,
             HexCord.HexType.MOUNTAIN => MapGenerator.instance.mountainPrefab,
             HexCord.HexType.BigBuilding => MapGenerator.instance.cityPrefab,
             HexCord.HexType.Building => MapGenerator.instance.townPrefab,

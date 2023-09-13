@@ -21,7 +21,11 @@ public class MapGenerator : MonoBehaviour
 
     public string mapName;
 
-    public GameObject treePrefab;
+    public GameObject heavyTreePrefab;
+    public GameObject lightWoodsPrefab;
+    public GameObject mediumWoodsPrefab;
+    public GameObject heavyBrushPrefab;
+    public GameObject brushPrefab;
     public GameObject mountainPrefab;
     public GameObject grassPrefab;
     public GameObject cityPrefab;
@@ -39,6 +43,7 @@ public class MapGenerator : MonoBehaviour
 
     public HexFrequency.Frequency mountainFrequency;
     public HexFrequency.Frequency treeFrequency;
+    public HexFrequency.Frequency brushFrequency;
     public HexFrequency.Frequency cityFrequency;
     public HexFrequency.Frequency townFrequency;
 
@@ -136,6 +141,7 @@ public class MapGenerator : MonoBehaviour
         cityCoordinates.Clear();
         townCoordinates.Clear();
         var mountainStats = new HexFrequency(mountainFrequency);
+        var brushStats = new HexFrequency(mountainFrequency);
         var treeStats = new HexFrequency(treeFrequency);
         var townStats = new HexFrequency(townFrequency);
         var cityStats = new HexFrequency(cityFrequency);
@@ -149,6 +155,7 @@ public class MapGenerator : MonoBehaviour
         Debug.Log("City Map: ");
         var cityMap = NoiseMap(cityStats);
 
+        var brushMap = NoiseMap(brushStats);
 
 
 
@@ -163,24 +170,37 @@ public class MapGenerator : MonoBehaviour
                 int tree = treeMap[x][y];
                 int town = townMap[x][y];
                 int city = cityMap[x][y];
+                int brush = brushMap[x][y];
 
                 bool urbanHex = false; 
 
                 GameObject hexPrefab = grassPrefab;
-                if (city >= cityStats.margin) {
+                if (city >= cityStats.margin)
+                {
                     cityCoordinates.Add(new List<int> { x, y });
                     hexPrefab = cityPrefab;
                     urbanHex = true;
                 }
-                else if (town >= townStats.margin) {
+                else if (town >= townStats.margin)
+                {
                     townCoordinates.Add(new List<int> { x, y });
                     urbanHex = true;
                     hexPrefab = townPrefab;
                 }
-                else if(mountain >= mountainStats.margin)
+                else if (mountain >= mountainStats.margin)
                     hexPrefab = mountainPrefab;
                 else if (tree >= treeStats.margin)
-                    hexPrefab = treePrefab;
+                    hexPrefab = heavyTreePrefab;
+                else if (tree >= treeStats.margin - 1)
+                    hexPrefab = mediumWoodsPrefab;
+                else if (tree >= treeStats.margin - 2 && tree != 0)
+                    hexPrefab = lightWoodsPrefab;
+                else if (brush == 1)
+                {
+                    hexPrefab = brushPrefab;
+                }
+                else if (brush >= 2)
+                    hexPrefab = heavyBrushPrefab;
 
                 GameObject hex = Instantiate(hexPrefab);
                 
