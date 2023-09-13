@@ -135,11 +135,11 @@ public class UrbanRoadGenerator
             currentPoint = options.Count > 1 ? options[DiceRoller.Roll(0, options.Count - 1)] : options[0];
 
             if ((MapGenerator.instance.hexes[currentPoint.x][currentPoint.y].GetComponent<HexCord>() == null ||
-                (MapGenerator.instance.hexes[currentPoint.x][currentPoint.y].GetComponent<HexCord>().hexType != HexCord.HexType.CITY &&
-                MapGenerator.instance.hexes[currentPoint.x][currentPoint.y].GetComponent<HexCord>().hexType != HexCord.HexType.TOWN)) &&
+                (MapGenerator.instance.hexes[currentPoint.x][currentPoint.y].GetComponent<HexCord>().hexType != HexCord.HexType.BigBuilding &&
+                MapGenerator.instance.hexes[currentPoint.x][currentPoint.y].GetComponent<HexCord>().hexType != HexCord.HexType.Building)) &&
                 (MapGenerator.instance.hexes[currentPoint.x][currentPoint.y].GetComponentInChildren<HexCord>() == null ||
-                (MapGenerator.instance.hexes[currentPoint.x][currentPoint.y].GetComponentInChildren<HexCord>().hexType != HexCord.HexType.CITY &&
-                MapGenerator.instance.hexes[currentPoint.x][currentPoint.y].GetComponentInChildren<HexCord>().hexType != HexCord.HexType.TOWN))
+                (MapGenerator.instance.hexes[currentPoint.x][currentPoint.y].GetComponentInChildren<HexCord>().hexType != HexCord.HexType.BigBuilding &&
+                MapGenerator.instance.hexes[currentPoint.x][currentPoint.y].GetComponentInChildren<HexCord>().hexType != HexCord.HexType.Building))
                 && !tiles.ContainsKey(currentPoint)) { 
                 tiles.Add(currentPoint, urbanType);
             }

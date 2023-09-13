@@ -33,20 +33,20 @@ public class OperationTest
 
 
         var trees = t.AddComponent<HexCord>();
-        trees.hexType = HexType.WOODS;
+        trees.hexType = HexType.HeavyWoods;
         trees.x = 0;
         trees.y = 0;
         var trees1 = t1.AddComponent<HexCord>();
-        trees1.hexType = HexType.WOODS;
+        trees1.hexType = HexType.HeavyWoods;
         trees1.x = 0;
         trees1.y = 1;
 
         var clear = t2.AddComponent<HexCord>();
-        clear.hexType = HexType.CLEAR;
+        clear.hexType = HexType.Clear;
         clear.x = 1;
         clear.y = 0;
         var clear1 = t3.AddComponent<HexCord>();
-        clear1.hexType = HexType.CLEAR;
+        clear1.hexType = HexType.Clear;
         clear1.x = 1;
         clear1.y = 1;
 
@@ -92,8 +92,8 @@ public class OperationTest
     public void MovementCostTest() {
 
         Assert.AreEqual(0.5, OperationMovement.GetMovementCost(OperationUnit.UnitType.ARMOR, HexType.PATH, true));
-        Assert.AreEqual(1, OperationMovement.GetMovementCost(OperationUnit.UnitType.INF, HexType.CLEAR, false));
-        Assert.AreEqual(1, OperationMovement.GetMovementCost(OperationUnit.UnitType.ARMOR, HexType.CLEAR, false));
+        Assert.AreEqual(1, OperationMovement.GetMovementCost(OperationUnit.UnitType.INF, HexType.Clear, false));
+        Assert.AreEqual(1, OperationMovement.GetMovementCost(OperationUnit.UnitType.ARMOR, HexType.Clear, false));
         Assert.AreEqual(0.333, OperationMovement.GetMovementCost(OperationUnit.UnitType.ARMOR, HexType.HIGHWAY, false));
         Assert.AreEqual(-1, OperationMovement.GetMovementCost(OperationUnit.UnitType.ARMOR, HexType.MOUNTAIN, false));
         Assert.AreEqual(2, OperationMovement.GetMovementCost(OperationUnit.UnitType.LIGHT_WALKER, HexType.MOUNTAIN, false));

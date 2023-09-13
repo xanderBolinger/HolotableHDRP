@@ -12,6 +12,7 @@ namespace Operation {
             TextAsset asset = Resources.Load("OperationUnits/"+fileName, typeof(TextAsset)) as TextAsset;
             string jsonString = asset.text;
             var ouJson = JsonConvert.DeserializeObject<OuRoot>(jsonString);
+            
 
             return ouJson.GetOu();
         }

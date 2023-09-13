@@ -121,11 +121,11 @@ public class HexMap : MonoBehaviour
     {
         return hexType switch
         {
-            HexCord.HexType.CLEAR => MapGenerator.instance.grassPrefab,
-            HexCord.HexType.WOODS => MapGenerator.instance.treePrefab,
+            HexCord.HexType.Clear => MapGenerator.instance.grassPrefab,
+            HexCord.HexType.HeavyWoods => MapGenerator.instance.treePrefab,
             HexCord.HexType.MOUNTAIN => MapGenerator.instance.mountainPrefab,
-            HexCord.HexType.CITY => MapGenerator.instance.cityPrefab,
-            HexCord.HexType.TOWN => MapGenerator.instance.townPrefab,
+            HexCord.HexType.BigBuilding => MapGenerator.instance.cityPrefab,
+            HexCord.HexType.Building => MapGenerator.instance.townPrefab,
             HexCord.HexType.PATH => MapGenerator.instance.pathPrefab,
             HexCord.HexType.HIGHWAY => MapGenerator.instance.highwayPrefab,
             _ => throw new Exception("Tile prefab not found for hex type: " + hexType),

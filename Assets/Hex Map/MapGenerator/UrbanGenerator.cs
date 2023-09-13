@@ -59,7 +59,7 @@ public class UrbanGenerator : MonoBehaviour
             if (point.Value != UrbanType.Town)
                 continue;
 
-            pathPoints.Add(new RoadPoint(point.Key, point.Value == UrbanType.City ? HexCord.HexType.CITY : HexCord.HexType.TOWN));
+            pathPoints.Add(new RoadPoint(point.Key, point.Value == UrbanType.City ? HexCord.HexType.BigBuilding : HexCord.HexType.Building));
         }
 
         List<RoadPoint> tour = UrbanRoadGenerator.CalculateTour(pathPoints);
@@ -78,7 +78,7 @@ public class UrbanGenerator : MonoBehaviour
             if (point.Value != UrbanType.City)
                 continue;
 
-            highwayPoints.Add(new RoadPoint(point.Key, point.Value == UrbanType.City ? HexCord.HexType.CITY : HexCord.HexType.TOWN));
+            highwayPoints.Add(new RoadPoint(point.Key, point.Value == UrbanType.City ? HexCord.HexType.BigBuilding : HexCord.HexType.Building));
         }
 
         List<RoadPoint> tour = UrbanRoadGenerator.CalculateTour(highwayPoints);
