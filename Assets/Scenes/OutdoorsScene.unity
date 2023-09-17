@@ -5284,6 +5284,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7426664799223326265, guid: 428edb91d5ca16646a959e2968d8a8c3,
         type: 3}
+      propertyPath: elevationFrequency
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426664799223326265, guid: 428edb91d5ca16646a959e2968d8a8c3,
+        type: 3}
       propertyPath: testMagnification2
       value: 4
       objectReference: {fileID: 0}

@@ -26,7 +26,7 @@ public class MapExporter
                     var obj = hexes[x][y];
                     HexCord hexCord = obj.GetComponent<HexCord>() != null ? obj.GetComponent<HexCord>() 
                         : obj.GetComponentInChildren<HexCord>();
-                    tiles.Add(new Tile(x,y,0,hexCord.hexType.ToString()));
+                    tiles.Add(new Tile(x,y,hexCord.elevation,hexCord.hexType.ToString()));
                 }
             }
 

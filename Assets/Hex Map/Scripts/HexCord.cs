@@ -7,6 +7,7 @@ public class HexCord : MonoBehaviour
 {
     public int x;
     public int y;
+    public int elevation;
     public bool roadHex = false;
     public bool urbanHex = false;
     public HexType hexType;
