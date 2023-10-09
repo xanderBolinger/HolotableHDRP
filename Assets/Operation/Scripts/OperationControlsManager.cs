@@ -82,7 +82,8 @@ namespace Operation {
                 else
                 {
                     selectedHex = hitObject;
-                    Debug.Log("Selected Hex: " + HexCord.GetHexCord(selectedHex).GetCord());
+                    var cord = HexCord.GetHexCord(selectedHex);
+                    Debug.Log("Selected Hex: " + cord.GetCord()+", Hex Type: "+cord.hexType);
                 }
             }
             else if (hitObject.tag == "Unit" && selectedUnitObject != null && selectedUnitObject == hitObject)

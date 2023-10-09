@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static HexCord;
 
 public class HexMap : MonoBehaviour
 {
@@ -61,27 +62,28 @@ public class HexMap : MonoBehaviour
         newHex.transform.position = hex.transform.position;
 
         int x, y;
+        HexType hexType;
+        HexCord hexCord; 
+
         if (hex.GetComponent<HexCord>() == null)
-        {
-            x = hex.GetComponentInChildren<HexCord>().x;
-            y = hex.GetComponentInChildren<HexCord>().y;
-        }
+            hexCord = hex.GetComponentInChildren<HexCord>();
         else
-        {
-            x = hex.GetComponent<HexCord>().x;
-            y = hex.GetComponent<HexCord>().y;
-        }
+            hexCord = hex.GetComponent<HexCord>();
+
+        x = hexCord.x;
+        y = hexCord.y;
+        hexType = hexCord.hexType;
+
+        HexCord newHexCord;
 
         if (newHex.GetComponent<HexCord>() == null)
-        {
-            newHex.GetComponentInChildren<HexCord>().x = x;
-            newHex.GetComponentInChildren<HexCord>().y = y;
-        }
+            newHexCord = newHex.GetComponentInChildren<HexCord>();
         else
-        {
-            newHex.GetComponent<HexCord>().x = x;
-            newHex.GetComponent<HexCord>().y = y;
-        }
+            newHexCord = newHex.GetComponent<HexCord>();
+
+        newHexCord.x = x;
+        newHexCord.y = y;
+        //newHexCord.hexType = hexType;
 
         if (hex.transform.parent != null &&
             hex.transform.parent.gameObject != null &&
@@ -89,7 +91,6 @@ public class HexMap : MonoBehaviour
         {
             newHex.name = hex.transform.parent.gameObject.name;
             newHex.transform.parent = hex.transform.parent.transform.parent;
-            
             Destroy(hex.transform.parent.gameObject);
         }
         else
