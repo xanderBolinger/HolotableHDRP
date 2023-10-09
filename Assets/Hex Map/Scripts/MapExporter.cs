@@ -9,17 +9,26 @@ public class MapExporter
     public static void ExportMap() {
         var map = new Map();
 
-        Debug.Log("File Saved: "+Application.dataPath + "/MapJson/Map_" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".json");
-        System.IO.File.WriteAllText(Application.dataPath + "/MapJson/Map_" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".json", 
+        Debug.Log("File Saved: "+Application.dataPath + "/MapJson/"+map.name+"_" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") +"_" 
+            +map.width+"x"+map.height+"_.json");
+        System.IO.File.WriteAllText(Application.dataPath + "/MapJson/"+map.name+"_" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "_"
+            + map.width + "x" + map.height + "_.json", 
             JsonConvert.SerializeObject(map));
     }
 
 
     private class Map {
         public List<Tile> tiles = new List<Tile>();
+        public int width;
+        public int height;
+        public string name;
 
         public Map() {
             var hexes = MapGenerator.instance.hexes;
+
+            name = MapGenerator.instance.mapName;
+            width = MapGenerator.instance.mapWidth;
+            height = MapGenerator.instance.mapHeight;
 
             for (int x = 0; x < hexes.Count; x++) {
                 for (int y = 0; y < hexes[x].Count; y++) {
