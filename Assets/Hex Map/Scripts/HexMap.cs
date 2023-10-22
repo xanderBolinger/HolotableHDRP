@@ -63,7 +63,8 @@ public class HexMap : MonoBehaviour
 
         int x, y;
         HexType hexType;
-        HexCord hexCord; 
+        HexCord hexCord;
+        int elevation;
 
         if (hex.GetComponent<HexCord>() == null)
             hexCord = hex.GetComponentInChildren<HexCord>();
@@ -73,6 +74,7 @@ public class HexMap : MonoBehaviour
         x = hexCord.x;
         y = hexCord.y;
         hexType = hexCord.hexType;
+        elevation = hexCord.elevation;
 
         HexCord newHexCord;
 
@@ -83,6 +85,7 @@ public class HexMap : MonoBehaviour
 
         newHexCord.x = x;
         newHexCord.y = y;
+        newHexCord.elevation = elevation;
         //newHexCord.hexType = hexType;
 
         if (hex.transform.parent != null &&

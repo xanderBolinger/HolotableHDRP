@@ -380,7 +380,7 @@ public class MapGenerator : MonoBehaviour
         var result = core.CreateOutputGrid();
         output.CreateOutput(patternManager, result, wfcOutputWidth, wfcOutputHeight);
         //output.OutputImage.SwapTiles();
-        ClearMap();
+        //ClearMap();
         output.OutputImage.CreateTiles(wfcOutputHeight, wfcOutputWidth);
         
     }
