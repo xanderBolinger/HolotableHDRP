@@ -51,7 +51,18 @@ public class Tilemap : MonoBehaviour
             hexPrefabs[tile.Key.y][tile.Key.x] = HexMap.GetPrefab(tile.Value.hexType);
         }
 
-        MapGenerator.instance.InstantiateHexes(hexPrefabs, height, width);
+        for (int x = 0; x < hexPrefabs.Count; x++) {
+
+            for (int y = 0; y < hexPrefabs[x].Count; y++) {
+                HexMap.SwapHex(hexPrefabs[x][y], MapGenerator.instance.hexes[x][y]);
+            }
+        
+        }
+
+        
+
+        //MapGenerator.instance.swap
+        //MapGenerator.instance.InstantiateHexes(hexPrefabs, height, width);
 
     }
 
