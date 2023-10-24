@@ -42,8 +42,26 @@ public class GridMoverTests
         GameObject gridMoverObj = new GameObject();
         gridMover = gridMoverObj.AddComponent<GridMover>();
     }
-    
-    
+
+    [Test]
+    public void TestHexCord() {
+        HexCord nullHexCord = null;
+        Assert.IsTrue(nullHexCord == null);
+
+        HexCord hex1 = new GameObject().AddComponent<HexCord>();
+        hex1.x = 1;
+        hex1.y = 1;
+        HexCord hex2 = new GameObject().AddComponent<HexCord>();
+        hex2.x = 1;
+        hex2.y = 1;
+        HexCord hex3 = new GameObject().AddComponent<HexCord>();
+        hex3.x = 1;
+        hex3.y = 2;
+
+        Assert.IsTrue(hex1 == hex1);
+        Assert.IsTrue(hex1 == hex2);
+        Assert.IsTrue(hex1 != hex3);
+    }
 
     [Test]
     public void GetClickedUnit() {

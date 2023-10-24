@@ -1,4 +1,61 @@
 {
-    "_callsign": "",
-    "_aircraftName": "V19 Torrent"
+    "aircraft_name": "V19 Torrent",
+    "aircraft_movement_data": {
+        "max_fuel": 10,
+        "not_laden": {
+            "very_high": {
+                "combat": 4,
+                "dash": 7,
+                "manuever": 7
+            },
+            "high": {
+                "combat": 4,
+                "dash": 7,
+                "manuever": 7
+            },
+            "medium": {
+                "combat": 4,
+                "dash": 6,
+                "manuever": 7
+            },
+            "low": {
+                "combat": 4,
+                "dash": 5,
+                "manuever": 6
+            },
+            "deck": {
+                "combat": 4,
+                "dash": 5,
+                "manuever": 6
+            }
+        },
+        "laden": {
+            "very_high": {
+                "combat": 4,
+                "dash": 5,
+                "manuever": 5
+            },
+            "high": {
+                "combat": 4,
+                "dash": 5,
+                "manuever": 5
+            },
+            "medium": {
+                "combat": 3,
+                "dash": 4,
+                "manuever": 5
+            },
+            "low": {
+                "combat": 3,
+                "dash": 4,
+                "manuever": 4
+            },
+            "deck": {
+                "combat": 3,
+                "dash": 4,
+                "manuever": 4
+            }
+        }
+        
+    }
 }
