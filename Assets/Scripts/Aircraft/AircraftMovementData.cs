@@ -12,8 +12,8 @@ public class AircraftMovementData
     int _fuel;
     int _currentFuel;
     
-    AircraftAltitude _altitude;
-    HexCord _location;
+    public AircraftAltitude altitude;
+    public HexCord location;
 
     [JsonProperty("laden")]
     AircraftSpeedData _ladenSpeed;
