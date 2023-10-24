@@ -1,15 +1,12 @@
 {
-    "name": "OperationScriptTests",
+    "name": "OperationPlaymodeTests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "OperationScripts",
-        "HexMap"
+        "Scripts"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
