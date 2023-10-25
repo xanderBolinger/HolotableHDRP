@@ -16,6 +16,7 @@ public class AircraftMovementData
     [JsonProperty("not_laden")]
     AircraftSpeedData _regularSpeed;
 
+    public AircraftSpeed speed;
     public AircraftAltitude altitude;
     public HexCord location;
 
@@ -24,6 +25,10 @@ public class AircraftMovementData
 
     public int GetSpeed(AircraftSpeed speed, AircraftAltitude altitude, bool laden) {
         return laden ? _ladenSpeed.GetSpeed(speed, altitude) : _regularSpeed.GetSpeed(speed, altitude);
+    }
+
+    public void MoveAircraft() { 
+    
     }
 
 }
