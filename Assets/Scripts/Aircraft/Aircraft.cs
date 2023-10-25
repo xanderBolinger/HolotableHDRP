@@ -1,5 +1,7 @@
 
 using Newtonsoft.Json;
+using static AircraftMovementData;
+using static AircraftSpeedData;
 
 public class Aircraft
 {
@@ -12,5 +14,10 @@ public class Aircraft
     public string callsign { get { return _callsign; } }
     public string aircraftName { get { return _aircraftName; } }
     public AircraftMovementData movementData { get { return _movementData; } }
+
+    public void SetupAircraft(string callsign, AircraftSpeed speed, AircraftAltitude altitude) {
+        _callsign = callsign;
+        _movementData.SetupMovementData(speed, altitude, true);
+    }
 
 }

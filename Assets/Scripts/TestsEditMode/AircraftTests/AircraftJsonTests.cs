@@ -9,7 +9,18 @@ using System.Drawing.Drawing2D;
 
 public class AircraftJsonTests
 {
-    
+
+    [Test]
+    public void LoadTest()
+    {
+        var v19 = AircraftLoader.LoadAirCraft("V19");
+        v19.SetupAircraft("hitman", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH);
+        var md = v19.movementData;
+        Assert.AreEqual("hitman", v19.callsign);
+        Assert.AreEqual(AircraftSpeed.Combat, md.speed);
+        Assert.AreEqual(AircraftAltitude.VERY_HIGH, md.altitude);
+    }
+
     [Test]
     public void ReadV19Test()
     {
