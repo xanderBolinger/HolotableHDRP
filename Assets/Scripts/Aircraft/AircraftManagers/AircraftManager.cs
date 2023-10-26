@@ -38,8 +38,15 @@ public class AircraftManager : MonoBehaviour
         return aircraft;
     }
 
-    public void RemoveAircraftFromFlight(AircraftFlight flight, string aircraftCallsign) { 
-    
+    public void RemoveAircraftFromFlight(AircraftFlight flight, string aircraftCallsign) {
+        if (!AircraftExistInFlight(flight, aircraftCallsign)) {
+            Debug.Log("Could not remove aircraft with callsign: "+aircraftCallsign
+                +", because aircraft not in flight: "+flight.flightCallsign);
+            return;
+        }
+
+        var aircraft = GetAircraftInFlight(flight, aircraftCallsign);
+        flight.flightAircraft.Remove(aircraft);
     }
 
     public void AddAircraftToFlight(AircraftFlight flight, string aircraftCallsign, AircraftType aircraftType,
@@ -66,14 +73,8 @@ public class AircraftManager : MonoBehaviour
 
     Aircraft GetAircraftInFlight(AircraftFlight flight, string callsign) {
         foreach (var a in flight.flightAircraft)
-        {
             if (a.callsign == callsign)
-            {
-                
                 return a;
-            }
-
-        }
 
         return null;
     }
