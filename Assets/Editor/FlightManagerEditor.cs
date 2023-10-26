@@ -3,7 +3,7 @@ using UnityEngine;
 using static AircraftManager;
 using static AircraftHexCordManager;
 [CustomEditor(typeof(FlightManager))]
-public class FlightManagerGui : Editor
+public class FlightManagerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
@@ -17,13 +17,6 @@ public class FlightManagerGui : Editor
         if (GUILayout.Button("Add flight"))
         {
             flightManager.AddFlight(flightManager.testAddFlightCallsign);
-        }
-
-        if (GUILayout.Button("Add Fighter to Flight"))
-        {
-            flightManager.AddAircraftToFlight(GetFlight(), aircraftManager.testCreateAircraftCallsign, 
-                aircraftManager.testCreateAircraftType, aircraftManager.testStartingAircraftAltitude,
-                aircraftHexCordManager.TestCreateHexCord());
         }
 
         if (GUILayout.Button("Remove flight") && flightManager.testAircraftFlightDisplayList.Count > 0)

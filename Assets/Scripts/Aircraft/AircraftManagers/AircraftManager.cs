@@ -17,6 +17,11 @@ public class AircraftManager : MonoBehaviour
 
     AircraftLoader _aircraftLoader;
 
+    private void Awake()
+    {
+        Setup();
+    }
+
     public void Setup()
     {
         _aircraftLoader = new AircraftLoader();
@@ -31,6 +36,46 @@ public class AircraftManager : MonoBehaviour
         aircraft.SetupAircraft(aircraftCallsign, AircraftSpeed.Combat, altitude, hexCord);
 
         return aircraft;
+    }
+
+    public void RemoveAircraftFromFlight(AircraftFlight flight, string aircraftCallsign) { 
+    
+    }
+
+    public void AddAircraftToFlight(AircraftFlight flight, string aircraftCallsign, AircraftType aircraftType,
+        AircraftAltitude altitude, HexCord hexCord)
+    {
+        if (AircraftExistInFlight(flight, aircraftCallsign))
+        {
+            Debug.Log("Aircraft with same callsign already in flight.");
+            return;
+        }
+
+        var aircraft = CreateAircraft(aircraftType, aircraftCallsign, altitude, hexCord);
+
+        if (flight.flightAircraft.Count > 0)
+            aircraft.SetupAircraft(aircraftCallsign, flight.GetSpeed(), flight.GetAltitude(), flight.GetLocation());
+
+        Debug.Log("Added aircraft " + aircraft.callsign + " to flight " + flight.flightCallsign);
+        flight.AddAircraft(aircraft);
+    }
+
+    bool AircraftExistInFlight(AircraftFlight flight, string callsign) {
+        return GetAircraftInFlight(flight, callsign) != null;
+    }
+
+    Aircraft GetAircraftInFlight(AircraftFlight flight, string callsign) {
+        foreach (var a in flight.flightAircraft)
+        {
+            if (a.callsign == callsign)
+            {
+                
+                return a;
+            }
+
+        }
+
+        return null;
     }
 
 }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static FlightManagerGui;
+using static FlightManagerEditor;
 
 [CustomEditor(typeof(AircraftMovementManager))]
-public class AircraftMovementManagerGui : Editor
+public class AircraftMovementManagerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
@@ -33,10 +33,21 @@ public class AircraftMovementManagerGui : Editor
             amm.SetFacingTest(GetFlight());
         }
 
+        if (GUILayout.Button("Set Location") && Flights())
+        {
+            var flight = GetFlight();
+            var cord = AircraftHexCordManager.aircraftHexCordManager.TestCreateHexCord();
+            foreach (var aircraft in flight.flightAircraft)
+                aircraft.movementData.location = cord;
+            Debug.Log("Set flight location " + flight.flightCallsign + " to " + cord.GetCord());
+        }
+
         if (GUILayout.Button("Move Flight") && Flights())
         {
             amm.MoveAircraftTest(GetFlight());
         }
+
+        
 
     }
 

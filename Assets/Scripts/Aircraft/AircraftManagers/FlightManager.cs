@@ -11,8 +11,6 @@ public class FlightManager : MonoBehaviour
     [InspectorName("Add Flight Callsign")]
     public string testAddFlightCallsign;
 
-
-    AircraftManager _aircraftManager;
     List<AircraftFlight> _aircraftFlights;
 
     [HideInInspector]
@@ -22,7 +20,7 @@ public class FlightManager : MonoBehaviour
 
     public List<AircraftFlight> aircraftFlights { get { return _aircraftFlights; } }
 
-    void Start()
+    void Awake()
     {
         Setup();
     }
@@ -30,8 +28,6 @@ public class FlightManager : MonoBehaviour
     public void Setup() {
         flightManager = this;
         _aircraftFlights = new List<AircraftFlight>();
-        _aircraftManager = GetComponent<AircraftManager>();
-        _aircraftManager.Setup();
     }
 
     public void AddFlight(string flightCallsign)
@@ -46,16 +42,7 @@ public class FlightManager : MonoBehaviour
         Debug.Log("Add flight: " + flightCallsign);
     }
 
-    public void AddAircraftToFlight(AircraftFlight flight, string aircraftCallsign, AircraftType aircraftType, 
-        AircraftAltitude altitude, HexCord hexCord) {
-
-        var aircraft = _aircraftManager.CreateAircraft(aircraftType, aircraftCallsign, altitude, hexCord);
-        
-        if(flight.flightAircraft.Count > 0)
-            aircraft.SetupAircraft(aircraftCallsign, flight.GetSpeed(), flight.GetAltitude(), flight.GetLocation());
-        
-        flight.AddAircraft(aircraft);
-    }
+    
 
     public bool CanAddFlight(string flightCallsign) {
 

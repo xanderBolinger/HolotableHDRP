@@ -29,7 +29,7 @@ public class AircraftTests
         flightManager.Setup();
         flightManager.AddFlight("testflight");
         flight = flightManager.aircraftFlights[0];
-        flightManager.AddAircraftToFlight(flight, "testaircraft", AircraftType.V19, AircraftAltitude.VERY_HIGH, cord1);
+        aircraftManager.AddAircraftToFlight(flight, "testaircraft", AircraftType.V19, AircraftAltitude.VERY_HIGH, cord1);
         aircraftMovementManager.MoveAircraft(flight, cord2, AircraftAltitude.HIGH, HexMapper.Direction.B);
     }
 
