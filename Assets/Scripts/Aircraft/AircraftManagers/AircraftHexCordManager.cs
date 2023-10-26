@@ -9,6 +9,9 @@ public class AircraftHexCordManager : MonoBehaviour
     [InspectorName("Add Hex Rough")]
     public bool hexRough;
 
+    [SerializeField]
+    Transform hexCordContainer;
+
     public static AircraftHexCordManager aircraftHexCordManager;
 
     private void Start()
@@ -22,7 +25,13 @@ public class AircraftHexCordManager : MonoBehaviour
 
     public static HexCord CreateHexCord(bool roughTerrain, int x, int y)
     {
-        var testSetHexCord = new GameObject().AddComponent<HexCord>();
+        var obj = new GameObject();
+        obj.name = "Hex Cord("+x+", "+y+")";
+
+        if (aircraftHexCordManager != null && aircraftHexCordManager.hexCordContainer != null)
+            obj.transform.parent = aircraftHexCordManager.hexCordContainer;
+
+        var testSetHexCord = obj.AddComponent<HexCord>();
         testSetHexCord.x = x;
         testSetHexCord.y = y;
         testSetHexCord.hexType = roughTerrain ? HexCord.HexType.MOUNTAIN : HexCord.HexType.Clear;

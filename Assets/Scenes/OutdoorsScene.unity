@@ -1344,6 +1344,8 @@ GameObject:
   - component: {fileID: 973590721}
   - component: {fileID: 973590723}
   - component: {fileID: 973590722}
+  - component: {fileID: 973590725}
+  - component: {fileID: 973590724}
   m_Layer: 0
   m_Name: AircraftManagers
   m_TagString: Untagged
@@ -1378,11 +1380,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49a68c82a15e41d40b8b3712fe69e1ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testAircraftFacing: 0
   testSetAircraftSpeed: 0
   testSetAircraftAltitude: 0
-  testCordX: 0
-  testCordY: 0
-  testCordRough: 0
 --- !u!114 &973590723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1398,6 +1398,37 @@ MonoBehaviour:
   testAddFlightCallsign: 
   testAircraftFlightDisplayList: []
   selectedAircraftFlightIndex: 0
+--- !u!114 &973590724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973590720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c369eb91f0ab842bc21421ec0fd2ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xCord: 0
+  yCord: 0
+  hexRough: 0
+  hexCordContainer: {fileID: 1673171570}
+--- !u!114 &973590725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973590720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81ac27c6e79ef8246a70a55329c8fc66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  testCreateAircraftType: 0
+  testStartingAircraftAltitude: 0
+  testCreateAircraftCallsign: 
 --- !u!1001 &985881093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2729,6 +2760,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 973590721}
+  - {fileID: 1673171570}
   m_Father: {fileID: 0}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4339,6 +4371,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1668809431}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1673171569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1673171570}
+  m_Layer: 0
+  m_Name: HexCordContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1673171570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673171569}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1305082255}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1717997775
 GameObject:
   m_ObjectHideFlags: 0
