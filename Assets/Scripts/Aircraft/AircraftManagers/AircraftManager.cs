@@ -47,6 +47,7 @@ public class AircraftManager : MonoBehaviour
 
         var aircraft = GetAircraftInFlight(flight, aircraftCallsign);
         flight.flightAircraft.Remove(aircraft);
+        Debug.Log("Removed aircraft " + aircraft.callsign + " from flight " + flight.flightCallsign);
     }
 
     public void AddAircraftToFlight(AircraftFlight flight, string aircraftCallsign, AircraftType aircraftType,

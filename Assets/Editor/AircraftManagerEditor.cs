@@ -20,6 +20,11 @@ public class AircraftManagerEditor : Editor
                 aircraftHexCordManager.TestCreateHexCord());
         }
 
+        if (GUILayout.Button("Remove Fighter from Flight by Callsign"))
+        {
+            am.RemoveAircraftFromFlight(GetFlight(), aircraftManager.testCreateAircraftCallsign);
+        }
+
     }
 
 
