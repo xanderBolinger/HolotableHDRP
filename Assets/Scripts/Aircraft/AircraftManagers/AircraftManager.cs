@@ -49,7 +49,7 @@ public class AircraftManager : MonoBehaviour
         flight.AddAircraft(v192);
         var cord = AircraftMovementManager.CreateTestHexCord(testAddFlightRoughTerrain, testAddFlightX, testAddFlightY);
         v19.movementData.location = cord;
-        v19.movementData.location = cord;
+        v192.movementData.location = cord;
 
         _aircraftFlights.Add(flight);
         testAircraftFlightDisplayList.Add(flightCallsign);
