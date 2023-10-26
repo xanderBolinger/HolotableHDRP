@@ -1,14 +1,14 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(AircraftManager))]
-public class AircraftManagerGui : Editor
+[CustomEditor(typeof(FlightManager))]
+public class FlightManagerGui : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        AircraftManager am = (AircraftManager)target;
+        FlightManager am = (FlightManager)target;
 
         GUIContent selectedFlightList = new GUIContent("Select Flight");
         am.selectedAircraftFlightIndex = EditorGUILayout.Popup(selectedFlightList, am.selectedAircraftFlightIndex, am.testAircraftFlightDisplayList.ToArray());

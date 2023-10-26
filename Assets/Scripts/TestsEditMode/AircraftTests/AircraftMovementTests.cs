@@ -6,7 +6,7 @@ using UnityEngine;
 public class AircraftMovementTests
 {
     AircraftMovementManager aircraftMovementManager;
-    AircraftManager aircraftManager;
+    FlightManager flightManager;
     AircraftFlight flight;
     HexCord cord1;
     HexCord cord2;
@@ -19,11 +19,11 @@ public class AircraftMovementTests
         cord2 = new GameObject().AddComponent<HexCord>();
         cord2.x = 1;
         cord2.y = 1;
-        aircraftManager = new GameObject().AddComponent<AircraftManager>();
+        flightManager = new GameObject().AddComponent<FlightManager>();
         aircraftMovementManager = new GameObject().AddComponent<AircraftMovementManager>();
-        aircraftManager.Setup();
-        aircraftManager.AddFlight("testflight");
-        flight = aircraftManager.aircraftFlights[0];
+        flightManager.Setup();
+        flightManager.AddFlight("testflight");
+        flight = flightManager.aircraftFlights[0];
     }
 
     [Test]

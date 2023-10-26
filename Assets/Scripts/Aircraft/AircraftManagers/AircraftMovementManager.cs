@@ -1,11 +1,10 @@
 using HexMapper;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using static AircraftHexCordManager;
 using static AircraftMovementData;
 using static AircraftSpeedData;
 
+[RequireComponent(typeof(AircraftHexCordManager))]
 public class AircraftMovementManager : MonoBehaviour
 {
     [SerializeField]
@@ -14,17 +13,18 @@ public class AircraftMovementManager : MonoBehaviour
     AircraftSpeed testSetAircraftSpeed;
     [SerializeField]
     AircraftAltitude testSetAircraftAltitude;
-    [SerializeField]
-    int testCordX;
-    [SerializeField]
-    int testCordY;
-    [SerializeField]
-    bool testCordRough;
+
+    AircraftHexCordManager testHexCordManager;
+
+    private void Start()
+    {
+        testHexCordManager = GetComponent<AircraftHexCordManager>();
+    }
 
     public void GetHexDistanceTest(AircraftFlight flight) {
         var cord = flight.GetLocation().GetCord();
-        Debug.Log("Hex distance for "+flight.flightCallsign+" from "+cord+" to ("+testCordX+", "+testCordY+"), dist: "
-            +HexMap.GetDistance(cord.x, cord.y, testCordX, testCordY));
+        Debug.Log("Hex distance for "+flight.flightCallsign+" from "+cord+" to ("+ testHexCordManager.xCord+ ", "+testHexCordManager.yCord+"), dist: "
+            +HexMap.GetDistance(cord.x, cord.y, testHexCordManager.xCord, testHexCordManager.yCord));
         
     }
 
@@ -45,7 +45,7 @@ public class AircraftMovementManager : MonoBehaviour
     public void MoveAircraftTest(AircraftFlight flight)
     {
         SetSpeedTest(flight);
-        MoveAircraft(flight, CreateTestHexCord(testCordRough, testCordX, testCordY), testSetAircraftAltitude, testAircraftFacing);
+        MoveAircraft(flight, CreateHexCord(testHexCordManager.hexRough, testHexCordManager.xCord, testHexCordManager.yCord), testSetAircraftAltitude, testAircraftFacing);
     }
 
     public void SetFacing(AircraftFlight flight, Direction facing)
@@ -74,7 +74,7 @@ public class AircraftMovementManager : MonoBehaviour
 
         foreach (var aircraft in flight.flightAircraft)
             aircraft.movementData.MoveAircraft(
-                hexCord != null ? hexCord : CreateTestHexCord(testCordRough, testCordX, testCordY),
+                hexCord != null ? hexCord : CreateHexCord(testHexCordManager.hexRough, testHexCordManager.xCord, testHexCordManager.yCord),
                 altitude, facing);
         Debug.Log("Moved flight "+flight.flightCallsign+" to "+hexCord.GetCord()
             +", Alt: "+altitude.ToString()+", Facing: "+facing);
@@ -95,13 +95,6 @@ public class AircraftMovementManager : MonoBehaviour
     
     }
 
-    public static HexCord CreateTestHexCord(bool roughTerrain, int x, int y)
-    {
-        var testSetHexCord = new GameObject().AddComponent<HexCord>();
-        testSetHexCord.x = x;
-        testSetHexCord.y = y;
-        testSetHexCord.hexType = roughTerrain ? HexCord.HexType.MOUNTAIN : HexCord.HexType.Clear;
-        return testSetHexCord;
-    }
+    
 
 }

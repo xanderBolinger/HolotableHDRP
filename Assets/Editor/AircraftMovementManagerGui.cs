@@ -40,11 +40,11 @@ public class AircraftMovementManagerGui : Editor
     }
 
     private bool Flights() {
-        return AircraftManager.aircraftManager.aircraftFlights.Count > 0;
+        return FlightManager.flightManager.aircraftFlights.Count > 0;
     }
 
     private AircraftFlight GetFlight() {
-        var am = AircraftManager.aircraftManager;
+        var am = FlightManager.flightManager;
         var index = am.selectedAircraftFlightIndex;
 
         return am.aircraftFlights[index];

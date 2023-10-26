@@ -1,14 +1,14 @@
 ﻿using NUnit.Framework;
 using UnityEngine;
 
-public class AircraftManagerTests
+public class FlightManagerTests
 {
 
-    AircraftManager manager;
+    FlightManager manager;
 
     [SetUp]
     public void Setup() {
-        manager = new GameObject().AddComponent<AircraftManager>();
+        manager = new GameObject().AddComponent<FlightManager>();
         manager.Setup();
         manager.AddFlight("testflight");
     }

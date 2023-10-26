@@ -2,31 +2,31 @@
 using static AircraftMovementData;
 using NUnit.Framework;
 using UnityEngine;
+using static AircraftLoader;
 
 public class AircraftTests
 {
     AircraftMovementManager aircraftMovementManager;
-    AircraftManager aircraftManager;
+    FlightManager flightManager;
     AircraftFlight flight;
     HexCord cord1;
     HexCord cord2;
-    AircraftLoader aircraftLoader;
 
     [SetUp]
     public void Setup()
     {
-        aircraftLoader = new AircraftLoader();
         cord1 = new GameObject().AddComponent<HexCord>();
         cord1.x = 0;
         cord1.y = 0;
         cord2 = new GameObject().AddComponent<HexCord>();
         cord2.x = 1;
         cord2.y = 1;
-        aircraftManager = new GameObject().AddComponent<AircraftManager>();
+        flightManager = new GameObject().AddComponent<FlightManager>();
         aircraftMovementManager = new GameObject().AddComponent<AircraftMovementManager>();
-        aircraftManager.Setup();
-        aircraftManager.AddFlight("testflight");
-        flight = aircraftManager.aircraftFlights[0];
+        flightManager.Setup();
+        flightManager.AddFlight("testflight");
+        flight = flightManager.aircraftFlights[0];
+        flightManager.AddAircraftToFlight(flight, "testaircraft", AircraftType.V19, AircraftAltitude.VERY_HIGH, cord1);
         aircraftMovementManager.MoveAircraft(flight, cord2, AircraftAltitude.HIGH, HexMapper.Direction.B);
     }
 
