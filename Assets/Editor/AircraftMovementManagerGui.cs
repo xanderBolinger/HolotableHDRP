@@ -12,6 +12,11 @@ public class AircraftMovementManagerGui : Editor
 
         AircraftMovementManager amm = (AircraftMovementManager)target;
 
+        if (GUILayout.Button("Get Distance") && Flights())
+        {
+            amm.GetHexDistanceTest(GetFlight());
+        }
+
         if (GUILayout.Button("Set Altitude") && Flights())
         {
             amm.SetAltitudeTest(GetFlight());

@@ -13,18 +13,22 @@ public class AircraftJsonTests
     [Test]
     public void LoadTest()
     {
-        var v19 = AircraftLoader.LoadAirCraft("V19");
-        v19.SetupAircraft("hitman", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH);
+        var cord = new GameObject().AddComponent<HexCord>();
+        cord.x = 1;
+        cord.y = 1;
+        var v19 = AircraftLoader.LoadAircraftJson("V19");
+        v19.SetupAircraft("hitman", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH, cord);
         var md = v19.movementData;
         Assert.AreEqual("hitman", v19.callsign);
         Assert.AreEqual(AircraftSpeed.Combat, md.speed);
         Assert.AreEqual(AircraftAltitude.VERY_HIGH, md.altitude);
+        Assert.AreEqual(cord, md.location);
     }
 
     [Test]
     public void ReadV19Test()
     {
-        var aircraft = AircraftLoader.LoadAirCraft("V19");
+        var aircraft = AircraftLoader.LoadAircraftJson("V19");
         var md = aircraft.movementData;
         Assert.AreEqual("V19 Torrent", aircraft.aircraftName);
         Assert.AreEqual(10, md.fuel);

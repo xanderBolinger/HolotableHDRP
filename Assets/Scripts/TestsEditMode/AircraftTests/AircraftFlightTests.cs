@@ -9,9 +9,9 @@ public class AircraftFlightTests
     public void CreateFlight()
     {
 
-        var v191 = AircraftLoader.LoadAirCraft("V19");
-        var v192 = AircraftLoader.LoadAirCraft("V19");
-        var v193 = AircraftLoader.LoadAirCraft("V19");
+        var v191 = AircraftLoader.LoadAircraftJson("V19");
+        var v192 = AircraftLoader.LoadAircraftJson("V19");
+        var v193 = AircraftLoader.LoadAircraftJson("V19");
 
         var flight = new AircraftFlight("testflight");
         flight.AddAircraft(v191);

@@ -40,16 +40,15 @@ public class AircraftManager : MonoBehaviour
         if (!CanAddFlight(flightCallsign))
             return;
 
+        var cord = AircraftMovementManager.CreateTestHexCord(testAddFlightRoughTerrain, testAddFlightX, testAddFlightY);
         var flight = new AircraftFlight(flightCallsign);
-        var v19 = AircraftLoader.LoadAirCraft("V19");
-        v19.SetupAircraft("hitman", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH);
-        var v192 = AircraftLoader.LoadAirCraft("V19");
-        v192.SetupAircraft("hitman2", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH);
+        var v19 = AircraftLoader.LoadAircraftJson("V19");
+        v19.SetupAircraft("hitman", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH, cord);
+        var v192 = AircraftLoader.LoadAircraftJson("V19");
+        v192.SetupAircraft("hitman2", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH,cord);
         flight.AddAircraft(v19);
         flight.AddAircraft(v192);
-        var cord = AircraftMovementManager.CreateTestHexCord(testAddFlightRoughTerrain, testAddFlightX, testAddFlightY);
-        v19.movementData.location = cord;
-        v192.movementData.location = cord;
+
 
         _aircraftFlights.Add(flight);
         testAircraftFlightDisplayList.Add(flightCallsign);

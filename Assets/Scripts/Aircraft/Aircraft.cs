@@ -15,9 +15,17 @@ public class Aircraft
     public string aircraftName { get { return _aircraftName; } }
     public AircraftMovementData movementData { get { return _movementData; } }
 
-    public void SetupAircraft(string callsign, AircraftSpeed speed, AircraftAltitude altitude) {
+    public Aircraft(Aircraft aircraft) {
+
+        this._callsign = aircraft.callsign;
+        this._aircraftName = aircraft.aircraftName;
+        this._movementData = new AircraftMovementData(aircraft.movementData);
+    }
+
+    public void SetupAircraft(string callsign, AircraftSpeed speed, AircraftAltitude altitude, HexCord cord) {
         _callsign = callsign;
-        _movementData.SetupMovementData(speed, altitude, true);
+        _movementData.SetupMovementData(speed, altitude, true, cord);
+        
     }
 
     public override string ToString()

@@ -27,6 +27,27 @@ public class AircraftMovementData
     public int fuel { get { return _fuel; } }
     public int currentFuel { get { return _currentFuel; } }
 
+    public AircraftMovementData(AircraftMovementData amd) {
+        _fuel = amd.fuel;
+        _currentFuel = amd.currentFuel;
+        _ladenSpeed = amd._ladenSpeed;
+        _regularSpeed = amd._regularSpeed;
+        facing = amd.facing;
+        speed = amd.speed;
+        altitude = amd.altitude;
+        location = amd.location;
+        isLaden = amd.isLaden;
+    }
+
+    public void SetupMovementData(AircraftSpeed speed, AircraftAltitude altitude, bool refuel, HexCord location)
+    {
+        this.speed = speed;
+        this.altitude = altitude;
+        this.location = location;
+        if (refuel)
+            _currentFuel = fuel;
+    }
+
     public int GetSpeed() {
         return GetSpeed(speed, altitude, isLaden);
     }
@@ -42,11 +63,6 @@ public class AircraftMovementData
 
     }
 
-    public void SetupMovementData(AircraftSpeed speed, AircraftAltitude altitude, bool refuel) {
-        this.speed = speed;
-        this.altitude = altitude;
-        if(refuel)
-            _currentFuel = fuel;
-    }
+    
 
 }

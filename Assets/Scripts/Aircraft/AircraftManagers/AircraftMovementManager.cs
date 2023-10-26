@@ -21,6 +21,13 @@ public class AircraftMovementManager : MonoBehaviour
     [SerializeField]
     bool testCordRough;
 
+    public void GetHexDistanceTest(AircraftFlight flight) {
+        var cord = flight.GetLocation().GetCord();
+        Debug.Log("Hex distance for "+flight.flightCallsign+" from "+cord+" to ("+testCordX+", "+testCordY+"), dist: "
+            +HexMap.GetDistance(cord.x, cord.y, testCordX, testCordY));
+        
+    }
+
     public void SetAltitudeTest(AircraftFlight flight) {
         SetAltitude(flight, testSetAircraftAltitude);
     }
@@ -37,6 +44,7 @@ public class AircraftMovementManager : MonoBehaviour
 
     public void MoveAircraftTest(AircraftFlight flight)
     {
+        SetSpeedTest(flight);
         MoveAircraft(flight, CreateTestHexCord(testCordRough, testCordX, testCordY), testSetAircraftAltitude, testAircraftFacing);
     }
 
@@ -68,6 +76,8 @@ public class AircraftMovementManager : MonoBehaviour
             aircraft.movementData.MoveAircraft(
                 hexCord != null ? hexCord : CreateTestHexCord(testCordRough, testCordX, testCordY),
                 altitude, facing);
+        Debug.Log("Moved flight "+flight.flightCallsign+" to "+hexCord.GetCord()
+            +", Alt: "+altitude.ToString()+", Facing: "+facing);
     }
 
     private bool AircraftCanMove(Aircraft aircraft, HexCord hexCord) {
