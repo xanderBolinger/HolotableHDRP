@@ -34,7 +34,7 @@ public class AircraftFlight
 
     public void AddAircraft(Aircraft aircraft) { 
         if(!CanAddAircraft(aircraft))
-            throw new System.Exception("Aircraft could not be added because aircraft type: " + aircraft.aircraftName
+            throw new System.Exception("Aircraft could not be added because aircraft type: " + aircraft.aircraftDisplayName
                     + " does not match aircraft type in flight or aircraft already in flight: "+_flightAircraft.Contains(aircraft));
 
         _flightAircraft.Add(aircraft);
@@ -46,7 +46,7 @@ public class AircraftFlight
             return false;
 
         foreach (var a in _flightAircraft)
-            if (a.aircraftName != aircraft.aircraftName)
+            if (a.aircraftDisplayName != aircraft.aircraftDisplayName)
                 return false;
 
         return true;

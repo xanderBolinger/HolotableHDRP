@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static AircraftLoader;
 using static AircraftMovementData;
 using static AircraftSpeedData;
 
 public class AircraftManager : MonoBehaviour
 {
+    public static AircraftManager aircraftManager;
+
     [InspectorName("Add Flight Callsign")]
     public string testAddFlightCallsign;
     [InspectorName("Add at X")]
@@ -14,16 +17,15 @@ public class AircraftManager : MonoBehaviour
     [InspectorName("Add Hex Rough")]
     public bool testAddFlightRoughTerrain;
 
+    AircraftLoader _aircraftLoader;
+    List<AircraftFlight> _aircraftFlights;
+
     [HideInInspector]
     public List<string> testAircraftFlightDisplayList = new List<string>();
     [HideInInspector]
     public int selectedAircraftFlightIndex;
 
-    List<AircraftFlight> _aircraftFlights;
-
     public List<AircraftFlight> aircraftFlights { get { return _aircraftFlights; } }
-
-    public static AircraftManager aircraftManager;
 
     void Start()
     {
@@ -33,6 +35,7 @@ public class AircraftManager : MonoBehaviour
     public void Setup() {
         aircraftManager = this;
         _aircraftFlights = new List<AircraftFlight>();
+        _aircraftLoader = new AircraftLoader();
     }
 
     public void AddFlight(string flightCallsign)
@@ -40,19 +43,19 @@ public class AircraftManager : MonoBehaviour
         if (!CanAddFlight(flightCallsign))
             return;
 
-        var cord = AircraftMovementManager.CreateTestHexCord(testAddFlightRoughTerrain, testAddFlightX, testAddFlightY);
-        var flight = new AircraftFlight(flightCallsign);
-        var v19 = AircraftLoader.LoadAircraftJson("V19");
-        v19.SetupAircraft("hitman", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH, cord);
-        var v192 = AircraftLoader.LoadAircraftJson("V19");
-        v192.SetupAircraft("hitman2", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH,cord);
-        flight.AddAircraft(v19);
-        flight.AddAircraft(v192);
 
-
-        _aircraftFlights.Add(flight);
         testAircraftFlightDisplayList.Add(flightCallsign);
         Debug.Log("Add flight: " + flightCallsign);
+    }
+
+    public void AddAircraft(AircraftType aircraftType, string flightCallsign,
+        string aircraftCallsign) {
+        var aircraft = _aircraftLoader.LoadAircraft(aircraftType);
+
+
+        var flight = FindFlight(flightCallsign);
+        aircraft.SetupAircraft(aircraftCallsign, flight.GetSpeed(), flight.GetAltitude(), flight.GetLocation());
+        flight.AddAircraft(aircraft);
     }
 
     public bool CanAddFlight(string flightCallsign) {
@@ -116,8 +119,6 @@ public class AircraftManager : MonoBehaviour
         foreach (var flight in _aircraftFlights)
             Debug.Log(flight.ToString()+"\n");
     }
-
-    
 
 }
 

@@ -30,7 +30,7 @@ public class AircraftJsonTests
     {
         var aircraft = AircraftLoader.LoadAircraftJson("V19");
         var md = aircraft.movementData;
-        Assert.AreEqual("V19 Torrent", aircraft.aircraftName);
+        Assert.AreEqual("V19 Torrent", aircraft.aircraftDisplayName);
         Assert.AreEqual(10, md.fuel);
         Assert.AreEqual(0, md.currentFuel);
 

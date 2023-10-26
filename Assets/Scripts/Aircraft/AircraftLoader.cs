@@ -9,21 +9,31 @@ public class AircraftLoader
         V19
     }
 
-    List<Aircraft> _loadedAircraft;
+    List<Aircraft> _loadedAircrafts;
 
     public AircraftLoader() {
         LoadAllAircraft();
     }
 
+    public Aircraft LoadAircraft(AircraftType aircraftType) {
 
+        foreach (var loadedAircraft in _loadedAircrafts) {
+            if (loadedAircraft.aircraftType == aircraftType) {
+                return new Aircraft(loadedAircraft);
+            }
+        }
+
+        throw new Exception("Aircraft not found in loaded aircraft for type: "+aircraftType);
+        
+    }
 
     private void LoadAllAircraft() {
-        _loadedAircraft = new List<Aircraft>();
+        _loadedAircrafts = new List<Aircraft>();
 
         foreach (AircraftType aType in Enum.GetValues(typeof(AircraftType))) {
             var name = GetAircraftName(aType);
             var aircraft = LoadAircraftJson(name);
-            _loadedAircraft.Add(aircraft);
+            _loadedAircrafts.Add(aircraft);
         }
     }
 
@@ -45,9 +55,8 @@ public class AircraftLoader
 
 
     // The bellow methods are used exclusively for testing 
-
     public int LoadedAircraftCount() {
-        return _loadedAircraft.Count;
+        return _loadedAircrafts.Count;
     }
 
 }
