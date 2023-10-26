@@ -1,3 +1,4 @@
+using HexMapper;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,8 @@ using static AircraftSpeedData;
 
 public class AircraftMovementManager : MonoBehaviour
 {
+    [SerializeField]
+    Direction testAircraftFacing;
     [SerializeField]
     AircraftSpeed testSetAircraftSpeed;
     [SerializeField]
@@ -27,9 +30,20 @@ public class AircraftMovementManager : MonoBehaviour
         SetSpeed(flight, testSetAircraftSpeed);
     }
 
+    public void SetFacingTest(AircraftFlight flight)
+    {
+        SetFacing(flight, testAircraftFacing);
+    }
+
     public void MoveAircraftTest(AircraftFlight flight)
     {
-        MoveAircraft(flight, CreateTestHexCord(testCordRough, testCordX, testCordY), testSetAircraftAltitude);
+        MoveAircraft(flight, CreateTestHexCord(testCordRough, testCordX, testCordY), testSetAircraftAltitude, testAircraftFacing);
+    }
+
+    public void SetFacing(AircraftFlight flight, Direction facing)
+    {
+        foreach (var aircraft in flight.flightAircraft)
+            aircraft.movementData.facing = facing;
     }
 
     public void SetAltitude(AircraftFlight flight, AircraftAltitude altitude) {
@@ -42,7 +56,7 @@ public class AircraftMovementManager : MonoBehaviour
             aircraft.movementData.speed = aircraftSpeed;
     }
 
-    public void MoveAircraft(AircraftFlight flight, HexCord hexCord, AircraftAltitude altitude) {
+    public void MoveAircraft(AircraftFlight flight, HexCord hexCord, AircraftAltitude altitude, Direction facing) {
         foreach (var aircraft in flight.flightAircraft) {
             if (!AircraftCanMove(aircraft, hexCord)) {
                 Debug.Log("Flight "+flight.flightCallsign+" can't move check distance and fuel.");
@@ -53,7 +67,7 @@ public class AircraftMovementManager : MonoBehaviour
         foreach (var aircraft in flight.flightAircraft)
             aircraft.movementData.MoveAircraft(
                 hexCord != null ? hexCord : CreateTestHexCord(testCordRough, testCordX, testCordY),
-                altitude);
+                altitude, facing);
     }
 
     private bool AircraftCanMove(Aircraft aircraft, HexCord hexCord) {

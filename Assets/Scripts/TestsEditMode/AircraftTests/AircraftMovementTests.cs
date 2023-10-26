@@ -42,10 +42,11 @@ public class AircraftMovementTests
 
         Assert.IsTrue(cord1 == flight.GetLocation());
 
-        aircraftMovementManager.MoveAircraft(flight, cord2, AircraftAltitude.HIGH);
+        aircraftMovementManager.MoveAircraft(flight, cord2, AircraftAltitude.HIGH, HexMapper.Direction.B);
 
         Assert.IsTrue(cord2 == flight.GetLocation());
         Assert.IsTrue(AircraftAltitude.HIGH == flight.GetAltitude());
+        Assert.IsTrue(HexMapper.Direction.B == flight.GetFacing());
     }
 
 

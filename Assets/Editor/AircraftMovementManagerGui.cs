@@ -22,6 +22,11 @@ public class AircraftMovementManagerGui : Editor
             amm.SetSpeedTest(GetFlight());
         }
 
+        if (GUILayout.Button("Set Facing") && Flights())
+        {
+            amm.SetFacingTest(GetFlight());
+        }
+
         if (GUILayout.Button("Move Flight") && Flights())
         {
             amm.MoveAircraftTest(GetFlight());

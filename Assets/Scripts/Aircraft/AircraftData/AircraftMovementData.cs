@@ -1,4 +1,5 @@
 
+using HexMapper;
 using Newtonsoft.Json;
 using static AircraftSpeedData;
 
@@ -17,6 +18,7 @@ public class AircraftMovementData
     [JsonProperty("not_laden")]
     AircraftSpeedData _regularSpeed;
 
+    public Direction facing;
     public AircraftSpeed speed;
     public AircraftAltitude altitude;
     public HexCord location;
@@ -33,12 +35,10 @@ public class AircraftMovementData
         return laden ? _ladenSpeed.GetSpeed(speed, altitude) : _regularSpeed.GetSpeed(speed, altitude);
     }
 
-    public void MoveAircraft(HexCord location, AircraftAltitude altitude) {
-
-        if (speed == AircraftSpeed.Dash)
-            _currentFuel--;
+    public void MoveAircraft(HexCord location, AircraftAltitude altitude, Direction facing) {
         this.altitude = altitude;
         this.location = location;
+        this.facing = facing;
 
     }
 

@@ -1,3 +1,4 @@
+using HexMapper;
 using System.Collections.Generic;
 using static AircraftMovementData;
 using static AircraftSpeedData;
@@ -13,6 +14,10 @@ public class AircraftFlight
     public AircraftFlight(string flightCallsign) {
         _flightCallsign = flightCallsign;
         _flightAircraft = new List<Aircraft>();
+    }
+
+    public Direction GetFacing() {
+        return flightAircraft[0].movementData.facing;
     }
 
     public AircraftSpeed GetSpeed() {
@@ -59,7 +64,8 @@ public class AircraftFlight
         string aircraftMoveData = "";
 
         if (_flightAircraft.Count > 0) {
-
+            aircraftMoveData += "Facing: " + GetFacing() + "\n";
+            aircraftMoveData += "Cord: "+GetLocation().GetCord()+"\n";
             aircraftMoveData += "alt: cmbt/dash/manvr\n";
 
             var a = _flightAircraft[0];
