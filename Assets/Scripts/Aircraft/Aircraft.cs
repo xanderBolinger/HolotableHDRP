@@ -26,9 +26,9 @@ public class Aircraft
 
     public Aircraft(Aircraft aircraft) {
 
-        this._callsign = aircraft.callsign;
-        this._aircraftDisplayName = aircraft.aircraftDisplayName;
-        this._movementData = new AircraftMovementData(aircraft.movementData);
+        _callsign = aircraft.callsign;
+        _aircraftDisplayName = aircraft.aircraftDisplayName;
+        _movementData = new AircraftMovementData(aircraft.movementData);
     }
 
     public void SetupAircraft(string callsign, AircraftSpeed speed, AircraftAltitude altitude, HexCord cord) {

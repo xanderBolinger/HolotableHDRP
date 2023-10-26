@@ -1,5 +1,6 @@
 using HexMapper;
 using System.Collections.Generic;
+using UnityEngine;
 using static AircraftMovementData;
 using static AircraftSpeedData;
 
@@ -32,13 +33,46 @@ public class AircraftFlight
         return flightAircraft[0].movementData.location;
     }
 
-    public void AddAircraft(Aircraft aircraft) { 
-        if(!CanAddAircraft(aircraft))
-            throw new System.Exception("Aircraft could not be added because aircraft type: " + aircraft.aircraftDisplayName
-                    + " does not match aircraft type in flight or aircraft already in flight: "+_flightAircraft.Contains(aircraft));
+    public void RemoveAircraft(string callsign) {
+        if (!InFlight(callsign)) {
+            Debug.Log("Could not remove aircraft from flight " + flightCallsign + ", aircraft not in flight.");
+            return;
+        }
 
+        _flightAircraft.Remove(GetAircraftInFlight(callsign));
+        Debug.Log("Removed aircraft " + callsign + " from flight " + flightCallsign);
+    }
+
+    Aircraft GetAircraftInFlight(string callsign) {
+        foreach (var a in flightAircraft)
+            if (a.callsign == callsign)
+                return a;
+
+        return null;
+    }
+
+    public void AddAircraft(Aircraft aircraft) {
+        if (InFlight(aircraft.callsign)) {
+            Debug.Log("Could not add aircraft to flight "+flightCallsign+" because aircraft with that callsign already exists.");
+            return;
+        }
+        else if (!CanAddAircraft(aircraft))
+        {
+            Debug.Log("Aircraft could not be added because aircraft type: " + aircraft.aircraftDisplayName
+                    + " does not match aircraft type in flight or aircraft already in flight: " + _flightAircraft.Contains(aircraft));
+            return;
+        }
+        
         _flightAircraft.Add(aircraft);
+        Debug.Log("Added aircraft " + aircraft.callsign + " to flight " + flightCallsign);
+    }
 
+    public bool InFlight(string callsign) {
+        foreach(var aircraft in _flightAircraft)
+            if(aircraft.callsign == callsign)
+                return true;
+
+        return false;
     }
 
     public bool CanAddAircraft(Aircraft aircraft) {
