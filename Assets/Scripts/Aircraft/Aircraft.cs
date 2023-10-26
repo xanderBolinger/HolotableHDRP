@@ -20,4 +20,10 @@ public class Aircraft
         _movementData.SetupMovementData(speed, altitude, true);
     }
 
+    public override string ToString()
+    {
+        return _aircraftName + ": " + _callsign 
+            + " fuel: " + _movementData.currentFuel + "/" + _movementData.fuel; ;
+    }
+
 }

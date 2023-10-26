@@ -12,13 +12,31 @@ public class AircraftMovementManagerGui : Editor
 
         AircraftMovementManager amm = (AircraftMovementManager)target;
 
-        GUIContent selectedFlightList = new GUIContent("Select Flight");
-        amm.selectedAircraftFlightIndex = EditorGUILayout.Popup(selectedFlightList, amm.selectedAircraftFlightIndex, amm.testAircraftFlightDisplayList.ToArray());
-
-        /*if (GUILayout.Button("Enter Combat"))
+        if (GUILayout.Button("Set Altitude") && Flights())
         {
-            ocm.EnterCombat();
-        }*/
+            amm.SetAltitudeTest(GetFlight());
+        }
 
+        if (GUILayout.Button("Set Speed") && Flights())
+        {
+            amm.SetSpeedTest(GetFlight());
+        }
+
+        if (GUILayout.Button("Move Flight") && Flights())
+        {
+            amm.MoveAircraftTest(GetFlight());
+        }
+
+    }
+
+    private bool Flights() {
+        return AircraftManager.aircraftManager.aircraftFlights.Count > 0;
+    }
+
+    private AircraftFlight GetFlight() {
+        var am = AircraftManager.aircraftManager;
+        var index = am.selectedAircraftFlightIndex;
+
+        return am.aircraftFlights[index];
     }
 }

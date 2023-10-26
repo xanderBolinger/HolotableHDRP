@@ -29,6 +29,8 @@ namespace Operation {
         [HideInInspector]
         public GameObject selectedHex;
 
+        GameObject lastSelectedHex;
+
         public Material selectedBluforUnitMaterial;
         public Material selectedOpforUnitMaterial;
         public Material bluforUnitMaterial;
@@ -81,9 +83,16 @@ namespace Operation {
                     SelectUnitColor(selectedUnitObject);
                 else
                 {
+                    lastSelectedHex = selectedHex;
                     selectedHex = hitObject;
                     var cord = HexCord.GetHexCord(selectedHex);
                     Debug.Log("Selected Hex: " + cord.GetCord()+", Hex Type: "+cord.hexType);
+
+                    if (lastSelectedHex != null ) {
+                        var cord2 = HexCord.GetHexCord(lastSelectedHex);
+                        Debug.Log("Distance from " + cord2.GetCord() + " to "+cord.GetCord()+": "+HexMap.GetDistance(cord, cord2));
+                    }
+
                 }
             }
             else if (hitObject.tag == "Unit" && selectedUnitObject != null && selectedUnitObject == hitObject)

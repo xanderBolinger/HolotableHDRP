@@ -49,4 +49,8 @@ public class HexCord : MonoBehaviour
         return obj is HexCord b2 ? (x == b2.x &&
                                y == b2.y) : false;
     }
+
+    
+
+
 }

@@ -112,14 +112,26 @@ public class HexMap : MonoBehaviour
 
     public static int GetDistance(Vector2Int a, Vector2Int b)
     {
-        int x0 = a.x - (int)Mathf.Floor(a.y / 2);
-        int y0 = a.y;
-        int x1 = b.x - (int)Mathf.Floor(b.y / 2);
-        int y1 = b.y;
+        return GetDistance(a.x, a.y, b.x, b.y);
+    }
+
+    public static int GetDistance(HexCord c1, HexCord c2)
+    {
+        return GetDistance(c1.x, c1.y, c2.x, c2.y);
+    }
+
+    public static int GetDistance(int ax, int ay, int bx, int by) {
+        int x0 = ax - (int)Mathf.Floor(ay / 2);
+        int y0 = ay;
+        int x1 = bx - (int)Mathf.Floor(by / 2);
+        int y1 = by;
         int dx = x1 - x0;
         int dy = y1 - y0;
         return Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy), Mathf.Abs(dx + dy));
     }
+
+    
+
 
     public static GameObject GetPrefab(HexCord.HexType hexType)
     {

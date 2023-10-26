@@ -18,35 +18,66 @@ public class AircraftMovementManager : MonoBehaviour
     [SerializeField]
     bool testCordRough;
 
-    
+    public void SetAltitudeTest(AircraftFlight flight) {
+        SetAltitude(flight, testSetAircraftAltitude);
+    }
 
-    public HexCord CreateTestHexCord(bool roughTerrain, int x, int y) {
+    public void SetSpeedTest(AircraftFlight flight)
+    {
+        SetSpeed(flight, testSetAircraftSpeed);
+    }
+
+    public void MoveAircraftTest(AircraftFlight flight)
+    {
+        MoveAircraft(flight, CreateTestHexCord(testCordRough, testCordX, testCordY), testSetAircraftAltitude);
+    }
+
+    public void SetAltitude(AircraftFlight flight, AircraftAltitude altitude) {
+        foreach (var aircraft in flight.flightAircraft)
+            aircraft.movementData.altitude = altitude;
+    }
+
+    public void SetSpeed(AircraftFlight flight, AircraftSpeed aircraftSpeed) {
+        foreach(var aircraft in flight.flightAircraft)
+            aircraft.movementData.speed = aircraftSpeed;
+    }
+
+    public void MoveAircraft(AircraftFlight flight, HexCord hexCord, AircraftAltitude altitude) {
+        foreach (var aircraft in flight.flightAircraft) {
+            if (!AircraftCanMove(aircraft, hexCord)) {
+                Debug.Log("Flight "+flight.flightCallsign+" can't move check distance and fuel.");
+                return;
+            }
+        }
+
+        foreach (var aircraft in flight.flightAircraft)
+            aircraft.movementData.MoveAircraft(
+                hexCord != null ? hexCord : CreateTestHexCord(testCordRough, testCordX, testCordY),
+                altitude);
+    }
+
+    private bool AircraftCanMove(Aircraft aircraft, HexCord hexCord) {
+
+        if (aircraft.movementData.speed == AircraftSpeed.Dash
+            && aircraft.movementData.currentFuel <= 0)
+            return false;
+
+        var speed = aircraft.movementData.GetSpeed();
+
+        if (HexMap.GetDistance(aircraft.movementData.location, hexCord) > speed)
+            return false;
+
+        return true; 
+    
+    }
+
+    public static HexCord CreateTestHexCord(bool roughTerrain, int x, int y)
+    {
         var testSetHexCord = new GameObject().AddComponent<HexCord>();
         testSetHexCord.x = x;
         testSetHexCord.y = y;
         testSetHexCord.hexType = roughTerrain ? HexCord.HexType.MOUNTAIN : HexCord.HexType.Clear;
         return testSetHexCord;
-    }
-
-    public void SetSpeed(Aircraft aircraft, AircraftSpeed aircraftSpeed) {
-        aircraft.movementData.speed = aircraftSpeed;
-    }
-
-    public void MoveAircraft(Aircraft aircraft, HexCord hexCord, AircraftAltitude altitude) {
-        if (!AircraftCanMove(aircraft))
-            return;
-
-        aircraft.movementData.MoveAircraft(hexCord, altitude);
-    }
-
-    public bool AircraftCanMove(Aircraft aircraft) {
-
-        if (aircraft.movementData.speed == AircraftSpeed.Dash
-            && aircraft.movementData.currentFuel <= 0) 
-            return false;
-
-        return true; 
-    
     }
 
 }
