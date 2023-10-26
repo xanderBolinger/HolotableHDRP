@@ -7,7 +7,7 @@ using static AircraftSpeedData;
 
 public class Aircraft
 {
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonProperty("aircraft_type"), JsonConverter(typeof(StringEnumConverter))]
     AircraftType _aircraftType;
 
     string _callsign;

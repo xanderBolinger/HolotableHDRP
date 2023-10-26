@@ -6,6 +6,7 @@ using UnityEngine.TestTools;
 using static AircraftSpeedData;
 using static AircraftMovementData;
 using System.Drawing.Drawing2D;
+using static AircraftLoader;
 
 public class AircraftJsonTests
 {
@@ -16,7 +17,7 @@ public class AircraftJsonTests
         var cord = new GameObject().AddComponent<HexCord>();
         cord.x = 1;
         cord.y = 1;
-        var v19 = AircraftLoader.LoadAircraftJson("V19");
+        var v19 = LoadAircraftJson("V19");
         v19.SetupAircraft("hitman", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH, cord);
         var md = v19.movementData;
         Assert.AreEqual("hitman", v19.callsign);
@@ -28,8 +29,9 @@ public class AircraftJsonTests
     [Test]
     public void ReadV19Test()
     {
-        var aircraft = AircraftLoader.LoadAircraftJson("V19");
+        var aircraft = LoadAircraftJson("V19");
         var md = aircraft.movementData;
+        Assert.IsTrue(AircraftType.V19 == aircraft.aircraftType);
         Assert.AreEqual("V19 Torrent", aircraft.aircraftDisplayName);
         Assert.AreEqual(10, md.fuel);
         Assert.AreEqual(0, md.currentFuel);

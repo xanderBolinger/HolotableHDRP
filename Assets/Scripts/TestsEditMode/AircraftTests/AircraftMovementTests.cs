@@ -19,7 +19,10 @@ public class AircraftMovementTests
         cord2 = new GameObject().AddComponent<HexCord>();
         cord2.x = 1;
         cord2.y = 1;
-        flightManager = new GameObject().AddComponent<FlightManager>();
+        var fmObj = new GameObject();
+        flightManager = fmObj.AddComponent<FlightManager>();
+        var aircraftManager = fmObj.AddComponent<AircraftManager>();
+        aircraftManager.Setup();
         aircraftMovementManager = new GameObject().AddComponent<AircraftMovementManager>();
         flightManager.Setup();
         flightManager.AddFlight("testflight");

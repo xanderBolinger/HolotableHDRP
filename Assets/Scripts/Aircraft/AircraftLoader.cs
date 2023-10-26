@@ -1,10 +1,12 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AircraftLoader
 {
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum AircraftType { 
         V19
     }

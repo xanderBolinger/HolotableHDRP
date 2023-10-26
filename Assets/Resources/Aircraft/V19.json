@@ -1,5 +1,6 @@
 {
-    "aircraft_name": "V19 Torrent",
+    "aircraft_display_name": "V19 Torrent",
+    "aircraft_type": "V19",
     "aircraft_movement_data": {
         "max_fuel": 10,
         "not_laden": {
