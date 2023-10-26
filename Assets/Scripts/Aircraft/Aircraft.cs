@@ -15,6 +15,9 @@ public class Aircraft
     public string aircraftName { get { return _aircraftName; } }
     public AircraftMovementData movementData { get { return _movementData; } }
 
+    [JsonConstructor]
+    public Aircraft() { }
+
     public Aircraft(Aircraft aircraft) {
 
         this._callsign = aircraft.callsign;

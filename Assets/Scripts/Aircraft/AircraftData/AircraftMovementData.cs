@@ -27,6 +27,9 @@ public class AircraftMovementData
     public int fuel { get { return _fuel; } }
     public int currentFuel { get { return _currentFuel; } }
 
+    [JsonConstructor]
+    public AircraftMovementData() { }
+
     public AircraftMovementData(AircraftMovementData amd) {
         _fuel = amd.fuel;
         _currentFuel = amd.currentFuel;

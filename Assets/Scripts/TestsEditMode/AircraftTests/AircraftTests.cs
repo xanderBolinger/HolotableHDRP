@@ -37,7 +37,16 @@ public class AircraftTests
         Aircraft copy = new Aircraft(actual);
 
         Assert.IsTrue(copy != actual);
-
+        Assert.AreEqual(copy.callsign, actual.callsign);
+        Assert.IsTrue(copy.aircraftName == actual.aircraftName);
+        Assert.IsTrue(copy.movementData.facing == actual.movementData.facing);
+        Assert.IsTrue(copy.movementData.speed == actual.movementData.speed);
+        Assert.IsTrue(copy.movementData.altitude == actual.movementData.altitude);
+        Assert.IsTrue(copy.movementData.location == actual.movementData.location);
+        Assert.IsTrue(copy.movementData.isLaden == actual.movementData.isLaden);
+        Assert.IsTrue(copy.movementData.fuel == actual.movementData.fuel);
+        Assert.IsTrue(copy.movementData.currentFuel == actual.movementData.currentFuel);
+        Assert.IsTrue(copy.movementData.GetSpeed() == actual.movementData.GetSpeed());
     }
 
 
