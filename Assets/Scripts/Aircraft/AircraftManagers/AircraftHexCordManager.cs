@@ -9,6 +9,17 @@ public class AircraftHexCordManager : MonoBehaviour
     [InspectorName("Add Hex Rough")]
     public bool hexRough;
 
+    public static AircraftHexCordManager aircraftHexCordManager;
+
+    private void Start()
+    {
+        aircraftHexCordManager = this;
+    }
+
+    public HexCord TestCreateHexCord() {
+        return CreateHexCord(hexRough, xCord, yCord);
+    }
+
     public static HexCord CreateHexCord(bool roughTerrain, int x, int y)
     {
         var testSetHexCord = new GameObject().AddComponent<HexCord>();

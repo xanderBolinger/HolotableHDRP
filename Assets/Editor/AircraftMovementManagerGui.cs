@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static FlightManagerGui;
 
 [CustomEditor(typeof(AircraftMovementManager))]
 public class AircraftMovementManagerGui : Editor
@@ -39,14 +40,5 @@ public class AircraftMovementManagerGui : Editor
 
     }
 
-    private bool Flights() {
-        return FlightManager.flightManager.aircraftFlights.Count > 0;
-    }
-
-    private AircraftFlight GetFlight() {
-        var am = FlightManager.flightManager;
-        var index = am.selectedAircraftFlightIndex;
-
-        return am.aircraftFlights[index];
-    }
+    
 }

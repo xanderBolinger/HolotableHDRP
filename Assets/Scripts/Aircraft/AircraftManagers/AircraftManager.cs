@@ -8,22 +8,19 @@ public class AircraftManager : MonoBehaviour
 {
     public static AircraftManager aircraftManager;
 
-    [SerializeField]
-    AircraftType testCreateAircraftType;
-    [SerializeField]
-    string testCreateAircraftCallsign;
+    [InspectorName("Aircraft Type")]
+    public AircraftType testCreateAircraftType;
+    [InspectorName("Starting Altitude")]
+    public AircraftAltitude testStartingAircraftAltitude;
+    [InspectorName("Aircraft Callsign")]
+    public string testCreateAircraftCallsign;
 
     AircraftLoader _aircraftLoader;
 
-    void Start()
-    {
-        Setup();
-    }
-
     public void Setup()
     {
-        aircraftManager = this;
         _aircraftLoader = new AircraftLoader();
+        aircraftManager = this;
     }
 
     public Aircraft CreateAircraft(AircraftType aircraftType, string aircraftCallsign,

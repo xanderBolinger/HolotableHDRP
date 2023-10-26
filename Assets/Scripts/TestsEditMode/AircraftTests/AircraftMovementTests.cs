@@ -2,6 +2,7 @@
 using static AircraftMovementData;
 using NUnit.Framework;
 using UnityEngine;
+using static AircraftLoader;
 
 public class AircraftMovementTests
 {
@@ -27,6 +28,7 @@ public class AircraftMovementTests
         flightManager.Setup();
         flightManager.AddFlight("testflight");
         flight = flightManager.aircraftFlights[0];
+        flightManager.AddAircraftToFlight(flight, "testaircraft", AircraftType.V19, AircraftAltitude.VERY_HIGH, cord1);
     }
 
     [Test]
