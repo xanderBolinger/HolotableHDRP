@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ForceSideManager : MonoBehaviour
 {
+    public static ForceSideManager forceSideManager;
+
 
     [HideInInspector]
     public List<string> inspectorSideDisplayList = new List<string>();
@@ -14,10 +16,12 @@ public class ForceSideManager : MonoBehaviour
     
     private void Start()
     {
+        
         Setup();
     }
 
     public void Setup() {
+        forceSideManager = this;
         _sides = new List<ForceSide>();
 
         var blufor = new ForceSide("blufor");
@@ -33,6 +37,10 @@ public class ForceSideManager : MonoBehaviour
         _sides.Add(blufor);
         _sides.Add(opfor);
         _sides.Add(indfor);
+    }
+
+    public ForceSide GetInspectorSelectedSide() {
+        return GetSide(inspectorSelectedSideIndex);
     }
 
     public ForceSide GetSide(int index) {
