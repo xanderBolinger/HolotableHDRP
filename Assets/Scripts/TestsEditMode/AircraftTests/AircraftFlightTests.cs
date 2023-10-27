@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using static AircraftLoader;
 
 public class AircraftFlightTests
 {
@@ -9,16 +10,14 @@ public class AircraftFlightTests
     public void CreateFlight()
     {
 
-        var v191 = AircraftLoader.LoadAircraftJson("V19");
-        var v192 = AircraftLoader.LoadAircraftJson("V19");
-        var v193 = AircraftLoader.LoadAircraftJson("V19");
+        AircraftLoader al = new AircraftLoader();
+        var v1 = al.LoadAircraft(AircraftType.V19);
+        v1.SetupAircraft("v1", AircraftSpeedData.AircraftSpeed.Combat, AircraftMovementData.AircraftAltitude.VERY_HIGH, null);
 
         var flight = new AircraftFlight("testflight");
-        flight.AddAircraft(v191);
-        flight.AddAircraft(v192);
-        flight.AddAircraft(v193);
+        flight.AddAircraft(v1);
         Assert.AreEqual("testflight", flight.flightCallsign);
-        Assert.AreEqual(3, flight.flightAircraft.Count);
+        Assert.AreEqual(1, flight.flightAircraft.Count);
 
     }
 
