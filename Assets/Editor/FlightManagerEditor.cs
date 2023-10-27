@@ -16,7 +16,7 @@ public class FlightManagerEditor : Editor
 
         if (GUILayout.Button("Add flight"))
         {
-            flightManager.AddFlight(flightManager.testAddFlightCallsign);
+            flightManager.AddFlight(flightManager.testAddFlightCallsign, );
         }
 
         if (GUILayout.Button("Remove flight") && flightManager.testAircraftFlightDisplayList.Count > 0)

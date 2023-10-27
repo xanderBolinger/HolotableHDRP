@@ -10,7 +10,7 @@ public class FlightManagerTests
     public void Setup() {
         manager = new GameObject().AddComponent<FlightManager>();
         manager.Setup();
-        manager.AddFlight("testflight");
+        manager.AddFlight("testflight", null);
     }
 
     [Test]
@@ -21,7 +21,7 @@ public class FlightManagerTests
 
     [Test]
     public void DuplicateFlightTest() {
-        manager.AddFlight("testflight");
+        manager.AddFlight("testflight", null);
         Assert.AreEqual(1, manager.aircraftFlights.Count);
     }
 

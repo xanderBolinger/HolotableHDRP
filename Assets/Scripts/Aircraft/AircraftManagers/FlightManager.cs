@@ -30,12 +30,13 @@ public class FlightManager : MonoBehaviour
         _aircraftFlights = new List<AircraftFlight>();
     }
 
-    public void AddFlight(string flightCallsign)
+    public void AddFlight(string flightCallsign, ForceSide forceSide)
     {
         if (!CanAddFlight(flightCallsign))
             return;
 
         AircraftFlight flight = new AircraftFlight(flightCallsign);
+        flight.side = forceSide;
         aircraftFlights.Add(flight);
 
         testAircraftFlightDisplayList.Add(flightCallsign);

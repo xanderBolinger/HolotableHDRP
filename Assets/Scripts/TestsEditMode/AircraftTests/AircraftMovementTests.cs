@@ -26,7 +26,7 @@ public class AircraftMovementTests
         aircraftManager.Setup();
         aircraftMovementManager = new GameObject().AddComponent<AircraftMovementManager>();
         flightManager.Setup();
-        flightManager.AddFlight("testflight");
+        flightManager.AddFlight("testflight", null);
         flight = flightManager.aircraftFlights[0];
         aircraftManager.AddAircraftToFlight(flight, "testaircraft", AircraftType.V19, AircraftAltitude.VERY_HIGH, cord1);
     }

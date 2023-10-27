@@ -9,6 +9,9 @@ public class AircraftFlight
     List<Aircraft> _flightAircraft;
     string _flightCallsign;
 
+
+    public ForceSide side;
+
     public string flightCallsign { get { return _flightCallsign; } }
     public List<Aircraft> flightAircraft { get { return _flightAircraft; } }
 
