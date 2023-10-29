@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class OneWayTable
 {
-    private SortedDictionary<string, string> tableData;
+    private Dictionary<string, string> tableData;
 
     public OneWayTable(TextAsset csvFile)
     {
@@ -13,7 +14,7 @@ public class OneWayTable
 
     private void ParseCSV(string csvText)
     {
-        tableData = new SortedDictionary<string, string>();
+        tableData = new Dictionary<string, string>();
 
         string[] lines = csvText.Split('\n');
 
@@ -59,9 +60,10 @@ public class OneWayTable
 
     public string GetValue(int key)
     {
-        foreach(var k in tableData.Keys) 
+        var li = tableData.Keys.ToList().OrderBy(i => int.Parse(i));
+        foreach (var k in li) 
             if(key <= int.Parse(k))
-            return tableData[k];
+                return tableData[k];
         
 
         throw new System.Exception("Value not found in table for value: " + key);

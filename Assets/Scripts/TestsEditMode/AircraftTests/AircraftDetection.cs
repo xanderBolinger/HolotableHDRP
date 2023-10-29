@@ -2,8 +2,22 @@ using NUnit.Framework;
 using static AircraftDetectionSuit;
 using static AircraftDetectionSuitMethods;
 
-public class AircraftDetectionDataTests
+public class AircraftDetection
 {
+
+    [Test]
+    public void DetectionTableTests() { 
+        var dt = new AircraftDetectionTable();
+
+        Assert.IsFalse(dt.Detected("A", 1));
+        Assert.IsTrue(dt.Detected("A", 15));
+        Assert.IsTrue(dt.Detected("C", 11));
+        Assert.IsFalse(dt.Detected("D", 11));
+        Assert.IsTrue(dt.Detected("G", 20));
+        Assert.IsFalse(dt.Detected("G", 14));
+
+    }
+
 
     [Test]
     public void GetDetectionSuitTests() {

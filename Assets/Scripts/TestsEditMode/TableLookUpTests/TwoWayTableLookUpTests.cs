@@ -17,6 +17,17 @@ public class TwoWayTableLookUpTests
     }
 
     [Test]
+    public void LookUpTestStringXIntY()
+    {
+        TextAsset csvFile = Resources.Load<TextAsset>("TableLookUpTests/TableStringXIntY");
+        var table = new TwoWayTable(csvFile);
+
+        Assert.AreEqual("c11", table.GetValue("x1",1));
+        Assert.AreEqual("c33", table.GetValue("x3",5));
+        Assert.AreEqual("c44", table.GetValue("x4",8));
+    }
+
+    [Test]
     public void LookUpTestIntXStringY()
     {
         TextAsset csvFile = Resources.Load<TextAsset>("TableLookUpTests/TableIntXStringY");
