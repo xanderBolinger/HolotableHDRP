@@ -1,6 +1,12 @@
 {
     "aircraft_display_name": "V19 Torrent",
     "aircraft_type": "V19",
+    "aircraft_detection_data": {
+        "aircraft_radar": {
+            "detection_class": "C",
+            "radar_range": 18
+        }
+    },
     "aircraft_movement_data": {
         "max_fuel": 10,
         "not_laden": {

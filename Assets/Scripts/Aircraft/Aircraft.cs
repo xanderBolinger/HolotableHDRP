@@ -15,11 +15,15 @@ public class Aircraft
     string _aircraftDisplayName;
     [JsonProperty("aircraft_movement_data")]
     AircraftMovementData _movementData;
+    [JsonProperty("aircraft_detection_data")]
+    AircraftDetectionData _aircraftDetectionData;
 
     public string callsign { get { return _callsign; } }
     public string aircraftDisplayName { get { return _aircraftDisplayName; } }
     public AircraftType aircraftType { get { return _aircraftType; } }
     public AircraftMovementData movementData { get { return _movementData; } }
+
+    public AircraftDetectionData aircraftDetectionData { get { return _aircraftDetectionData; } }
 
     [JsonConstructor]
     public Aircraft() { }

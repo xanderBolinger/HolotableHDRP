@@ -2,7 +2,7 @@ using NUnit.Framework;
 using static AircraftDetectionSuit;
 using static AircraftDetectionSuitMethods;
 
-public class AircraftDetection
+public class AircraftDetectionTests
 {
 
     [Test]
