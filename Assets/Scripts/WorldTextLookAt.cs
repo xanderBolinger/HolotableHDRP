@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
+using UnityEngine.UIElements;
 
 public class WorldTextLookAt : MonoBehaviour
 {
 
-    [SerializeField] Transform targetTransform;
+    Transform cameraTransform;
 
     Transform _transform;
 
     private void Awake()
     {
+        cameraTransform = Camera.main.transform;
         _transform = transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _transform.LookAt(-targetTransform.position);
+        _transform.LookAt(_transform.position - (cameraTransform.position - _transform.position));
     }
 }

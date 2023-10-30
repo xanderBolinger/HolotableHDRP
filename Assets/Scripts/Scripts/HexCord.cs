@@ -9,7 +9,19 @@ public class HexCord : MonoBehaviour
 {
     public int x;
     public int y;
-    public int elevation { get { return elevation; } set { UpdateText(value);  } }
+
+    private int _elevation;
+    public int elevation {
+        get
+        {
+            return _elevation;
+        }
+        set
+        {
+            UpdateText(value);
+            _elevation = value;
+        }
+    }
     public bool roadHex = false;
     public bool urbanHex = false;
     public HexType hexType;
@@ -25,16 +37,18 @@ public class HexCord : MonoBehaviour
     }
 
     void UpdateText(int value) {
-        elevation = value;
-        text.SetText(value.ToString());
+        if(text != null)
+            text.SetText(value.ToString());
     }
 
-    public void HideText() {
-        hexElevation.SetActive(false);
+    public void HideElevationText() {
+        if (hexElevation != null)
+            hexElevation.SetActive(false);
     }
 
-    public void ShowText() {
-        hexElevation.SetActive(true);
+    public void ShowElevationText() {
+        if (hexElevation != null)
+            hexElevation.SetActive(true);
     }
 
     public Vector2Int GetCord() {

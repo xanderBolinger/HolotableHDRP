@@ -86,7 +86,7 @@ namespace Operation {
                     lastSelectedHex = selectedHex;
                     selectedHex = hitObject;
                     var cord = HexCord.GetHexCord(selectedHex);
-                    Debug.Log("Selected Hex: " + cord.GetCord()+", Hex Type: "+cord.hexType);
+                    Debug.Log("Selected Hex: " + cord.GetCord()+", Hex Type: "+cord.hexType+", Elevation: "+cord.elevation);
 
                     if (lastSelectedHex != null ) {
                         var cord2 = HexCord.GetHexCord(lastSelectedHex);
