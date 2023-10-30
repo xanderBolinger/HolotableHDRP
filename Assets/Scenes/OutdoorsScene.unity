@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 973590720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 887c4ddefd6ced344bb695892b82fc50, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e0f922097f436c4c9a0afc833ccc6e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   testAddFlightCallsign: 

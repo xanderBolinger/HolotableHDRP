@@ -23,7 +23,7 @@ public class ForceSide
     }
 
     public bool FriendlyTowards(ForceSide side) { 
-        return _friendlySides.Contains(side);
+        return _friendlySides.Contains(side) || side.displayName == displayName;
     }
 
     public override string ToString()
@@ -39,9 +39,9 @@ public class ForceSide
         sideString += " towards [";
 
         foreach(var s in sides) 
-            sideString += s.displayName + (sides[sides.Count-1] != s ? ", " : "]");
+            sideString += s.displayName + (sides[sides.Count-1] != s ? ", " : "");
 
-        return sideString;
+        return sideString+"]";
 
     }
 

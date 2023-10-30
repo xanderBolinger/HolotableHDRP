@@ -113,6 +113,7 @@ public class AircraftFlight
         string aircraftMoveData = "";
 
         if (_flightAircraft.Count > 0) {
+            aircraftMoveData += side.ToString() + "\n";
             aircraftMoveData += "Radar Active: " + flightAircraft[0].aircraftDetectionData.aircraftRadar.active + "\n";
             aircraftMoveData += "Detected: " + Detected() + "\n";
             aircraftMoveData += "Facing: " + GetFacing() + "\n";
