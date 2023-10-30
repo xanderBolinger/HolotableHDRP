@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using static AircraftMovementData;
 using static AircraftSpeedData;
-
+using static AircraftDetectionSuitMethods;
 public class AircraftFlight
 {
     List<Aircraft> _flightAircraft;
     string _flightCallsign;
+    AircraftDetectionSuit _aircraftDetectionSuit;
 
 
     public ForceSide side;
@@ -16,6 +17,7 @@ public class AircraftFlight
     public List<Aircraft> flightAircraft { get { return _flightAircraft; } }
 
     public AircraftFlight(string flightCallsign) {
+        _aircraftDetectionSuit = GetSuit();
         _flightCallsign = flightCallsign;
         _flightAircraft = new List<Aircraft>();
     }
@@ -33,7 +35,7 @@ public class AircraftFlight
     }
 
     public AircraftDetectionSuit GetDetectionSuit() {
-        return flightAircraft[0].aircraftDetectionData.detectionSuit;
+        return _aircraftDetectionSuit;
     }
 
     public bool Detected() {
@@ -115,6 +117,7 @@ public class AircraftFlight
         if (_flightAircraft.Count > 0) {
             aircraftMoveData += side.ToString() + "\n";
             aircraftMoveData += "Radar Active: " + flightAircraft[0].aircraftDetectionData.aircraftRadar.active + "\n";
+            aircraftMoveData += "Suit: " + GetDetectionSuit() + "\n";
             aircraftMoveData += "Detected: " + Detected() + "\n";
             aircraftMoveData += "Facing: " + GetFacing() + "\n";
             aircraftMoveData += "Cord: "+GetLocation().GetCord()+"\n";

@@ -30,10 +30,13 @@ public class AircraftTrackTable
                 continue;
 
             if (flight.GetDetectionSuit() == AircraftDetectionSuit.Heart && heart) {
+                Debug.Log("Undetect Flight: "+flight.flightCallsign+" Heart");
                 Undetect(flight);
             } else if (flight.GetDetectionSuit() == AircraftDetectionSuit.Spade && spade) {
+                Debug.Log("Undetect Flight: " + flight.flightCallsign + " Spade");
                 Undetect(flight);
             } else if (flight.GetDetectionSuit() == AircraftDetectionSuit.Diamond && diamond) {
+                Debug.Log("Undetect Flight: " + flight.flightCallsign + " Diamond");
                 Undetect(flight);
             }
 

@@ -113,6 +113,8 @@ public class AircraftDetectionManager : MonoBehaviour
 
         var rslt = _trackTable.GetTrackResult(_detectionClass.ToString(), roll);
 
+        Debug.Log("Track Results: "+rslt);
+
         AircraftTrackTable.ApplyTrackResult(rslt, flights);
 
     }

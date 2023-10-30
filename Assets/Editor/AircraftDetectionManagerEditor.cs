@@ -18,6 +18,11 @@ public class AircraftDetectionManagerEditor : Editor
             adm.DetectFlights(AircraftFlightManager.flightManager.aircraftFlights);
         }
 
+        if (GUILayout.Button("Track Flights"))
+        {
+            adm.UndetectFlights(AircraftFlightManager.flightManager.aircraftFlights);
+        }
+
         if (GUILayout.Button("Toggle Radar") && Flights())
         {
             var flight = GetFlight();
