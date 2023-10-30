@@ -33,6 +33,7 @@ public class Aircraft
         _callsign = aircraft.callsign;
         _aircraftDisplayName = aircraft.aircraftDisplayName;
         _movementData = new AircraftMovementData(aircraft.movementData);
+        _aircraftDetectionData = new AircraftDetectionData(aircraft.aircraftDetectionData);
     }
 
     public void SetupAircraft(string callsign, AircraftSpeed speed, AircraftAltitude altitude, HexCord cord) {

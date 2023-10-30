@@ -7,7 +7,7 @@ using static AircraftLoader;
 public class AircraftTests
 {
     AircraftMovementManager aircraftMovementManager;
-    FlightManager flightManager;
+    AircraftFlightManager flightManager;
     AircraftFlight flight;
     HexCord cord1;
     HexCord cord2;
@@ -22,7 +22,7 @@ public class AircraftTests
         cord2.x = 1;
         cord2.y = 1;
         var fmObj = new GameObject();
-        flightManager = fmObj.AddComponent<FlightManager>();
+        flightManager = fmObj.AddComponent<AircraftFlightManager>();
         var aircraftManager = fmObj.AddComponent<AircraftManager>();
         aircraftManager.Setup();
         aircraftMovementManager = new GameObject().AddComponent<AircraftMovementManager>();

@@ -2,14 +2,14 @@
 using UnityEngine;
 using static AircraftManager;
 using static AircraftHexCordManager;
-[CustomEditor(typeof(FlightManager))]
-public class FlightManagerEditor : Editor
+[CustomEditor(typeof(AircraftFlightManager))]
+public class AircraftFlightManagerEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        FlightManager flightManager = (FlightManager)target;
+        AircraftFlightManager flightManager = (AircraftFlightManager)target;
 
         GUIContent selectedFlightList = new GUIContent("Select Flight");
         flightManager.selectedAircraftFlightIndex = EditorGUILayout.Popup(selectedFlightList, flightManager.selectedAircraftFlightIndex, flightManager.testAircraftFlightDisplayList.ToArray());
@@ -37,12 +37,12 @@ public class FlightManagerEditor : Editor
 
     public static bool Flights()
     {
-        return FlightManager.flightManager.aircraftFlights.Count > 0;
+        return AircraftFlightManager.flightManager.aircraftFlights.Count > 0;
     }
 
     public static AircraftFlight GetFlight()
     {
-        var am = FlightManager.flightManager;
+        var am = AircraftFlightManager.flightManager;
         var index = am.selectedAircraftFlightIndex;
 
         return am.aircraftFlights[index];

@@ -15,6 +15,10 @@ public static class AircraftDetectionSuitMethods
     public static AircraftDetectionSuit lastDetectionSuit = AircraftDetectionSuit.Diamond;
 
 
+    public static void ResetDetectionSuits() {
+        lastDetectionSuit = AircraftDetectionSuit.Diamond;
+    }
+
     public static AircraftDetectionSuit GetSuit() {
         lastDetectionSuit = GetNextSuit(lastDetectionSuit);
         return lastDetectionSuit;

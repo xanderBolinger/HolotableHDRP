@@ -4,9 +4,9 @@ using static AircraftLoader;
 using static AircraftMovementData;
 
 [RequireComponent(typeof(AircraftManager))]
-public class FlightManager : MonoBehaviour
+public class AircraftFlightManager : MonoBehaviour
 {
-    public static FlightManager flightManager;
+    public static AircraftFlightManager flightManager;
 
     [InspectorName("Add Flight Callsign")]
     public string testAddFlightCallsign;

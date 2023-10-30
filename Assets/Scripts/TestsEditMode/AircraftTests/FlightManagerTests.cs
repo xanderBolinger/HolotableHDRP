@@ -4,11 +4,11 @@ using UnityEngine;
 public class FlightManagerTests
 {
 
-    FlightManager manager;
+    AircraftFlightManager manager;
 
     [SetUp]
     public void Setup() {
-        manager = new GameObject().AddComponent<FlightManager>();
+        manager = new GameObject().AddComponent<AircraftFlightManager>();
         manager.Setup();
         manager.AddFlight("testflight", null);
     }

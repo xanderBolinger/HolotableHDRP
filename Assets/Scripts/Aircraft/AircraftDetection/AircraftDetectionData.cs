@@ -20,4 +20,10 @@ public class AircraftDetectionData
         detected = false;
     }
 
+    public AircraftDetectionData(AircraftDetectionData data) {
+        _detectionSuit = data.detectionSuit;
+        detected = data.detected;
+        _radar = new AircraftRadar(data.aircraftRadar);
+    }
+
 }

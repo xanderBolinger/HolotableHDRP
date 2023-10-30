@@ -32,6 +32,14 @@ public class AircraftFlight
         return flightAircraft[0].movementData.altitude;
     }
 
+    public AircraftDetectionSuit GetDetectionSuit() {
+        return flightAircraft[0].aircraftDetectionData.detectionSuit;
+    }
+
+    public bool Detected() {
+        return flightAircraft[0].aircraftDetectionData.detected;
+    }
+
     public HexCord GetLocation() {
         return flightAircraft[0].movementData.location;
     }
@@ -89,6 +97,10 @@ public class AircraftFlight
         return true;
     }
 
+    public void ToggleRadar() {
+        foreach (var aircraft in flightAircraft)
+            aircraft.aircraftDetectionData.aircraftRadar.active = !aircraft.aircraftDetectionData.aircraftRadar.active;
+    }
 
     public override string ToString()
     {
@@ -101,6 +113,8 @@ public class AircraftFlight
         string aircraftMoveData = "";
 
         if (_flightAircraft.Count > 0) {
+            aircraftMoveData += "Radar Active: " + flightAircraft[0].aircraftDetectionData.aircraftRadar.active + "\n";
+            aircraftMoveData += "Detected: " + Detected() + "\n";
             aircraftMoveData += "Facing: " + GetFacing() + "\n";
             aircraftMoveData += "Cord: "+GetLocation().GetCord()+"\n";
             aircraftMoveData += "alt: cmbt/dash/manvr\n";

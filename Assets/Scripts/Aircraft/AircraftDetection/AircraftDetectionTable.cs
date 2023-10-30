@@ -19,4 +19,6 @@ public class AircraftDetectionTable
         return table.GetValue(detectionClass, roll) == "D";
     }
 
+    
+
 }

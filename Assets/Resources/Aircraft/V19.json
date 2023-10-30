@@ -4,7 +4,14 @@
     "aircraft_detection_data": {
         "aircraft_radar": {
             "detection_class": "C",
-            "radar_range": 18
+            "radar_max_range_active": 125,
+            "radar_medium_range_active": 100,
+            "radar_short_range_active": 90,
+            "radar_max_range": 75,
+            "radar_medium_range": 60,
+            "radar_short_range": 50,
+            "irst_front": 18,
+            "irst_rear": 25
         }
     },
     "aircraft_movement_data": {

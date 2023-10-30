@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,17 +7,118 @@ using UnityEngine;
 namespace HexMapper {
     public enum Direction
     {
-        A,
-        B,
-        C,
-        D,
-        E,
-        F
-
+        A,AB,
+        B,BC,
+        C,CD,
+        D,DE,
+        E,EF,
+        F,FA
     }
 
     public static class HexDirection
     {
+
+        public static bool Beam(Vector2Int start, Vector2Int target, Direction targetFacing) {
+            if (Rear(start, target, targetFacing) || GetHexSideFacingTarget(target, start) == targetFacing)
+                return false;
+            return true;
+        }
+
+        public static bool Rear(Vector2Int start, Vector2Int target, Direction targetFacing) {
+            var dirToTarget = GetHexSideFacingTarget(start, target);
+
+            if (dirToTarget == GetOppositeDirectionTo(targetFacing))
+                return true;
+
+            return false;
+        }
+
+        public static Direction GetHexSideFacingTarget(Vector2Int start, Vector2Int target)
+        {
+
+            var startDistance = HexMap.GetDistance(start, target);
+
+            Direction closestDir = Direction.A;
+            var closestDist = GetDistanceInDirection(start, target, startDistance, Direction.A);
+
+            foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+            {
+                var newDist = GetDistanceInDirection(start, target, startDistance, dir);
+
+                if (newDist < closestDist)
+                {
+                    closestDist = newDist;
+                    closestDir = dir;
+                }
+
+            }
+
+            return closestDir;
+
+            // if x2 < x1 and y2 == y1 than A
+            // if getDistanceInDirection(A) < getDistanceInDirection(B) than A elif getDistanceInDirection(A) > getDistanceInDirection(B) than B, otherwise A/B
+            // if x2 <= x1 , y2 > y1 than B
+
+            // if x2 >= x1 and y2 > y1 than C 
+
+            // if x2 > x1 and y2 == y1 than D
+
+            // if x2 >= x1 and y2 < y1 than E
+
+            // if x2 <= x1 and y2 < y1 thanF
+
+            //throw new Exception("Direction not found for cords: ("+start.toString()+") to ("+target.toString()+")");
+        }
+
+        public static int GetDistanceInDirection(Vector2Int start, Vector2Int target, int distance, Direction dir)
+        {
+
+            Vector2Int newCord = start;
+            bool clockwise = true;
+            for (int i = 0; i < distance; i++)
+            {
+                newCord = GetHexInDirection(dir, newCord, clockwise);
+                clockwise = !clockwise;
+            }
+
+            return HexMap.GetDistance(target, newCord);
+        }
+
+        public static Vector2Int GetHexInDirection(Direction dir, Vector2Int pos, bool clockwise)
+        {
+            List<Vector2Int> neighbors = GetHexNeighbours(pos);
+
+            switch (dir)
+            {
+                case Direction.A:
+                    return neighbors[0];
+                case Direction.B:
+                    return neighbors[1];
+                case Direction.C:
+                    return neighbors[2];
+                case Direction.D:
+                    return neighbors[3];
+                case Direction.E:
+                    return neighbors[4];
+                case Direction.F:
+                    return neighbors[5];
+                case Direction.AB:
+                    return !clockwise ? neighbors[0] : neighbors[1];
+                case Direction.BC:
+                    return !clockwise ? neighbors[1] : neighbors[2];
+                case Direction.CD:
+                    return !clockwise ? neighbors[2] : neighbors[3];
+                case Direction.DE:
+                    return !clockwise ? neighbors[3] : neighbors[4];
+                case Direction.EF:
+                    return !clockwise ? neighbors[4] : neighbors[5];
+                case Direction.FA:
+                    return !clockwise ? neighbors[5] : neighbors[0];
+                default:
+                    throw new Exception("Hex direction not found, dir: " + dir + ", pos: " + pos);
+            }
+        }
+
         public static Direction GetOppositeDirectionTo(this Direction direction)
         {
             switch (direction)
@@ -33,9 +135,61 @@ namespace HexMapper {
                         return Direction.B;
                     case Direction.F:
                         return Direction.C;
-                    default:
+                    case Direction.AB:
+                        return Direction.DE;
+                    case Direction.BC:
+                        return Direction.EF;
+                    case Direction.CD:
+                        return Direction.FA;
+                    case Direction.DE:
+                        return Direction.AB;
+                    case Direction.EF:
+                        return Direction.BC;
+                    case Direction.FA:
+                        return Direction.CD;
+                default:
                         return direction;
             }
+        }
+
+
+        public static Direction GetFaceInDirection(Direction facing, bool clockwise)
+        {
+
+            switch (facing)
+            {
+
+                case Direction.A:
+                    return clockwise ? Direction.AB : Direction.FA;
+                case Direction.AB:
+                    return clockwise ? Direction.B : Direction.A;
+                case Direction.B:
+                    return clockwise ? Direction.BC : Direction.AB;
+                case Direction.BC:
+                    return clockwise ? Direction.C : Direction.B;
+                case Direction.C:
+                    return clockwise ? Direction.CD : Direction.BC;
+                case Direction.CD:
+                    return clockwise ? Direction.D : Direction.C;
+                case Direction.D:
+                    return clockwise ? Direction.DE : Direction.CD;
+                case Direction.DE:
+                    return clockwise ? Direction.E : Direction.D;
+                case Direction.E:
+                    return clockwise ? Direction.EF : Direction.DE;
+                case Direction.EF:
+                    return clockwise ? Direction.F : Direction.E;
+                case Direction.F:
+                    return clockwise ? Direction.FA : Direction.EF;
+                case Direction.FA:
+                    return clockwise ? Direction.A : Direction.F;
+                default:
+                    break;
+
+            }
+
+            throw new System.Exception("Direction not found for clockwise: "+clockwise+", start dir: "+facing);
+
         }
 
         public static Vector2Int GetHexInDirection(Vector2Int originalPos, Direction direction) {

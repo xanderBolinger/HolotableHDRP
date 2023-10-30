@@ -2,7 +2,7 @@
 using UnityEngine;
 using static AircraftManager;
 using static AircraftHexCordManager;
-using static FlightManagerEditor;
+using static AircraftFlightManagerEditor;
 
 [CustomEditor(typeof(AircraftManager))]
 public class AircraftManagerEditor : Editor

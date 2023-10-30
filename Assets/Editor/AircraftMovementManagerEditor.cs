@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static FlightManagerEditor;
+using static AircraftFlightManagerEditor;
 
 [CustomEditor(typeof(AircraftMovementManager))]
 public class AircraftMovementManagerEditor : Editor

@@ -27,6 +27,27 @@ public class AircraftJsonTests
     }
 
     [Test]
+    public void V19DetectionDataTest() {
+        var aircraft = LoadAircraftJson("V19");
+        var dd = aircraft.aircraftDetectionData;
+        var radar = dd.aircraftRadar;
+
+        Assert.AreEqual("C", radar.detectionClass);
+
+        Assert.AreEqual(25,radar.irstRear);
+        Assert.AreEqual(18, radar.irstFront);
+
+        Assert.AreEqual(125, radar.radarMaxRangeActive);
+        Assert.AreEqual(100, radar.radarMediumRangeActive);
+        Assert.AreEqual(90, radar.radarShortRangeActive);
+
+        Assert.AreEqual(75, radar.radarMaxRange);
+        Assert.AreEqual(60, radar.radarMediumRange);
+        Assert.AreEqual(50, radar.radarShortRange);
+
+    }
+
+    [Test]
     public void ReadV19Test()
     {
         var aircraft = LoadAircraftJson("V19");

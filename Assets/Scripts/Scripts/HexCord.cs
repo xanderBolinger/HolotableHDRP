@@ -50,7 +50,8 @@ public class HexCord : MonoBehaviour
                                y == b2.y) : false;
     }
 
-    
-
+    public bool Rough() {
+        return hexType == HexType.MOUNTAIN || hexType == HexType.HeavyWoods || hexType == HexType.BigBuilding;
+    }
 
 }
