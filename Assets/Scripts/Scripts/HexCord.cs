@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,14 +9,32 @@ public class HexCord : MonoBehaviour
 {
     public int x;
     public int y;
-    public int elevation;
+    public int elevation { get { return elevation; } set { UpdateText(value);  } }
     public bool roadHex = false;
     public bool urbanHex = false;
     public HexType hexType;
 
+    [SerializeField]
+    GameObject hexElevation;
+    [SerializeField]
+    TextMeshProUGUI text;
+
     [Serializable]
     public enum HexType { 
         Clear,HeavyWoods,MediumWoods,LightWoods,Brush,HeavyBrush,MOUNTAIN,Building,BigBuilding,PATH,HIGHWAY
+    }
+
+    void UpdateText(int value) {
+        elevation = value;
+        text.SetText(value.ToString());
+    }
+
+    public void HideText() {
+        hexElevation.SetActive(false);
+    }
+
+    public void ShowText() {
+        hexElevation.SetActive(true);
     }
 
     public Vector2Int GetCord() {
@@ -53,5 +72,7 @@ public class HexCord : MonoBehaviour
     public bool Rough() {
         return hexType == HexType.MOUNTAIN || hexType == HexType.HeavyWoods || hexType == HexType.BigBuilding;
     }
+
+
 
 }
