@@ -1438,6 +1438,7 @@ GameObject:
   - component: {fileID: 973590725}
   - component: {fileID: 973590724}
   - component: {fileID: 973590726}
+  - component: {fileID: 973590727}
   m_Layer: 0
   m_Name: AircraftManagers
   m_TagString: Untagged
@@ -1490,6 +1491,9 @@ MonoBehaviour:
   testAddFlightCallsign: 
   testAircraftFlightDisplayList: []
   selectedAircraftFlightIndex: 0
+  testTargetAircraftFlightDisplayList: []
+  selectedTargetAircraftFlightIndex: 0
+  inspectorFlightQuality: 1
 --- !u!114 &973590724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1531,6 +1535,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05ee91a700a6310478b0c0308fb2c996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  night: 0
+--- !u!114 &973590727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973590720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e3e5778a3e5244f927ace368a2afe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   night: 0
