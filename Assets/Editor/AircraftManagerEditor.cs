@@ -32,12 +32,12 @@ public class AircraftManagerEditor : Editor
 
         if (GUILayout.Button("Cripple Aircraft"))
         {
-            GetFlight().DestroyAircraft(aircraftManager.testCreateAircraftCallsign);
+            GetFlight().CrippleAircraft(aircraftManager.testCreateAircraftCallsign);
         }
 
         if (GUILayout.Button("Damage Aircraft"))
         {
-            GetFlight().DestroyAircraft(aircraftManager.testCreateAircraftCallsign);
+            GetFlight().DamageAircraft(aircraftManager.testCreateAircraftCallsign);
         }
 
     }
