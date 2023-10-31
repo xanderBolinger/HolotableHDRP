@@ -1,6 +1,20 @@
 {
     "aircraft_display_name": "V19 Torrent",
     "aircraft_type": "V19",
+    "aircraft_jammer_data": {
+        "aircraft_jammer": {
+            "jammer_strength_noise": 0,
+            "jammer_strength_deception": 4
+        },
+        "aircraft_standoff_jammer": {
+            "short_range":22,
+            "medium_range": 45,
+            "long_range": 88,
+            "short_range_strength": 4,
+            "medium_range_strength": 3,
+            "long_range_strength": 2
+        }
+    },
     "aircraft_detection_data": {
         "aircraft_radar": {
             "detection_class": "C",

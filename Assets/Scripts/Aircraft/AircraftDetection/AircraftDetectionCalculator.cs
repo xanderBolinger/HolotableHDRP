@@ -2,6 +2,8 @@ using HexMapper;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static AircraftStandoffJammerCalculator;
+using static AircraftFlightManager;
 
 public class AircraftDetectionCalculator
 {
@@ -54,9 +56,11 @@ public class AircraftDetectionCalculator
             new Vector2Int(locationTarget.x, locationTarget.y),
             target.GetFacing()) ? - 2 : 0;
 
+        var standoffJammingMod = GetJammerStrength(spotter, aircraftFlightManager.aircraftFlights);
+
         var roll = DiceRoller.Roll(2, 20);
 
-        return roll + altitudeBandMod + targetAtDeckMod + radarRangeMod + beamMod + chaffMod;
+        return roll + altitudeBandMod + targetAtDeckMod + radarRangeMod + beamMod + chaffMod + standoffJammingMod;
     }
 
 }

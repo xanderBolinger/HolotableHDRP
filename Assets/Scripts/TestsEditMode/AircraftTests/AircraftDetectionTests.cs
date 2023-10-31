@@ -12,6 +12,7 @@ using static AircraftMovementData;
 public class AircraftDetectionTests
 {
     AircraftMovementManager aircraftMovementManager;
+    AircraftFlightManager aircraftFlightManager;
     AircraftFlight flight;
     AircraftFlight opforFlight;
     List<AircraftFlight> flights;
@@ -44,7 +45,13 @@ public class AircraftDetectionTests
         v2.SetupAircraft("v1", AircraftSpeed.Combat, AircraftAltitude.VERY_HIGH, cord2);
         opforFlight.AddAircraft(v2);
         flights.Add(opforFlight);
+        aircraftFlightManager = new GameObject().AddComponent<AircraftFlightManager>();
         aircraftMovementManager = new GameObject().AddComponent<AircraftMovementManager>();
+        aircraftFlightManager.Setup();
+        aircraftFlightManager.AddFlight("t", null);
+        aircraftFlightManager.AddFlight("t2", null);
+        aircraftFlightManager.aircraftFlights[0] = flight;
+        aircraftFlightManager.aircraftFlights[1] = opforFlight;
     }
 
     [Test]

@@ -51,6 +51,7 @@ public class AircraftJsonTests
     public void ReadV19Test()
     {
         var aircraft = LoadAircraftJson("V19");
+        var jd = aircraft.aircraftJammerData;
         var md = aircraft.movementData;
         Assert.IsTrue(AircraftType.V19 == aircraft.aircraftType);
         Assert.AreEqual("V19 Torrent", aircraft.aircraftDisplayName);
@@ -78,6 +79,18 @@ public class AircraftJsonTests
            AircraftAltitude.LOW);
         TestSpeed(md, 3, 4, 4, true,
            AircraftAltitude.DECK);
+
+        Assert.AreEqual(0, jd.aircraftJammer.jammerStrengthNoise);
+        Assert.AreEqual(4, jd.aircraftJammer.jammerStrengthDeception);
+
+        Assert.AreEqual(22, jd.aircraftStandoffJammer.shortRange);
+        Assert.AreEqual(45, jd.aircraftStandoffJammer.mediumRange);
+        Assert.AreEqual(88, jd.aircraftStandoffJammer.longRange);
+
+        Assert.AreEqual(4, jd.aircraftStandoffJammer.shortRangeStrength);
+        Assert.AreEqual(3, jd.aircraftStandoffJammer.mediumRangeStrength);
+        Assert.AreEqual(2, jd.aircraftStandoffJammer.longRangeStrength);
+
     }
 
     private void TestSpeed(AircraftMovementData md,

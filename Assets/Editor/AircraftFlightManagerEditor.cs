@@ -37,12 +37,12 @@ public class AircraftFlightManagerEditor : Editor
 
     public static bool Flights()
     {
-        return AircraftFlightManager.flightManager.aircraftFlights.Count > 0;
+        return AircraftFlightManager.aircraftFlightManager.aircraftFlights.Count > 0;
     }
 
     public static AircraftFlight GetFlight()
     {
-        var am = AircraftFlightManager.flightManager;
+        var am = AircraftFlightManager.aircraftFlightManager;
         var index = am.selectedAircraftFlightIndex;
 
         return am.aircraftFlights[index];

@@ -6,7 +6,7 @@ using static AircraftMovementData;
 [RequireComponent(typeof(AircraftManager))]
 public class AircraftFlightManager : MonoBehaviour
 {
-    public static AircraftFlightManager flightManager;
+    public static AircraftFlightManager aircraftFlightManager;
 
     [InspectorName("Add Flight Callsign")]
     public string testAddFlightCallsign;
@@ -26,7 +26,7 @@ public class AircraftFlightManager : MonoBehaviour
     }
 
     public void Setup() {
-        flightManager = this;
+        aircraftFlightManager = this;
         _aircraftFlights = new List<AircraftFlight>();
     }
 

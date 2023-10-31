@@ -17,23 +17,26 @@ public class Aircraft
     AircraftMovementData _movementData;
     [JsonProperty("aircraft_detection_data")]
     AircraftDetectionData _aircraftDetectionData;
+    [JsonProperty("aircraft_jammer_data")]
+    AircraftJammerData _aircraftJammerData;
 
     public string callsign { get { return _callsign; } }
     public string aircraftDisplayName { get { return _aircraftDisplayName; } }
     public AircraftType aircraftType { get { return _aircraftType; } }
-    public AircraftMovementData movementData { get { return _movementData; } }
 
+    public AircraftMovementData movementData { get { return _movementData; } }
     public AircraftDetectionData aircraftDetectionData { get { return _aircraftDetectionData; } }
+    public AircraftJammerData aircraftJammerData { get { return _aircraftJammerData; } }
 
     [JsonConstructor]
     public Aircraft() { }
 
     public Aircraft(Aircraft aircraft) {
-
         _callsign = aircraft.callsign;
         _aircraftDisplayName = aircraft.aircraftDisplayName;
         _movementData = new AircraftMovementData(aircraft.movementData);
         _aircraftDetectionData = new AircraftDetectionData(aircraft.aircraftDetectionData);
+        _aircraftJammerData = new AircraftJammerData(aircraft.aircraftJammerData);
     }
 
     public void SetupAircraft(string callsign, AircraftSpeed speed, AircraftAltitude altitude, HexCord cord) {
