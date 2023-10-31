@@ -1,5 +1,5 @@
 
-public class AircraftCombatEngagement
+public class AircraftCombatEngagementTable
 {
 
     public static bool Engagement(AircraftFlight engager, AircraftFlight target, 

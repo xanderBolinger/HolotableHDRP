@@ -10,7 +10,7 @@ public class AircraftManueverTests
     public void ManueverTests()
     {
 
-        var man = new AircraftCombatManuever();
+        var man = new AircraftCombatManueverTable();
 
         Assert.AreEqual(0, man.GetValueStandard(1, 9));
         Assert.AreEqual(2, man.GetValueStandard(3, 15));

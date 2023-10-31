@@ -91,6 +91,8 @@ public class AircraftJsonTests
         Assert.AreEqual(3, jd.aircraftStandoffJammer.mediumRangeStrength);
         Assert.AreEqual(2, jd.aircraftStandoffJammer.longRangeStrength);
 
+        Assert.AreEqual(1, md.manueverRating);
+
     }
 
     private void TestSpeed(AircraftMovementData md,

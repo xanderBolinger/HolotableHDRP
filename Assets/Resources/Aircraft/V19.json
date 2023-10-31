@@ -30,6 +30,7 @@
     },
     "aircraft_movement_data": {
         "max_fuel": 10,
+        "manuever_rating": 1,
         "not_laden": {
             "very_high": {
                 "combat": 4,

@@ -22,6 +22,12 @@ public class AircraftFlight
     public int quality;
     public int agressionValue;
 
+    public bool manueverMarker;
+    public bool bvrAvoid;
+    public bool climbed;
+    public bool zoomClimb;
+    public bool disengaing;
+
     public string flightCallsign { get { return _flightCallsign; } }
     public List<Aircraft> flightAircraft { get { return _flightAircraft; } }
 
@@ -35,6 +41,10 @@ public class AircraftFlight
         flightStatus = FlightStatus.Fresh;
     }
 
+    public Vector2Int GetCord() {
+        var location = GetLocation();
+        return new Vector2Int(location.x, location.y);
+    }
     public Direction GetFacing() {
         return flightAircraft[0].movementData.facing;
     }

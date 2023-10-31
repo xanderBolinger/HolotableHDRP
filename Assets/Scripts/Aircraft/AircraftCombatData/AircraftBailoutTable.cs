@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bailout : MonoBehaviour
+public class AircraftBailoutTable : MonoBehaviour
 {
 
     public enum BailoutResult { 

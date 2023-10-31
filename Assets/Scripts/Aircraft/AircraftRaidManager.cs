@@ -12,6 +12,11 @@ public class AircraftRaidManager : MonoBehaviour
     public void NextTurn() {
         aircraftDetectionManager.UndetectFlights(aircraftFlightManager.aircraftFlights);
         aircraftDetectionManager.DetectFlights(aircraftFlightManager.aircraftFlights);
+        AdminPhase();
+    }
+
+    public void AdminPhase() { 
+    
     }
 
 }

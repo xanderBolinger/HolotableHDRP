@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AircraftCombatManuever
+public class AircraftCombatManueverTable
 {
 
     public TwoWayTable table;
 
-    public AircraftCombatManuever() {
+    public AircraftCombatManueverTable() {
         TextAsset csvFile = Resources.Load<TextAsset>("Aircraft/Tables/ManueverTable");
         table = new TwoWayTable(csvFile);
     }
+
 
     public int GetValueBvr(int numberOfAircraft, int roll) {
 
