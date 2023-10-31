@@ -14,14 +14,10 @@ public class AircraftStandardCombat
         combatManueverTable = new AircraftCombatManueverTable();
     }
 
-    public (int, int) GetShots(AircraftFlight agressor, AircraftFlight target, bool daytime) {
+    public (int, int) GetShots(AircraftFlight agressor, AircraftFlight target, bool daytime,
+        bool attackerYes, bool defenderYes) {
 
-        var (attackerYes, defenderYes) = EngagementResults(agressor, target, daytime);
-
-        if (!attackerYes && !defenderYes) {
-            Debug.Log("Neither defender nor attacker engaged each other.");
-            return (0,0);
-        }
+        
 
         Debug.Log("Attacker engages: "+attackerYes+", Defender engages: "+defenderYes);
 

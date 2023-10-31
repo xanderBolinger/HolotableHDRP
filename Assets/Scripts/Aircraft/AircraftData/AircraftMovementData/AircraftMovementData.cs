@@ -70,6 +70,9 @@ public class AircraftMovementData
 
     }
 
+    public void SpendFuel() {
+        _currentFuel--;
+    }
     
 
 }

@@ -41,6 +41,10 @@ public class AircraftFlight
         flightStatus = FlightStatus.Fresh;
     }
 
+    public void SpendFuel() {
+        foreach (var aircraft in flightAircraft)
+            aircraft.movementData.SpendFuel();
+    }
     public Vector2Int GetCord() {
         var location = GetLocation();
         return new Vector2Int(location.x, location.y);

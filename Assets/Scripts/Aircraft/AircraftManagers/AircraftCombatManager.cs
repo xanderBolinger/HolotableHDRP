@@ -1,8 +1,10 @@
 using HexMapper;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class AircraftCombatManager : MonoBehaviour
 {
@@ -25,12 +27,23 @@ public class AircraftCombatManager : MonoBehaviour
     public void StandardAirToAir(AircraftFlight attacker, AircraftFlight defender) {
         if(!CanAttackStandard(attacker, defender)) return;
 
-        var (attackerShots, defenderShots) = standardAirToAir.GetShots(attacker, defender, !night);
+        var (attackerYes, defenderYes) = 
+            AircraftStandardCombat.EngagementResults(attacker, defender, !night);
+
+        if (!attackerYes && !defenderYes)
+        {
+            Debug.Log("Neither defender nor attacker engaged each other.");
+            return;
+        }
+
+        var (attackerShots, defenderShots) = standardAirToAir.GetShots(attacker, defender, !night,
+            attackerYes, defenderYes);
 
         Debug.Log("Standard Air to Air Engagement, Dttacker("+attacker.flightCallsign+"), Defender("+
             defender.flightCallsign+") shots ("+attackerShots+", "+defenderShots+")");
 
-
+        attacker.SpendFuel();
+        defender.SpendFuel();
 
     }
 

@@ -17,6 +17,9 @@ public class AircraftRaidManager : MonoBehaviour
 
     public void AdminPhase() { 
     
+        // Fuel depletion 
+        // Remove markers
+
     }
 
 }
