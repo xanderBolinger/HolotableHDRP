@@ -23,6 +23,8 @@ public class AircraftStandardCombat
             return (0,0);
         }
 
+        Debug.Log("Attacker engages: "+attackerYes+", Defender engages: "+defenderYes);
+
         var manueverRollAttacker = CalculateManueverAttacker(agressor, target, !daytime, 
             attackerYes && !defenderYes);
         var manueverRollDefender = CalculateManueverDefender(agressor, target, !daytime, 
@@ -63,9 +65,16 @@ public class AircraftStandardCombat
         var geometry = beam && rear ? 1 : 0;
 
         var roll = DiceRoller.Roll(2, 20);
-
-        return roll + geometry + enemyDisengaging + disorderedMod
+        var modifiedRoll = roll + geometry + enemyDisengaging + disorderedMod
             + nightMod + surpriseMod + aircraftManueverMod + (!night ? flightManueverMod : 0);
+
+        Debug.Log("Attacker Manuever("+attacker.flightCallsign+")" + " roll: "+roll +" "+modifiedRoll+", "
+            + "Geometry Mod: "+geometry + ", Enemy Disengaging: "+enemyDisengaging+", Enemy Disordered Mod: "
+            + disorderedMod+", Aircraft Manuever Rating Mod: "+aircraftManueverMod
+            + ", Flight Manuever Mod(Night only): " + (!night ? flightManueverMod : 0)+", Night Mod: "+nightMod+", "+
+            ", Surprise Mod: "+surpriseMod);
+
+        return modifiedRoll;
     }
 
     public static int CalculateManueverDefender(AircraftFlight attacker, AircraftFlight defender,
@@ -87,8 +96,15 @@ public class AircraftStandardCombat
 
         var roll = DiceRoller.Roll(2, 20);
 
-        return roll + geometry + disadvantage
+        var modifiedRoll = roll + geometry + disadvantage
             + nightMod + aircraftManueverMod + (!night ? flightManueverMod : 0);
+
+        Debug.Log("Defender Manuever(" + defender.flightCallsign + ")" + " roll: " + roll + " " + modifiedRoll + ", "
+            + "Geometry Mod: " + geometry + ", Aircraft Manuever Rating Mod: " + aircraftManueverMod
+            + ", Flight Manuever Mod(Night only): " + (!night ? flightManueverMod : 0) + ", Night Mod: " + nightMod + ", Disadvantage Mod: "
+            + disadvantage);
+
+        return modifiedRoll;
 
     }
 

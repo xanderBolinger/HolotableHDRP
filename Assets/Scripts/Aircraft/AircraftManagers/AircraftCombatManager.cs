@@ -54,7 +54,7 @@ public class AircraftCombatManager : MonoBehaviour
         if (forward != attacker.GetFacing())
         {
             Debug.Log("Defender(" + defender.flightCallsign + ") outside attacker("
-                + attacker.flightCallsign + "'s forward arc");
+                + attacker.flightCallsign + ")'s forward arc");
             return false;
         }
 
