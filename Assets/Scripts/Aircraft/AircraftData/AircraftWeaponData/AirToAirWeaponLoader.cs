@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AirToAirWeaponType
+{
+    Aim260Jatm
+}
+
 public class AirToAirWeaponLoader
 {
 
-    public enum AirToAirWeaponType { 
-        Aim260Jatm
-    }
+    
 
 
     List<AirToAirWeaponData> airToAirWeaponList;
@@ -21,6 +24,13 @@ public class AirToAirWeaponLoader
 
     }
 
+    AirToAirWeaponData LoadWeapon(string weaponFileName)
+    {
+        TextAsset asset = Resources.Load("Aircraft/AirToAirWeapons/" + weaponFileName, typeof(TextAsset)) as TextAsset;
+        string jsonString = asset.text;
+        return JsonConvert.DeserializeObject<AirToAirWeaponData>(jsonString);
+    }
+
     public AirToAirWeaponData GetWeapon(AirToAirWeaponType type) {
 
         foreach(var wep in airToAirWeaponList)
@@ -29,12 +39,5 @@ public class AirToAirWeaponLoader
 
         throw new System.Exception("Weapon not found in list for type: "+type);
     }
-
-    public AirToAirWeaponData LoadWeapon(string weaponFileName) {
-        TextAsset asset = Resources.Load("Aircraft/AirToAirWeapons" + weaponFileName, typeof(TextAsset)) as TextAsset;
-        string jsonString = asset.text;
-        return JsonConvert.DeserializeObject<AirToAirWeaponData>(jsonString);
-    }
-
 
 }

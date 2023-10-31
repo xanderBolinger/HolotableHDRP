@@ -1,0 +1,10 @@
+{
+    "radar_guided": true,
+    "standard_rating": 1,
+    "bvr_rating": 2,
+    "bvr_range_forward": 60,
+    "bvr_range_beam": 45,
+    "bvr_range_rear": 30,
+    "weapon_display_name": "AIM-260 JATM",
+    "weapon_type": "Aim260Jatm"
+}
