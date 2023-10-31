@@ -28,6 +28,10 @@ public class Aircraft
     public AircraftDetectionData aircraftDetectionData { get { return _aircraftDetectionData; } }
     public AircraftJammerData aircraftJammerData { get { return _aircraftJammerData; } }
 
+    public bool damaged;
+    public bool crippled;
+    public bool destroyed;
+
     [JsonConstructor]
     public Aircraft() { }
 
@@ -37,6 +41,9 @@ public class Aircraft
         _movementData = new AircraftMovementData(aircraft.movementData);
         _aircraftDetectionData = new AircraftDetectionData(aircraft.aircraftDetectionData);
         _aircraftJammerData = new AircraftJammerData(aircraft.aircraftJammerData);
+        damaged = aircraft.damaged;
+        crippled = aircraft.crippled;
+        destroyed = aircraft.destroyed;
     }
 
     public void SetupAircraft(string callsign, AircraftSpeed speed, AircraftAltitude altitude, HexCord cord) {
@@ -48,7 +55,8 @@ public class Aircraft
     public override string ToString()
     {
         return _aircraftDisplayName + ": " + _callsign 
-            + " fuel: " + _movementData.currentFuel + "/" + _movementData.fuel; ;
+            + " fuel: " + _movementData.currentFuel + "/" + _movementData.fuel 
+            + ", Destroyed: "+destroyed+", Crippled: "+crippled+", Damaged: "+damaged; 
     }
 
 }

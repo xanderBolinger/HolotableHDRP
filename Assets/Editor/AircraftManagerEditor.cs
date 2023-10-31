@@ -25,6 +25,21 @@ public class AircraftManagerEditor : Editor
             am.RemoveAircraftFromFlight(GetFlight(), aircraftManager.testCreateAircraftCallsign);
         }
 
+        if (GUILayout.Button("Destroy Aircraft"))
+        {
+            GetFlight().DestroyAircraft(aircraftManager.testCreateAircraftCallsign);
+        }
+
+        if (GUILayout.Button("Cripple Aircraft"))
+        {
+            GetFlight().DestroyAircraft(aircraftManager.testCreateAircraftCallsign);
+        }
+
+        if (GUILayout.Button("Damage Aircraft"))
+        {
+            GetFlight().DestroyAircraft(aircraftManager.testCreateAircraftCallsign);
+        }
+
     }
 
 

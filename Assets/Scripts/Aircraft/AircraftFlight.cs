@@ -58,6 +58,39 @@ public class AircraftFlight
         Debug.Log("Removed aircraft " + callsign + " from flight " + flightCallsign);
     }
 
+    public void DamageAircraft(string callsign)
+    {
+        if (!InFlight(callsign))
+        {
+            Debug.Log("Could not damage aircraft from flight " + flightCallsign + ", aircraft not in flight.");
+            return;
+        }
+        Debug.Log("Damaged Aircraft: " + callsign + " in flight " + flightCallsign);
+        GetAircraftInFlight(callsign).damaged = true;
+    }
+
+    public void CrippleAircraft(string callsign)
+    {
+        if (!InFlight(callsign))
+        {
+            Debug.Log("Could not cripple aircraft from flight " + flightCallsign + ", aircraft not in flight.");
+            return;
+        }
+        Debug.Log("Crippled Aircraft: " + callsign + " in flight " + flightCallsign);
+        GetAircraftInFlight(callsign).crippled = true;
+    }
+
+    public void DestroyAircraft(string callsign)
+    {
+        if (!InFlight(callsign))
+        {
+            Debug.Log("Could not destroy aircraft from flight " + flightCallsign + ", aircraft not in flight.");
+            return;
+        }
+        Debug.Log("Destroyed Aircraft: "+callsign+" in flight "+flightCallsign);
+        GetAircraftInFlight(callsign).destroyed = true;
+    }
+
     Aircraft GetAircraftInFlight(string callsign) {
         foreach (var a in flightAircraft)
             if (a.callsign == callsign)
