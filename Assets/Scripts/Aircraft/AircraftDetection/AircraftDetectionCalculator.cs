@@ -56,7 +56,8 @@ public class AircraftDetectionCalculator
             new Vector2Int(locationTarget.x, locationTarget.y),
             target.GetFacing()) ? - 2 : 0;
 
-        var standoffJammingMod = GetJammerStrength(spotter, aircraftFlightManager.aircraftFlights);
+        var standoffJammingMod = GetJammerStrength(spotter, target.GetLocation(), 
+            aircraftFlightManager.aircraftFlights);
 
         var roll = DiceRoller.Roll(2, 20);
 

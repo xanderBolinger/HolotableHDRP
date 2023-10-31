@@ -10,6 +10,7 @@ public class AircraftFlight
     string _flightCallsign;
     AircraftDetectionSuit _aircraftDetectionSuit;
 
+    public AircraftFlightJammerControls jammerControls;
 
     public ForceSide side;
 
@@ -20,6 +21,7 @@ public class AircraftFlight
         _aircraftDetectionSuit = GetSuit();
         _flightCallsign = flightCallsign;
         _flightAircraft = new List<Aircraft>();
+        jammerControls = new AircraftFlightJammerControls(this);
     }
 
     public Direction GetFacing() {

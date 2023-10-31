@@ -6,46 +6,40 @@ using UnityEngine;
 public class AircraftStandoffJammerCalculator
 {
 
-    public static int GetJammerStrength(AircraftFlight target, List<AircraftFlight> flights) {
+    public static int GetJammerStrength(AircraftFlight spotter, HexCord target, List<AircraftFlight> flights) {
 
         var strength = 0;
 
-        var targetLocation = target.GetLocation();
-        var targetCord = new Vector2Int(targetLocation.x, targetLocation.y);
+        var spotterLocation = spotter.GetLocation();
+        var spotterCord = new Vector2Int(spotterLocation.x, spotterLocation.y);
+        var targetCord = new Vector2Int(target.x, target.y);
 
         foreach (var flight in flights) {
+            if (flight == spotter)
+                continue;
 
             var flightLocation = flight.GetLocation();
             var flightCord = new Vector2Int(flightLocation.x, flightLocation.y);
 
-            var dist = HexMap.GetDistance(targetLocation, flightLocation);
+            var dist = HexMap.GetDistance(spotterLocation, flightLocation);
             var soj = flight.flightAircraft[0].aircraftJammerData.aircraftStandoffJammer;
+            
+            var jammerFacingToSpotter = HexDirection.GetHexSideFacingTarget(flightCord, spotterCord);
 
-            var jammerFacingToTarget = HexDirection.GetHexSideFacingTarget(flightCord, targetCord);
-
-            if (soj == null || !soj.active || dist > soj.longRange || jammerFacingToTarget != soj.facing)
+            if (soj == null || !soj.active || dist > soj.longRange || jammerFacingToSpotter != soj.facing)
                 continue;
 
-            var targetFacingToJammer = HexDirection.GetHexSideFacingTarget(targetCord, flightCord);
-
-            strength += GetJammerStrengthValue(dist, soj, jammerFacingToTarget, targetFacingToJammer);
+            var spotterFacingToTarget = HexDirection.GetHexSideFacingTarget(spotterCord, targetCord);
+            strength += GetJammerStrengthValue(dist, soj, jammerFacingToSpotter == 
+                HexDirection.GetOppositeDirectionTo(spotterFacingToTarget));
         }
-
 
         return -strength;
     }
 
     static int GetJammerStrengthValue(int dist, AircraftStandoffJammer soj, 
-        Direction jammerFacingToTarget, Direction targetFacingToJammer) {
-        
-
-        var opposite = HexDirection.GetOppositeDirectionTo(jammerFacingToTarget);
-
-        bool facingIntoJammer = false;
-
-        // Radar aiming into jammer
-        if (targetFacingToJammer == opposite)
-            facingIntoJammer = true;
+        bool facingIntoJammer)
+    { 
 
         if (dist > soj.mediumRange)
             return facingIntoJammer ? soj.longRangeStrength : soj.longRangeStrength / 2;
