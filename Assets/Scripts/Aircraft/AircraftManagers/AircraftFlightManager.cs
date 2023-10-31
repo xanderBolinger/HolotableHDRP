@@ -2,6 +2,7 @@
 using UnityEngine;
 using static AircraftLoader;
 using static AircraftMovementData;
+using static FlightQualityTable;
 
 [RequireComponent(typeof(AircraftManager))]
 public class AircraftFlightManager : MonoBehaviour
@@ -18,7 +19,11 @@ public class AircraftFlightManager : MonoBehaviour
     [HideInInspector]
     public int selectedAircraftFlightIndex;
 
+    public FlightQuality inspectorFlightQuality = FlightQuality.Regular;
+
     public List<AircraftFlight> aircraftFlights { get { return _aircraftFlights; } }
+
+    FlightQualityTable flightQualityTable;
 
     void Awake()
     {
@@ -28,14 +33,15 @@ public class AircraftFlightManager : MonoBehaviour
     public void Setup() {
         aircraftFlightManager = this;
         _aircraftFlights = new List<AircraftFlight>();
+        flightQualityTable = new FlightQualityTable();
     }
 
-    public void AddFlight(string flightCallsign, ForceSide forceSide)
+    public void AddFlight(string flightCallsign, ForceSide forceSide, FlightQuality quality=FlightQuality.Regular)
     {
         if (!CanAddFlight(flightCallsign))
             return;
 
-        AircraftFlight flight = new AircraftFlight(flightCallsign);
+        AircraftFlight flight = new AircraftFlight(flightCallsign, flightQualityTable.GetValue(quality));
         flight.side = forceSide;
         aircraftFlights.Add(flight);
 
@@ -43,12 +49,8 @@ public class AircraftFlightManager : MonoBehaviour
         Debug.Log("Add flight: " + flightCallsign);
     }
 
-    
-
     public bool CanAddFlight(string flightCallsign) {
-
         return !FlightExists(flightCallsign);
-        
     }
 
     public void RemoveFlight(string flightCallsign)
@@ -108,4 +110,3 @@ public class AircraftFlightManager : MonoBehaviour
     }
 
 }
-

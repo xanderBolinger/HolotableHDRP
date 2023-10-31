@@ -1,27 +1,38 @@
 using HexMapper;
 using System.Collections.Generic;
 using UnityEngine;
+using static AircraftDetectionSuitMethods;
 using static AircraftMovementData;
 using static AircraftSpeedData;
-using static AircraftDetectionSuitMethods;
+
 public class AircraftFlight
 {
+    public enum FlightStatus { 
+        Fresh,Disordered,Aborted
+    }
+
     List<Aircraft> _flightAircraft;
     string _flightCallsign;
     AircraftDetectionSuit _aircraftDetectionSuit;
 
     public AircraftFlightJammerControls jammerControls;
 
+    public FlightStatus flightStatus;
     public ForceSide side;
+    public int quality;
+    public int agressionValue;
 
     public string flightCallsign { get { return _flightCallsign; } }
     public List<Aircraft> flightAircraft { get { return _flightAircraft; } }
 
-    public AircraftFlight(string flightCallsign) {
+    public AircraftFlight(string flightCallsign, int quality=0) {
         _aircraftDetectionSuit = GetSuit();
         _flightCallsign = flightCallsign;
         _flightAircraft = new List<Aircraft>();
         jammerControls = new AircraftFlightJammerControls(this);
+        this.quality = quality;
+        agressionValue = quality;
+        flightStatus = FlightStatus.Fresh;
     }
 
     public Direction GetFacing() {

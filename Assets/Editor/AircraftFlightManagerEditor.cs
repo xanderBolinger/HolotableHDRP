@@ -16,7 +16,9 @@ public class AircraftFlightManagerEditor : Editor
 
         if (GUILayout.Button("Add flight"))
         {
-            flightManager.AddFlight(flightManager.testAddFlightCallsign, ForceSideManager.forceSideManager.GetInspectorSelectedSide());
+            flightManager.AddFlight(flightManager.testAddFlightCallsign, 
+                ForceSideManager.forceSideManager.GetInspectorSelectedSide(),
+                flightManager.inspectorFlightQuality);
         }
 
         if (GUILayout.Button("Remove flight") && flightManager.testAircraftFlightDisplayList.Count > 0)

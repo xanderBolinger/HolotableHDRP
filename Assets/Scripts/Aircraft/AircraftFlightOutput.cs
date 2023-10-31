@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using static AircraftMovementData;
 using static AircraftSpeedData;
 
@@ -20,10 +17,11 @@ public class AircraftFlightOutput
         if (aircraftFlight.flightAircraft.Count > 0)
         {
             aircraftMoveData += aircraftFlight.side.ToString() + "\n";
+            aircraftMoveData += "Flight Quality: " + aircraftFlight.quality;
             aircraftMoveData += "Radar Active: " + aircraftFlight.flightAircraft[0].aircraftDetectionData.aircraftRadar.active + "\n";
-            aircraftMoveData += "Suit: " + aircraftFlight.GetDetectionSuit() + "\n";
+            aircraftMoveData += "Suit: " + aircraftFlight.GetDetectionSuit() + ", ";
             aircraftMoveData += "Detected: " + aircraftFlight.Detected() + "\n";
-            aircraftMoveData += "Facing: " + aircraftFlight.GetFacing() + "\n";
+            aircraftMoveData += "Facing: " + aircraftFlight.GetFacing() + ", ";
             aircraftMoveData += "Cord: " + aircraftFlight.GetLocation().GetCord() + "\n";
             aircraftMoveData += "alt: cmbt/dash/manvr\n";
 
