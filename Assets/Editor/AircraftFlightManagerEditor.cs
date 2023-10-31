@@ -12,7 +12,12 @@ public class AircraftFlightManagerEditor : Editor
         AircraftFlightManager flightManager = (AircraftFlightManager)target;
 
         GUIContent selectedFlightList = new GUIContent("Select Flight");
-        flightManager.selectedAircraftFlightIndex = EditorGUILayout.Popup(selectedFlightList, flightManager.selectedAircraftFlightIndex, flightManager.testAircraftFlightDisplayList.ToArray());
+        flightManager.selectedAircraftFlightIndex = EditorGUILayout.Popup(selectedFlightList, 
+            flightManager.selectedAircraftFlightIndex, flightManager.testAircraftFlightDisplayList.ToArray());
+
+        GUIContent targetFlightList = new GUIContent("Target Flight");
+        flightManager.selectedTargetAircraftFlightIndex = EditorGUILayout.Popup(targetFlightList,
+            flightManager.selectedTargetAircraftFlightIndex, flightManager.testTargetAircraftFlightDisplayList.ToArray());
 
         if (GUILayout.Button("Add flight"))
         {
@@ -26,12 +31,12 @@ public class AircraftFlightManagerEditor : Editor
             flightManager.RemoveFlight(flightManager.testAircraftFlightDisplayList[flightManager.selectedAircraftFlightIndex]);
         }
 
-        if (GUILayout.Button("Print Flight") && flightManager.testAircraftFlightDisplayList.Count > 0)
+        if (GUILayout.Button("Print Selected Flight") && flightManager.testAircraftFlightDisplayList.Count > 0)
         {
             flightManager.PrintFlight(flightManager.testAircraftFlightDisplayList[flightManager.selectedAircraftFlightIndex]);
         }
 
-        if (GUILayout.Button("Print Flights"))
+        if (GUILayout.Button("Print All Flights"))
         {
             flightManager.PrintFlights();
         }
@@ -46,6 +51,14 @@ public class AircraftFlightManagerEditor : Editor
     {
         var am = AircraftFlightManager.aircraftFlightManager;
         var index = am.selectedAircraftFlightIndex;
+
+        return am.aircraftFlights[index];
+    }
+
+    public static AircraftFlight GetTargetFlight()
+    {
+        var am = AircraftFlightManager.aircraftFlightManager;
+        var index = am.selectedTargetAircraftFlightIndex;
 
         return am.aircraftFlights[index];
     }

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class AircraftCombatManager : MonoBehaviour
 {
+    public bool night;
 
     AircraftStandardCombat standardAirToAir;
     AircraftBailoutTable bailoutTable;
@@ -22,7 +23,14 @@ public class AircraftCombatManager : MonoBehaviour
     }
 
     public void StandardAirToAir(AircraftFlight attacker, AircraftFlight defender) {
-        
+        if(!CanAttackStandard(attacker, defender)) return;
+
+        var (attackerShots, defenderShots) = standardAirToAir.GetShots(attacker, defender, !night);
+
+        Debug.Log("Standard Air to Air Engagement, Dttacker("+attacker.flightCallsign+"), Defender("+
+            defender.flightCallsign+") shots ("+attackerShots+", "+defenderShots+")");
+
+
 
     }
 

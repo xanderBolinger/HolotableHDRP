@@ -19,6 +19,11 @@ public class AircraftFlightManager : MonoBehaviour
     [HideInInspector]
     public int selectedAircraftFlightIndex;
 
+    [HideInInspector]
+    public List<string> testTargetAircraftFlightDisplayList = new List<string>();
+    [HideInInspector]
+    public int selectedTargetAircraftFlightIndex;
+
     public FlightQuality inspectorFlightQuality = FlightQuality.Regular;
 
     public List<AircraftFlight> aircraftFlights { get { return _aircraftFlights; } }
@@ -45,6 +50,7 @@ public class AircraftFlightManager : MonoBehaviour
         flight.side = forceSide;
         aircraftFlights.Add(flight);
 
+        testTargetAircraftFlightDisplayList.Add(flightCallsign);
         testAircraftFlightDisplayList.Add(flightCallsign);
         Debug.Log("Add flight: " + flightCallsign);
     }
