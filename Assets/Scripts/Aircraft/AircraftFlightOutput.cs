@@ -17,8 +17,14 @@ public class AircraftFlightOutput
         if (aircraftFlight.flightAircraft.Count > 0)
         {
             aircraftMoveData += aircraftFlight.side.ToString() + "\n";
+            aircraftMoveData += "Flight Status: " + aircraftFlight.flightStatus + ", Disengaging: " + aircraftFlight.disengaing +"\n";
+            aircraftMoveData += "Markers: " + (aircraftFlight.bvrAvoid ? "BVR Avoid, " : "")
+                + (aircraftFlight.climbed ? "Climbed, " : "")
+                + (aircraftFlight.zoomClimb ? "Zoom Climbed, " : "")
+                + (aircraftFlight.manueverMarker ? "Manuever, " : "")
+                + "\n";
             aircraftMoveData += "Flight Quality: " + aircraftFlight.quality;
-            aircraftMoveData += "Radar Active: " + aircraftFlight.flightAircraft[0].aircraftDetectionData.aircraftRadar.active + "\n";
+            aircraftMoveData += ", Radar Active: " + aircraftFlight.flightAircraft[0].aircraftDetectionData.aircraftRadar.active + "\n";
             aircraftMoveData += "Suit: " + aircraftFlight.GetDetectionSuit() + ", ";
             aircraftMoveData += "Detected: " + aircraftFlight.Detected() + "\n";
             aircraftMoveData += "Facing: " + aircraftFlight.GetFacing() + ", ";

@@ -68,9 +68,9 @@ public class AircraftStandardCombat
         var modifiedRoll = roll + geometry + enemyDisengaging + disorderedMod
             + nightMod + surpriseMod + aircraftManueverMod + (!night ? flightManueverMod : 0);
 
-        Debug.Log("Attacker Manuever("+attacker.flightCallsign+")" + " roll: "+roll +" "+modifiedRoll+", "
-            + "Geometry Mod: "+geometry + ", Enemy Disengaging: "+enemyDisengaging+", Enemy Disordered Mod: "
-            + disorderedMod+", Aircraft Manuever Rating Mod: "+aircraftManueverMod
+        Debug.Log("Attacker Manuever("+attacker.flightCallsign+")" + " roll: "+roll +", Modified Roll: "
+            +modifiedRoll+", "+ "Geometry Mod: "+geometry + ", Enemy Disengaging: "+enemyDisengaging
+            +", Enemy Disordered Mod: "+ disorderedMod+", Aircraft Manuever Rating Mod: "+aircraftManueverMod
             + ", Flight Manuever Mod(Night only): " + (!night ? flightManueverMod : 0)+", Night Mod: "+nightMod+", "+
             ", Surprise Mod: "+surpriseMod);
 
@@ -99,10 +99,10 @@ public class AircraftStandardCombat
         var modifiedRoll = roll + geometry + disadvantage
             + nightMod + aircraftManueverMod + (!night ? flightManueverMod : 0);
 
-        Debug.Log("Defender Manuever(" + defender.flightCallsign + ")" + " roll: " + roll + " " + modifiedRoll + ", "
-            + "Geometry Mod: " + geometry + ", Aircraft Manuever Rating Mod: " + aircraftManueverMod
-            + ", Flight Manuever Mod(Night only): " + (!night ? flightManueverMod : 0) + ", Night Mod: " + nightMod + ", Disadvantage Mod: "
-            + disadvantage);
+        Debug.Log("Defender Manuever(" + defender.flightCallsign + ")" + " roll: " + roll + " Modified Roll: "
+            + modifiedRoll + ", "+ "Geometry Mod: " + geometry + ", Aircraft Manuever Rating Mod: " + aircraftManueverMod
+            + ", Flight Manuever Mod(Night only): " + (!night ? flightManueverMod : 0) + ", Night Mod: " + nightMod 
+            + ", Disadvantage Mod: "+ disadvantage);
 
         return modifiedRoll;
 
