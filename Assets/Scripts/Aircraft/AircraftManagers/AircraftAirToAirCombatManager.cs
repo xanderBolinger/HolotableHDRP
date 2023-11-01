@@ -1,8 +1,4 @@
-using HexMapper;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static AirToAirCombatCalculator;
 
@@ -49,10 +45,22 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
 
         var (attackerShots, defenderShots) = standardAirToAir.GetShots(attacker, defender, !night,
             attackerYes, defenderYes);
+
+        Debug.Log("Standard Air to Air Engagement, Dttacker(" + attacker.flightCallsign + "), Defender(" +
+            defender.flightCallsign + ") shots (" + attackerShots + ", " + defenderShots + ")");
+
         ResolveShots(attacker, attackerShots, defender, false);
-        ResolveShots(defender, defenderShots, attacker, false);
-        Debug.Log("Standard Air to Air Engagement, Dttacker("+attacker.flightCallsign+"), Defender("+
-            defender.flightCallsign+") shots ("+attackerShots+", "+defenderShots+")");
+        AirToAirDepletionCalculator.DepletionCheck(attacker, attackerShots, pylon, false);
+
+        var defenderPylon = GetPylon(attacker, false);
+
+        if (defenderPylon != null)
+        {
+            ResolveShots(defender, defenderShots, attacker, false);
+            AirToAirDepletionCalculator.DepletionCheck(defender, defenderShots, defenderPylon, false);
+        }
+        else 
+            Debug.Log("Defender "+defender.flightCallsign+" cannot shoot back, has no undepleted weapons");
 
         attacker.SpendFuel();
         defender.SpendFuel();
