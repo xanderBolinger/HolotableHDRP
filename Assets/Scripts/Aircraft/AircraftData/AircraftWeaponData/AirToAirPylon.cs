@@ -26,7 +26,7 @@ public class AirToAirPylon {
 
     public override string ToString()
     {
-        return weaponType + " Depleted: " + depleted + ", DP: " + depletionPoints;
+        return weaponType + ", DP: " + depletionPoints + (!depleted ? "" : ", DEPLETED");
     }
 
 }

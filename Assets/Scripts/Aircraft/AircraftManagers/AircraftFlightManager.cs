@@ -68,6 +68,7 @@ public class AircraftFlightManager : MonoBehaviour
 
         _aircraftFlights.Remove(FindFlight(flightCallsign));
         testAircraftFlightDisplayList.Remove(flightCallsign);
+        testTargetAircraftFlightDisplayList.Remove(flightCallsign);
         Debug.Log("Remove flight: " + flightCallsign);
     }
 
