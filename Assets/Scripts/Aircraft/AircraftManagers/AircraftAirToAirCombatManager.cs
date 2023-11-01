@@ -13,8 +13,6 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
     public AirToAirWeaponLoader weaponLoader;
 
     AircraftStandardCombat standardAirToAir;
-    AircraftBailoutTable bailoutTable;
-
 
     void Start()
     {
@@ -24,7 +22,6 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
     public void SetUp() {
         weaponLoader = new AirToAirWeaponLoader();
         standardAirToAir = new AircraftStandardCombat();
-        bailoutTable = new AircraftBailoutTable();
         aircraftCombatManager = this;
 
     }

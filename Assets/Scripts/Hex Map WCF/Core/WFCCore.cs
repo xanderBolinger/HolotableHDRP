@@ -21,7 +21,7 @@ namespace WaveFunctionCollapse {
 
             while (iteration < this.maxIterations) {
                 CoreSolver solver = new CoreSolver(this.outputGrid, this.patternManager);
-                int innerIteration = 1000000;
+                int innerIteration = 100000;
                 while (!solver.CheckForConflicts() && !solver.CheckIfSolved()) {
                     Vector2Int position = solver.GetLowestEntropyCell();
                     solver.CollapseCell(position);

@@ -370,19 +370,83 @@ public class MapGenerator : MonoBehaviour
 
     }
 
+
+    public int createAdditionalGrids = 1;
+
     public void RunWFC() {
-        WFCCore core = new WFCCore(wfcOutputWidth, wfcOutputHeight, maximumIterations, patternManager);
 
-        Tilemap outputTileMap = new Tilemap();
-        outputTileMap.initTilemap();
+        if (createAdditionalGrids > 1) {
+            AddTempHexesForWFC(createAdditionalGrids * wfcOutputWidth, 
+                createAdditionalGrids * wfcOutputHeight);
+        }
 
-        TileMapOutput output = new TileMapOutput(valueManager, outputTileMap);
-        var result = core.CreateOutputGrid();
-        output.CreateOutput(patternManager, result, wfcOutputWidth, wfcOutputHeight);
-        //output.OutputImage.SwapTiles();
-        //ClearMap();
-        output.OutputImage.CreateTiles(wfcOutputHeight, wfcOutputWidth);
-        
+        for(int i = 0; i < createAdditionalGrids; i++)
+        {
+            WFCCore core = new WFCCore(wfcOutputWidth, wfcOutputHeight, maximumIterations, patternManager);
+
+            Tilemap outputTileMap = new Tilemap();
+            outputTileMap.initTilemap();
+
+            TileMapOutput output = new TileMapOutput(valueManager, outputTileMap);
+            var result = core.CreateOutputGrid();
+
+            output.CreateOutput(patternManager, result, wfcOutputWidth, wfcOutputHeight);
+
+            // needs offset params 
+            output.OutputImage.CreateTiles(wfcOutputHeight, wfcOutputWidth);
+        }
+
+    }
+
+    public void AddTempHexesForWFC(int width, int height) {
+
+        hexes.Clear();
+
+        for (int x = 0; x < width; x++)
+        {
+
+            var row = new List<GameObject>();
+
+            for (int y = 0; y < height; y++)
+            {
+
+                var obj = new GameObject();
+                obj.AddComponent<HexCord>();
+                GameObject hex = Instantiate(obj);
+
+                if (y % 2 == 0)
+                {
+                    hex.transform.position = new Vector3(x * xSpacing, 0, y * ySpacing);
+                }
+                else
+                {
+                    hex.transform.position = new Vector3(x * xSpacing + xSpacing / 2, 0, y * ySpacing);
+                }
+
+                hex.name = x + ", " + y;
+                if (hex.GetComponent<HexCord>() == null)
+                {
+                    hex.GetComponentInChildren<HexCord>().urbanHex = false;
+                    hex.GetComponentInChildren<HexCord>().x = x;
+                    hex.GetComponentInChildren<HexCord>().y = y;
+                    hex.GetComponentInChildren<HexCord>().elevation = 0;
+                }
+                else
+                {
+                    hex.GetComponent<HexCord>().urbanHex = false;
+                    hex.GetComponent<HexCord>().y = y;
+                    hex.GetComponent<HexCord>().y = y;
+                    hex.GetComponent<HexCord>().elevation = 0;
+                }
+
+
+                hex.transform.parent = gameObject.transform;
+                row.Add(hex);
+
+            }
+
+            hexes.Add(row);
+        }
     }
 
     void SetTownCoordinates()
