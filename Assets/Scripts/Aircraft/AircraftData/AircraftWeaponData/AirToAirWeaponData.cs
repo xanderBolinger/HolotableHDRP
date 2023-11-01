@@ -64,4 +64,11 @@ public class AirToAirWeaponData
         _weaponType = other._weaponType;
     }
 
+    public override string ToString()
+    {
+        return weaponDisplayName+" Radar Guided: "+radarGuided+", Standard Rating: "+standardRating
+            +", BVR Rating: "+bvrRating+", BVR Range Forward: "+_bvrRangeForward+", BVR Range Beam: "+bvrRangeBeam
+            +", BVR Range Rear: "+bvrRangeRear; 
+    }
+
 }

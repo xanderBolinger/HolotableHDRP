@@ -37,4 +37,18 @@ public class AirToAirWeaponLoader
         throw new System.Exception("Weapon not found in list for type: "+type);
     }
 
+
+    public override string ToString()
+    {
+
+        string rslt = "";
+
+        foreach (var weapon in airToAirWeaponList) {
+            rslt += weapon.ToString() + "\n";
+        }
+
+        return rslt;
+
+    }
+
 }

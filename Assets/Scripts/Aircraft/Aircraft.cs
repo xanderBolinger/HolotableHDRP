@@ -44,6 +44,7 @@ public class Aircraft
         _movementData = new AircraftMovementData(aircraft.movementData);
         _aircraftDetectionData = new AircraftDetectionData(aircraft.aircraftDetectionData);
         _aircraftJammerData = new AircraftJammerData(aircraft.aircraftJammerData);
+        _aircraftPayload = new AircraftPayload(aircraft.aircraftPayload);
         damaged = aircraft.damaged;
         crippled = aircraft.crippled;
         destroyed = aircraft.destroyed;
@@ -57,9 +58,14 @@ public class Aircraft
 
     public override string ToString()
     {
+        string weapons = "Weapons:\n";
+
+        foreach (var pylon in aircraftPayload.pylons)
+            weapons += pylon.ToString() + "\n";
+
         return _aircraftDisplayName + ": " + _callsign 
             + " fuel: " + _movementData.currentFuel + "/" + _movementData.fuel 
-            + ", Destroyed: "+destroyed+", Crippled: "+crippled+", Damaged: "+damaged; 
+            + ", Destroyed: "+destroyed+", Crippled: "+crippled+", Damaged: "+damaged+"\n"+weapons; 
     }
 
 }

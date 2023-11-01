@@ -23,4 +23,10 @@ public class AirToAirPylon {
         _depletionPoints = other._depletionPoints;
         depleted = other.depleted;
     }
+
+    public override string ToString()
+    {
+        return weaponType + " Depleted: " + depleted + ", DP: " + depletionPoints;
+    }
+
 }

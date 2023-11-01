@@ -6,10 +6,10 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using static AirToAirCombatCalculator;
 
-public class AircraftCombatManager : MonoBehaviour
+public class AircraftAirToAirCombatManager : MonoBehaviour
 {
     public bool night;
-    public static AircraftCombatManager aircraftCombatManager;
+    public static AircraftAirToAirCombatManager aircraftCombatManager;
     public AirToAirWeaponLoader weaponLoader;
 
     AircraftStandardCombat standardAirToAir;
@@ -56,6 +56,7 @@ public class AircraftCombatManager : MonoBehaviour
 
         attacker.SpendFuel();
         defender.SpendFuel();
+
         RemoveDestroyedAircraft();
     }
 
@@ -83,7 +84,7 @@ public class AircraftCombatManager : MonoBehaviour
         }
 
         foreach (var flight in removeFlights)
-            flights.Remove(flight);
+            AircraftFlightManager.aircraftFlightManager.RemoveFlight(flight.flightCallsign);
 
     }
 

@@ -15,8 +15,12 @@ public class AircraftManagerEditor : Editor
 
         if (GUILayout.Button("Add Fighter to Flight"))
         {
-            am.AddAircraftToFlight(GetFlight(), aircraftManager.testCreateAircraftCallsign,
-                aircraftManager.testCreateAircraftType, aircraftManager.testStartingAircraftAltitude,
+            var am2 = aircraftManager;
+            var callsign = am2.testCreateAircraftCallsign;
+            var type = am2.testCreateAircraftType;
+            var alt = am2.testStartingAircraftAltitude;
+            am.AddAircraftToFlight(GetFlight(), callsign,
+                type, alt,
                 aircraftHexCordManager.TestCreateHexCord());
         }
 

@@ -30,16 +30,19 @@ public class AircraftMovementManager : MonoBehaviour
 
     public void SetAltitudeTest(AircraftFlight flight) {
         SetAltitude(flight, testSetAircraftAltitude);
+        Debug.Log("Set Al;titude " + flight.flightCallsign + " " + testSetAircraftAltitude);
     }
 
     public void SetSpeedTest(AircraftFlight flight)
     {
         SetSpeed(flight, testSetAircraftSpeed);
+        Debug.Log("Set Speed " + flight.flightCallsign + " " + testSetAircraftSpeed);
     }
 
     public void SetFacingTest(AircraftFlight flight)
     {
         SetFacing(flight, testAircraftFacing);
+        Debug.Log("Set Facing "+flight.flightCallsign +" "+testAircraftFacing);
     }
 
     public void MoveAircraftTest(AircraftFlight flight)

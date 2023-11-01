@@ -6,7 +6,7 @@ using UnityEngine;
 public class AircraftPayload
 {
 
-    [JsonProperty("pylons")]
+    [JsonProperty("air_to_air_pylons")]
     List<AirToAirPylon> _pylons;
 
     public List<AirToAirPylon> pylons { get { return _pylons; } }
