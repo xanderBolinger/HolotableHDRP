@@ -402,9 +402,28 @@ public class MapGenerator : MonoBehaviour
 
         }
 
+        SetElevation();
+
     }
 
-    public void AddTempHexesForWFC(int width, int height) {
+    void SetElevation() {
+        var elevationStats = new HexFrequency(elevationFrequency);
+        var elevationMap = NoiseMap(elevationStats);
+
+        for (int x = 0; x < createAdditionalGrids * wfcOutputWidth; x++)
+        {
+
+            for (int y = 0; y < createAdditionalGrids * wfcOutputHeight; y++)
+            {
+                int elevation = elevationMap[x][y];
+                var hex = hexes[x][y];
+                var cord = HexCord.GetHexCord(hex);
+                cord.elevation = elevation;
+            }
+        }
+    }
+
+    void AddTempHexesForWFC(int width, int height) {
 
         for (int x = 0; x < width; x++)
         {
@@ -438,7 +457,7 @@ public class MapGenerator : MonoBehaviour
                 else
                 {
                     hex.GetComponent<HexCord>().urbanHex = false;
-                    hex.GetComponent<HexCord>().y = y;
+                    hex.GetComponent<HexCord>().x = x;
                     hex.GetComponent<HexCord>().y = y;
                     hex.GetComponent<HexCord>().elevation = 0;
                 }
