@@ -34,9 +34,11 @@ public class Tilemap : MonoBehaviour
         tiles.Add(new Vector2Int(row, col), tile);
     }
 
-    public void CreateTiles(int height, int width) {
+    public void CreateTiles(int height, int width, int offset = 0) {
         Debug.Log("Tiles Count: "+tiles.Count+", Height: "+height+", Width: "+width);
         List<List<GameObject>> hexPrefabs = new List<List<GameObject>>();
+
+
         for (int i = 0; i < height; i++) {
             List<GameObject> row = new List<GameObject>();
 
@@ -54,7 +56,7 @@ public class Tilemap : MonoBehaviour
         for (int x = 0; x < hexPrefabs.Count; x++) {
 
             for (int y = 0; y < hexPrefabs[x].Count; y++) {
-                HexMap.SwapHex(hexPrefabs[x][y], MapGenerator.instance.hexes[x][y]);
+                HexMap.SwapHex(hexPrefabs[x][y], MapGenerator.instance.hexes[x+offset][y+offset]);
             }
         
         }

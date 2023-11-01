@@ -375,6 +375,8 @@ public class MapGenerator : MonoBehaviour
 
     public void RunWFC() {
 
+        ClearMap();
+
         if (createAdditionalGrids > 1) {
             AddTempHexesForWFC(createAdditionalGrids * wfcOutputWidth, 
                 createAdditionalGrids * wfcOutputHeight);
@@ -393,14 +395,12 @@ public class MapGenerator : MonoBehaviour
             output.CreateOutput(patternManager, result, wfcOutputWidth, wfcOutputHeight);
 
             // needs offset params 
-            output.OutputImage.CreateTiles(wfcOutputHeight, wfcOutputWidth);
+            output.OutputImage.CreateTiles(wfcOutputHeight, wfcOutputWidth, i * wfcOutputWidth);
         }
 
     }
 
     public void AddTempHexesForWFC(int width, int height) {
-
-        hexes.Clear();
 
         for (int x = 0; x < width; x++)
         {
