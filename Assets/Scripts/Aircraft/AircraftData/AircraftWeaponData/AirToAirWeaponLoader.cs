@@ -11,9 +11,6 @@ public enum AirToAirWeaponType
 public class AirToAirWeaponLoader
 {
 
-    
-
-
     List<AirToAirWeaponData> airToAirWeaponList;
 
     public AirToAirWeaponLoader() {

@@ -7,6 +7,7 @@ using static AircraftSpeedData;
 using static AircraftMovementData;
 using System.Drawing.Drawing2D;
 using static AircraftLoader;
+using static AirToAirWeaponType;
 
 public class AircraftJsonTests
 {
@@ -92,6 +93,9 @@ public class AircraftJsonTests
         Assert.AreEqual(2, jd.aircraftStandoffJammer.longRangeStrength);
 
         Assert.AreEqual(1, md.manueverRating);
+
+        Assert.IsTrue(Aim260Jatm == aircraft.aircraftPayload.pylons[0].weaponType);
+        Assert.AreEqual(6, aircraft.aircraftPayload.pylons[0].depletionPoints);
 
     }
 

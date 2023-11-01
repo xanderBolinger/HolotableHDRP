@@ -1,6 +1,12 @@
 {
     "aircraft_display_name": "V19 Torrent",
     "aircraft_type": "V19",
+    "aircraft_payload": {
+        "pylons": [{
+            "depletion_points": 6,
+            "weapon_type": "Aim260Jatm"
+        }]
+    },
     "aircraft_jammer_data": {
         "aircraft_jammer": {
             "jammer_strength_noise": 0,
