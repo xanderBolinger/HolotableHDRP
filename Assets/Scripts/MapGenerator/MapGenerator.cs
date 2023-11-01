@@ -382,20 +382,24 @@ public class MapGenerator : MonoBehaviour
                 createAdditionalGrids * wfcOutputHeight);
         }
 
-        for(int i = 0; i < createAdditionalGrids; i++)
+        for(int x = 0; x < createAdditionalGrids; x++)
         {
-            WFCCore core = new WFCCore(wfcOutputWidth, wfcOutputHeight, maximumIterations, patternManager);
 
-            Tilemap outputTileMap = new Tilemap();
-            outputTileMap.initTilemap();
+            for (int y = 0; y < createAdditionalGrids; y++) {
+                WFCCore core = new WFCCore(wfcOutputWidth, wfcOutputHeight, maximumIterations, patternManager);
 
-            TileMapOutput output = new TileMapOutput(valueManager, outputTileMap);
-            var result = core.CreateOutputGrid();
+                Tilemap outputTileMap = new Tilemap();
+                outputTileMap.initTilemap();
 
-            output.CreateOutput(patternManager, result, wfcOutputWidth, wfcOutputHeight);
+                TileMapOutput output = new TileMapOutput(valueManager, outputTileMap);
+                var result = core.CreateOutputGrid();
 
-            // needs offset params 
-            output.OutputImage.CreateTiles(wfcOutputHeight, wfcOutputWidth, i * wfcOutputWidth);
+                output.CreateOutput(patternManager, result, wfcOutputWidth, wfcOutputHeight);
+
+                // needs offset params 
+                output.OutputImage.CreateTiles(wfcOutputHeight, wfcOutputWidth, x * wfcOutputWidth, y * wfcOutputHeight);
+            }
+
         }
 
     }
