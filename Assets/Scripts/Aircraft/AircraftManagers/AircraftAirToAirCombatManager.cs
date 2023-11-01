@@ -49,14 +49,16 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
         Debug.Log("Standard Air to Air Engagement, Dttacker(" + attacker.flightCallsign + "), Defender(" +
             defender.flightCallsign + ") shots (" + attackerShots + ", " + defenderShots + ")");
 
-        ResolveShots(attacker, attackerShots, defender, false);
+        var attackerCasualtiesInflicted = ResolveShots(attacker, attackerShots, defender, false);
         AirToAirDepletionCalculator.DepletionCheck(attacker, attackerShots, pylon, false);
 
         var defenderPylon = GetPylon(attacker, false);
 
+        int defenderCasualtiesInflicted = 0;
+
         if (defenderPylon != null)
         {
-            ResolveShots(defender, defenderShots, attacker, false);
+            defenderCasualtiesInflicted = ResolveShots(defender, defenderShots, attacker, false);
             AirToAirDepletionCalculator.DepletionCheck(defender, defenderShots, defenderPylon, false);
         }
         else 
@@ -82,7 +84,6 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
                 flight.flightAircraft.Remove(aircraft);
         }
 
-
         // remove empty flights 
         List<AircraftFlight> removeFlights = new List<AircraftFlight>();
 
@@ -95,7 +96,5 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
             AircraftFlightManager.aircraftFlightManager.RemoveFlight(flight.flightCallsign);
 
     }
-
-    
 
 }

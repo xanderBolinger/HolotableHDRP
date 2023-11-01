@@ -71,17 +71,23 @@ public class AirToAirCombatCalculator
         return true;
     }
 
-    public static void ResolveShots(AircraftFlight shooters, int shots, AircraftFlight targetFlight, bool bvr)
+    public static int ResolveShots(AircraftFlight shooters, int shots, AircraftFlight targetFlight, bool bvr)
     {
         var pylon = GetPylon(shooters, bvr);
         var undepletedWeapons = AdditionalUndepletedPylons(shooters);
         var wep = aircraftCombatManager.weaponLoader.GetWeapon(pylon.weaponType);
         var combatRating = bvr ? wep.bvrRating : wep.standardRating;
+
+        int casualtiesInflicted = 0;
+
         for (int i = 0; i < shots; i++)
         {
-            AircraftDamageCalculator.ShotResolution(targetFlight, combatRating, undepletedWeapons);
+            casualtiesInflicted += 
+                AircraftDamageCalculator.ShotResolution(targetFlight, combatRating, undepletedWeapons) ? 1
+                : 0;
         }
 
+        return casualtiesInflicted;
     }
 
 }
