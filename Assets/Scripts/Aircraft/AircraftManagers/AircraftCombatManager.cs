@@ -4,17 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+using static AirToAirCombatCalculator;
 
 public class AircraftCombatManager : MonoBehaviour
 {
     public bool night;
     public static AircraftCombatManager aircraftCombatManager;
+    public AirToAirWeaponLoader weaponLoader;
 
     AircraftStandardCombat standardAirToAir;
     AircraftBailoutTable bailoutTable;
 
-    AirToAirWeaponLoader weaponLoader;
 
     void Start()
     {
@@ -87,76 +87,6 @@ public class AircraftCombatManager : MonoBehaviour
 
     }
 
-    void ResolveShots(AircraftFlight shooters, int shots, AircraftFlight targetFlight, bool bvr) {
-        var pylon = GetPylon(shooters, bvr);
-        var undepletedWeapons = AdditionalUndepletedPylons(shooters);
-        var wep = weaponLoader.GetWeapon(pylon.weaponType);
-        var combatRating = bvr ? wep.bvrRating : wep.standardRating;
-        for (int i = 0; i < shots; i++) {
-            AircraftDamageCalculator.ShotResolution(targetFlight, combatRating, undepletedWeapons);
-        }
-
-    }
-
-    bool CanEngageBvr(AircraftFlight shooters)
-    {
-        return GetPylon(shooters, true) != null;
-    }
-
-    bool AdditionalUndepletedPylons(AircraftFlight shooters)
-    {
-
-        var pylon = GetPylon(shooters, false);
-        var pylon2 = GetPylon(shooters, false, pylon);
-
-        return pylon != null && pylon2 != null;
-    }
-
-    AirToAirPylon GetPylon(AircraftFlight shooters, bool bvr, AirToAirPylon existingPylon = null)
-    {
-
-        foreach (var aircraft in shooters.flightAircraft)
-        {
-
-            foreach (var pylon in aircraft.aircraftPayload.pylons)
-            {
-                var wep = weaponLoader.GetWeapon(pylon.weaponType);
-                if ((bvr && wep.bvrRangeForward == 0) || pylon.depleted
-                    || (existingPylon != null && existingPylon.weaponType == pylon.weaponType))
-                    continue;
-                return pylon;
-            }
-
-        }
-
-        return null;
-    }
-
-    public bool CanAttackStandard(AircraftFlight attacker, AircraftFlight defender) {
-
-        if (!defender.Detected()) {
-            Debug.Log("Attack defender("+defender.flightCallsign+") not detected.");
-            return false;
-        }
-
-        if (!AttackerFacingDefender(attacker, defender))
-            return false;
-
-
-        return true;
-    }
-
-    bool AttackerFacingDefender(AircraftFlight attacker, AircraftFlight defender) {
-        var forward = HexDirection.GetHexSideFacingTarget(attacker.GetCord(), defender.GetCord());
-
-        if (forward != attacker.GetFacing())
-        {
-            Debug.Log("Defender(" + defender.flightCallsign + ") outside attacker("
-                + attacker.flightCallsign + ")'s forward arc");
-            return false;
-        }
-
-        return true;
-    }
+    
 
 }
