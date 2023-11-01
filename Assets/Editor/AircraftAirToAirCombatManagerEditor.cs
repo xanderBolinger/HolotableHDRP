@@ -18,6 +18,11 @@ public class AircraftAirToAirCombatManagerEditor : Editor
             cm.StandardAirToAir(GetFlight(), GetTargetFlight());    
         }
 
+        if (GUILayout.Button("BVR Air to Air"))
+        {
+            cm.BvrAirToAir(GetFlight(), GetTargetFlight());
+        }
+
         if (GUILayout.Button("Print Weapons"))
         {
             Debug.Log(cm.weaponLoader.ToString());

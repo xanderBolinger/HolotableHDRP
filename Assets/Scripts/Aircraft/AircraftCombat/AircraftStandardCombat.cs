@@ -15,7 +15,7 @@ public class AircraftStandardCombat
     }
 
     public (int, int) GetShots(AircraftFlight agressor, AircraftFlight target, bool daytime,
-        bool attackerYes, bool defenderYes) {
+        bool attackerYes, bool defenderYes,bool bvr =false) {
 
         
 
@@ -26,9 +26,11 @@ public class AircraftStandardCombat
         var manueverRollDefender = CalculateManueverDefender(agressor, target, !daytime, 
             attackerYes && !defenderYes);
 
-        var attackerShots = combatManueverTable.GetValueStandard(agressor.flightAircraft.Count,
+        var attackerShots = bvr ? combatManueverTable.GetValueBvr(agressor.flightAircraft.Count,
+            manueverRollAttacker) : combatManueverTable.GetValueStandard(agressor.flightAircraft.Count,
             manueverRollAttacker);
-        var defenderShots = combatManueverTable.GetValueStandard(target.flightAircraft.Count,
+        var defenderShots = bvr ? combatManueverTable.GetValueBvr(agressor.flightAircraft.Count,
+            manueverRollAttacker) : combatManueverTable.GetValueStandard(target.flightAircraft.Count,
             manueverRollDefender);
 
         return (attackerShots, defenderShots);

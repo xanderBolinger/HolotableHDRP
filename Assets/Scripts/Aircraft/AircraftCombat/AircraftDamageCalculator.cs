@@ -62,4 +62,34 @@ public class AircraftDamageCalculator
             targetFlight.flightAircraft.Count - 1)];
     }
 
+
+    public static void RemoveDestroyedAircraft()
+    {
+
+        var flights = AircraftFlightManager.aircraftFlightManager.aircraftFlights;
+
+        // remove aircraft 
+        foreach (var flight in flights)
+        {
+            List<Aircraft> removeAircraft = new List<Aircraft>();
+            foreach (var aircraft in flight.flightAircraft)
+                if (aircraft.destroyed)
+                    removeAircraft.Add(aircraft);
+            foreach (var aircraft in removeAircraft)
+                flight.flightAircraft.Remove(aircraft);
+        }
+
+        // remove empty flights 
+        List<AircraftFlight> removeFlights = new List<AircraftFlight>();
+
+        foreach (var flight in flights)
+        {
+            if (flight.flightAircraft.Count == 0)
+                removeFlights.Add(flight);
+        }
+
+        foreach (var flight in removeFlights)
+            AircraftFlightManager.aircraftFlightManager.RemoveFlight(flight.flightCallsign);
+
+    }
 }
