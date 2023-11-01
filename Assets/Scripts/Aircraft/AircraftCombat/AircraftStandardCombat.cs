@@ -17,21 +17,22 @@ public class AircraftStandardCombat
     public (int, int) GetShots(AircraftFlight agressor, AircraftFlight target, bool daytime,
         bool attackerYes, bool defenderYes,bool bvr =false) {
 
-        
-
         Debug.Log("Attacker engages: "+attackerYes+", Defender engages: "+defenderYes);
 
         var manueverRollAttacker = CalculateManueverAttacker(agressor, target, !daytime, 
-            attackerYes && !defenderYes);
-        var manueverRollDefender = CalculateManueverDefender(agressor, target, !daytime, 
-            attackerYes && !defenderYes);
-
+            attackerYes && !defenderYes, bvr);
         var attackerShots = bvr ? combatManueverTable.GetValueBvr(agressor.flightAircraft.Count,
             manueverRollAttacker) : combatManueverTable.GetValueStandard(agressor.flightAircraft.Count,
             manueverRollAttacker);
-        var defenderShots = bvr ? combatManueverTable.GetValueBvr(agressor.flightAircraft.Count,
-            manueverRollAttacker) : combatManueverTable.GetValueStandard(target.flightAircraft.Count,
-            manueverRollDefender);
+
+        int defenderShots = 0;
+
+        if (!bvr) {
+            var manueverRollDefender = CalculateManueverDefender(agressor, target, !daytime,
+            attackerYes && !defenderYes);
+            defenderShots = combatManueverTable.GetValueStandard(target.flightAircraft.Count,
+                manueverRollDefender);
+        }
 
         return (attackerShots, defenderShots);
     }
@@ -47,10 +48,10 @@ public class AircraftStandardCombat
     }
 
     public static int CalculateManueverAttacker(AircraftFlight attacker, AircraftFlight defender,
-        bool night, bool attackerSurprise)
+        bool night, bool attackerSurprise, bool bvr)
     {
-        var aircraftManueverMod = attacker.flightAircraft[0].movementData.manueverRating -
-            defender.flightAircraft[0].movementData.manueverRating;
+        var aircraftManueverMod = !bvr ? attacker.flightAircraft[0].movementData.manueverRating -
+            defender.flightAircraft[0].movementData.manueverRating : 0;
         var surpriseMod = attackerSurprise ? 3 : 0;
         var nightMod = night ? -3 : 0;
         var disorderedMod = defender.flightStatus == FlightStatus.Disordered ? 1 : 0;
@@ -58,7 +59,7 @@ public class AircraftStandardCombat
         var beam = HexDirection.Beam(defender.GetCord(), attacker.GetCord(), defender.GetFacing());
         var rear = HexDirection.Rear(defender.GetCord(), attacker.GetCord(), defender.GetFacing());
 
-        var flightManueverMod = FlightManueverRating(attacker) - FlightManueverRating(defender);
+        var flightManueverMod = !bvr ? FlightManueverRating(attacker) - FlightManueverRating(defender) : 0;
 
         var geometry = beam && rear ? 1 : 0;
 
@@ -99,7 +100,7 @@ public class AircraftStandardCombat
 
         Debug.Log("Defender Manuever(" + defender.flightCallsign + ")" + " roll: " + roll + " Modified Roll: "
             + modifiedRoll + ", "+ "Geometry Mod: " + geometry + ", Aircraft Manuever Rating Mod: " + aircraftManueverMod
-            + ", Flight Manuever Mod(Night only): " + (!night ? flightManueverMod : 0) + ", Night Mod: " + nightMod 
+            + ", Flight Manuever Mod(Night only): " + (night ? flightManueverMod : 0) + ", Night Mod: " + nightMod 
             + ", Disadvantage Mod: "+ disadvantage);
 
         return modifiedRoll;
