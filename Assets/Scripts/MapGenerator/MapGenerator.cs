@@ -375,9 +375,8 @@ public class MapGenerator : MonoBehaviour
 
     public void RunWFC() {
 
-        ClearMap();
-
         if (createAdditionalGrids > 1) {
+            ClearMap();
             AddTempHexesForWFC(createAdditionalGrids * wfcOutputWidth, 
                 createAdditionalGrids * wfcOutputHeight);
         }
