@@ -408,12 +408,14 @@ public class MapGenerator : MonoBehaviour
 
     void SetElevation() {
         var elevationStats = new HexFrequency(elevationFrequency);
-        var elevationMap = NoiseMap(elevationStats);
+        var w = createAdditionalGrids * wfcOutputWidth;
+        var h = createAdditionalGrids * wfcOutputHeight;
+        var elevationMap = NoiseMap(elevationStats, w, h);
 
-        for (int x = 0; x < createAdditionalGrids * wfcOutputWidth; x++)
+        for (int x = 0; x < w; x++)
         {
 
-            for (int y = 0; y < createAdditionalGrids * wfcOutputHeight; y++)
+            for (int y = 0; y < h; y++)
             {
                 int elevation = elevationMap[x][y];
                 var hex = hexes[x][y];
@@ -598,7 +600,7 @@ public class MapGenerator : MonoBehaviour
         return Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy), Mathf.Abs(dx + dy));
     }
 
-    List<List<int>> NoiseMap(HexFrequency freq)
+    List<List<int>> NoiseMap(HexFrequency freq, int manWidth=0, int manHeight=0)
     {
         int densityLower = freq.densityLower; 
         int densityUpper = freq.densityUpper;
@@ -616,18 +618,20 @@ public class MapGenerator : MonoBehaviour
         int yOffset = number;
         Debug.Log("Offset: " + number + ", Magnification: " + magnification + ", Density: " + density);
 
-        CalculatePerlin(xOffset, yOffset, magnification, density, map);
+        CalculatePerlin(xOffset, yOffset, magnification, density, map,
+            manWidth > 0 ? manWidth : mapWidth, manHeight > 0 ? manHeight : mapHeight);
 
         return map;
 
     }
-    void CalculatePerlin(int xOffset, int yOffset, float magnification, int density, List<List<int>> map) {
-        for (int x = 0; x < mapWidth; x++)
+    void CalculatePerlin(int xOffset, int yOffset, float magnification, int density, List<List<int>> map,
+        int width, int height) {
+        for (int x = 0; x < width; x++)
         {
 
             List<int> values = new List<int>();
 
-            for (int y = 0; y < mapHeight; y++)
+            for (int y = 0; y < height; y++)
             {
                 float rawPerlin = Mathf.PerlinNoise(
                 (x - xOffset) / magnification,
