@@ -7,21 +7,17 @@ public class SmoothCameraMotor : MonoBehaviour
 {
     [SerializeField, Range(-1f, -90f)] float _topAngleLimit;
     [SerializeField, Range(1f, 90f)] float _bottomAngleLimit;
-    [SerializeField, Range(0.01f, 1f)] float shiftMoveSpeed;
-    [SerializeField, Range(1f, 5f)] float _moveSpeed;
-    [SerializeField, Range(1f, 10f)] float _moveAcceleration;
-    [SerializeField, Range(1f, 10f)] float _moveDeceleration;
+    [SerializeField, Range(1f, 10f)] float _shiftMoveSpeed;
+    [SerializeField, Range(1f, 30f)] float _shiftMoveAcceleration;
+    [SerializeField, Range(1f, 10f)] float _moveSpeed;
+    [SerializeField, Range(1f, 30f)] float _moveAcceleration;
+    [SerializeField, Range(1f, 30f)] float _moveDeceleration;
 
-    [SerializeField]
-    private float _lookSensitivity = 3.0f;
-    [SerializeField]
-    private float _scrollSpeed = 20.0f;
+    [SerializeField, Range(1f, 3f)] float _lookSensitivity = 2.0f;
+    [SerializeField] float _scrollSpeed = 20.0f;
 
-    [SerializeField]
-    private float _smoothTimeMovement = 0.2f;
-
-    [SerializeField, Range(0.5f, 0.9f)]
-    private float _smoothTime = 0.2f;
+    [SerializeField, Range(0.3f, 0.8f)] float _scrollSmoothTime = 0.5f;
+    [SerializeField, Range(0.1f, 0.3f)] float _smoothTime = 0.2f;
 
     private float _rotationY;
     private float _rotationX;
@@ -52,19 +48,18 @@ public class SmoothCameraMotor : MonoBehaviour
 
     private void Move()
     {
-        var pos = _transform.position;
-        
         Quaternion rotation = Quaternion.Euler(0, _transform.eulerAngles.y, 0);
         Vector3 localDirection = Vector3.forward;
         Vector3 forward = rotation * localDirection;
 
-        var zPos = forward * MoveForwardAndBack();
-        var xPos = _transform.right * MoveSideToSide();
+        var forwardSpeed = MoveForwardAndBack();
+        var sideWaysSpeed = MoveSideToSide();
+        var zPos = forward.normalized * forwardSpeed;
+        var xPos = _transform.right.normalized * sideWaysSpeed;
 
         var movement = zPos + xPos;
-        movement.y = pos.y;
 
-        _transform.position = movement;
+        _transform.position = _transform.position + movement;
     }
 
     float currentSpeed;
@@ -72,10 +67,13 @@ public class SmoothCameraMotor : MonoBehaviour
 
     float MoveForwardAndBack()
     {
-        if ((Input.GetKey(KeyCode.W)) && (currentSpeedForward < _moveSpeed))
-            currentSpeedForward = currentSpeedForward - _moveAcceleration * Time.deltaTime;
-        else if ((Input.GetKey(KeyCode.S)) && (currentSpeedForward > -_moveSpeed))
-            currentSpeedForward = currentSpeedForward + _moveAcceleration * Time.deltaTime;
+        var maxSpeed = Input.GetKey(KeyCode.LeftShift) ? _shiftMoveSpeed : _moveSpeed;
+        var acceleration = Input.GetKey(KeyCode.LeftShift) ? _shiftMoveAcceleration : _moveAcceleration;
+
+        if ((Input.GetKey(KeyCode.W)) && (currentSpeedForward < maxSpeed))
+            currentSpeedForward = currentSpeedForward - acceleration * Time.deltaTime;
+        else if ((Input.GetKey(KeyCode.S)) && (currentSpeedForward > -maxSpeed))
+            currentSpeedForward = currentSpeedForward + acceleration * Time.deltaTime;
         else
         {
             if (currentSpeedForward > _moveDeceleration * Time.deltaTime)
@@ -86,15 +84,18 @@ public class SmoothCameraMotor : MonoBehaviour
                 currentSpeedForward = 0;
         }
 
-        return _transform.position.z + currentSpeedForward * Time.deltaTime;
+        return currentSpeedForward * Time.deltaTime;
     }
 
     float MoveSideToSide()
     {
-        if ((Input.GetKey(KeyCode.A)) && (currentSpeed < _moveSpeed))
-            currentSpeed = currentSpeed - _moveAcceleration * Time.deltaTime;
-        else if ((Input.GetKey(KeyCode.D)) && (currentSpeed > -_moveSpeed))
-            currentSpeed = currentSpeed + _moveAcceleration * Time.deltaTime;
+        var maxSpeed = Input.GetKey(KeyCode.LeftShift) ? _shiftMoveSpeed : _moveSpeed;
+        var acceleration = Input.GetKey(KeyCode.LeftShift) ? _shiftMoveAcceleration : _moveAcceleration;
+
+        if ((Input.GetKey(KeyCode.A)) && (currentSpeed < maxSpeed))
+            currentSpeed = currentSpeed - acceleration * Time.deltaTime;
+        else if ((Input.GetKey(KeyCode.D)) && (currentSpeed > -maxSpeed))
+            currentSpeed = currentSpeed + acceleration * Time.deltaTime;
         else
         {
             if (currentSpeed > _moveDeceleration * Time.deltaTime)
@@ -105,7 +106,7 @@ public class SmoothCameraMotor : MonoBehaviour
                 currentSpeed = 0;
         }
 
-        return _transform.position.x + currentSpeed * Time.deltaTime;
+        return currentSpeed * Time.deltaTime;
     }
 
 
@@ -134,7 +135,7 @@ public class SmoothCameraMotor : MonoBehaviour
 
         Vector3 camera = new Vector3(pos.x, pos.y + Input.GetAxis("Mouse ScrollWheel") * _scrollSpeed, pos.z);
 
-        _transform.position = Vector3.SmoothDamp(pos, camera, ref _smoothVelocityHeight, _smoothTime);
+        _transform.position = Vector3.SmoothDamp(pos, camera, ref _smoothVelocityHeight, _scrollSmoothTime);
     }
 
 }
