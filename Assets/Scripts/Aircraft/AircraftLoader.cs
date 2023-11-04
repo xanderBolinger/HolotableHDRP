@@ -8,7 +8,7 @@ public class AircraftLoader
 {
     [JsonConverter(typeof(StringEnumConverter)), Serializable]
     public enum AircraftType { 
-        V19
+        V19,Vulture
     }
 
     List<Aircraft> _loadedAircrafts;
@@ -44,6 +44,7 @@ public class AircraftLoader
         return aircraftType switch
         {
             AircraftType.V19 => "V19",
+            AircraftType.Vulture => "Vulture",
             _ => throw new Exception("Aircraft not found for type: " + aircraftType),
         };
     }

@@ -20,7 +20,7 @@ public class AircraftAirToAirWeaponLoaderTests
 		var jatm = loader.GetWeapon(Aim260Jatm);
 		Assert.IsTrue(jatm.weaponType == Aim260Jatm);
         Assert.IsTrue(jatm.radarGuided);
-		Assert.AreEqual(1, jatm.standardRating);
+		Assert.AreEqual(3, jatm.standardRating);
         Assert.AreEqual(2, jatm.bvrRating);
         Assert.AreEqual(60, jatm.bvrRangeForward);
         Assert.AreEqual(45, jatm.bvrRangeBeam);

@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public enum AirToAirWeaponType
 {
-    Aim260Jatm
+    Aim260Jatm,Cannon,LightCannon,R23,R73
 }
 
 public class AirToAirWeaponLoader
@@ -17,7 +17,11 @@ public class AirToAirWeaponLoader
     public AirToAirWeaponLoader() {
         airToAirWeaponList = new List<AirToAirWeaponData>
         {
-            LoadWeapon("Aim260Jatm")
+            LoadWeapon("Aim260Jatm"),
+            LoadWeapon("Cannon"),
+            LoadWeapon("LightCannon"),
+            LoadWeapon("R23"),
+            LoadWeapon("R73"),
         };
 
     }

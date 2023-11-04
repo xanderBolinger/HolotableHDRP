@@ -1,47 +1,51 @@
 {
-    "aircraft_display_name": "V19 Torrent",
-    "aircraft_type": "V19",
+    "aircraft_display_name": "Vulture Droid",
+    "aircraft_type": "Vulture",
     "aircraft_payload": {
         "air_to_air_pylons": [
             {
-                "depletion_points": 6,
-                "weapon_type": "Aim260Jatm" 
-            } ,
+                "depletion_points": 3,
+                "weapon_type": "R23"
+            },
+            {
+                "depletion_points": 3,
+                "weapon_type": "R73"
+            },
             {
                 "depletion_points": 0,
-                "weapon_type": "Cannon"
+                "weapon_type": "LightCannon"
             }
         ]
     },
     "aircraft_jammer_data": {
         "aircraft_jammer": {
             "jammer_strength_noise": 0,
-            "jammer_strength_deception": 4
+            "jammer_strength_deception": 2
         },
         "aircraft_standoff_jammer": {
-            "short_range":22,
-            "medium_range": 45,
-            "long_range": 88,
-            "short_range_strength": 4,
-            "medium_range_strength": 3,
-            "long_range_strength": 2
+            "short_range":0,
+            "medium_range": 0,
+            "long_range": 0,
+            "short_range_strength": 0,
+            "medium_range_strength": 0,
+            "long_range_strength": 0
         }
     },
     "aircraft_detection_data": {
         "aircraft_radar": {
-            "detection_class": "C",
-            "radar_max_range_active": 125,
-            "radar_medium_range_active": 100,
-            "radar_short_range_active": 90,
-            "radar_max_range": 75,
-            "radar_medium_range": 60,
-            "radar_short_range": 50,
-            "irst_front": 18,
-            "irst_rear": 25
+            "detection_class": "D",
+            "radar_max_range_active": 60,
+            "radar_medium_range_active": 50,
+            "radar_short_range_active": 45,
+            "radar_max_range": 66,
+            "radar_medium_range": 30,
+            "radar_short_range": 25,
+            "irst_front": 12,
+            "irst_rear": 20
         }
     },
     "aircraft_movement_data": {
-        "max_fuel": 10,
+        "max_fuel": 7,
         "manuever_rating": 1,
         "not_laden": {
             "very_high": {

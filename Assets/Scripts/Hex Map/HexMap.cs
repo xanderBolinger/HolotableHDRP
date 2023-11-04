@@ -6,6 +6,7 @@ using static HexCord;
 
 public class HexMap : MonoBehaviour
 {
+    public static bool javaAppDistance = false;
 
     public GameObject hexPrefab;
     public int mapWidth = 25;
@@ -121,13 +122,32 @@ public class HexMap : MonoBehaviour
     }
 
     public static int GetDistance(int ax, int ay, int bx, int by) {
-        int x0 = ax - (int)Mathf.Floor(ay / 2);
-        int y0 = ay;
-        int x1 = bx - (int)Mathf.Floor(by / 2);
-        int y1 = by;
-        int dx = x1 - x0;
-        int dy = y1 - y0;
-        return Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy), Mathf.Abs(dx + dy));
+
+        if (javaAppDistance)
+        {
+            int du = bx - ax;
+            int dv = by + (int)Mathf.Floor((float)bx / 2) - (ay + (int)Mathf.Floor((float)ax / 2));
+
+            if (du >= 0 && dv >= 0 || (du < 0 && dv < 0))
+            {
+                return Mathf.Max(Mathf.Abs(du), Mathf.Abs(dv));
+            }
+            else
+            {
+                return Mathf.Abs(du) + Mathf.Abs(dv);
+            }
+        }
+        else {
+            int x0 = ax - (int)Mathf.Floor(ay / 2);
+            int y0 = ay;
+            int x1 = bx - (int)Mathf.Floor(by / 2);
+            int y1 = by;
+            int dx = x1 - x0;
+            int dy = y1 - y0;
+            return Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy), Mathf.Abs(dx + dy));
+        }
+
+        
     }
 
     

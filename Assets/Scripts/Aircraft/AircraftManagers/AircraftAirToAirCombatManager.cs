@@ -56,7 +56,7 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
         var (attackerShots, defenderShots) = standardAirToAir.GetShots(attacker, defender, !night,
             attackerYes, defenderYes, true);
 
-        Debug.Log("Standard Air to Air Engagement, Attacker(" + attacker.flightCallsign + "), Defender(" +
+        Debug.Log("BVR Air to Air Engagement, Attacker(" + attacker.flightCallsign + "), Defender(" +
             defender.flightCallsign + ") shots:" + attackerShots);
 
         if (attackerShots <= 0)

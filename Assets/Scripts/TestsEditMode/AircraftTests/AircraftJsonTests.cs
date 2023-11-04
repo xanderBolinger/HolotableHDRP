@@ -49,6 +49,59 @@ public class AircraftJsonTests
     }
 
     [Test]
+    public void ReadVultureDroid() {
+        var aircraft = LoadAircraftJson("Vulture");
+        var jd = aircraft.aircraftJammerData;
+        var md = aircraft.movementData;
+        Assert.IsTrue(AircraftType.Vulture == aircraft.aircraftType);
+        Assert.AreEqual("Vulture Droid", aircraft.aircraftDisplayName);
+        Assert.AreEqual(7, md.fuel);
+        Assert.AreEqual(0, md.currentFuel);
+
+        TestSpeed(md, 4, 7, 7, false,
+            AircraftAltitude.VERY_HIGH);
+        TestSpeed(md, 4, 7, 7, false,
+           AircraftAltitude.HIGH);
+        TestSpeed(md, 4, 6, 7, false,
+           AircraftAltitude.MEDIUM);
+        TestSpeed(md, 4, 5, 6, false,
+           AircraftAltitude.LOW);
+        TestSpeed(md, 4, 5, 6, false,
+           AircraftAltitude.DECK);
+
+        TestSpeed(md, 4, 5, 5, true,
+            AircraftAltitude.VERY_HIGH);
+        TestSpeed(md, 4, 5, 5, true,
+           AircraftAltitude.HIGH);
+        TestSpeed(md, 3, 4, 5, true,
+           AircraftAltitude.MEDIUM);
+        TestSpeed(md, 3, 4, 4, true,
+           AircraftAltitude.LOW);
+        TestSpeed(md, 3, 4, 4, true,
+           AircraftAltitude.DECK);
+
+        Assert.AreEqual(0, jd.aircraftJammer.jammerStrengthNoise);
+        Assert.AreEqual(2, jd.aircraftJammer.jammerStrengthDeception);
+
+        Assert.AreEqual(0, jd.aircraftStandoffJammer.shortRange);
+        Assert.AreEqual(0, jd.aircraftStandoffJammer.mediumRange);
+        Assert.AreEqual(0, jd.aircraftStandoffJammer.longRange);
+
+        Assert.AreEqual(0, jd.aircraftStandoffJammer.shortRangeStrength);
+        Assert.AreEqual(0, jd.aircraftStandoffJammer.mediumRangeStrength);
+        Assert.AreEqual(0, jd.aircraftStandoffJammer.longRangeStrength);
+
+        Assert.AreEqual(1, md.manueverRating);
+
+        Assert.IsTrue(R23 == aircraft.aircraftPayload.pylons[0].weaponType);
+        Assert.AreEqual(3, aircraft.aircraftPayload.pylons[0].depletionPoints);
+        Assert.IsTrue(R73 == aircraft.aircraftPayload.pylons[1].weaponType);
+        Assert.AreEqual(3, aircraft.aircraftPayload.pylons[1].depletionPoints);
+        Assert.IsTrue(LightCannon == aircraft.aircraftPayload.pylons[2].weaponType);
+        Assert.AreEqual(0, aircraft.aircraftPayload.pylons[2].depletionPoints);
+    }
+
+    [Test]
     public void ReadV19Test()
     {
         var aircraft = LoadAircraftJson("V19");
@@ -96,6 +149,8 @@ public class AircraftJsonTests
 
         Assert.IsTrue(Aim260Jatm == aircraft.aircraftPayload.pylons[0].weaponType);
         Assert.AreEqual(6, aircraft.aircraftPayload.pylons[0].depletionPoints);
+        Assert.IsTrue(Cannon == aircraft.aircraftPayload.pylons[1].weaponType);
+        Assert.AreEqual(0, aircraft.aircraftPayload.pylons[1].depletionPoints);
 
     }
 

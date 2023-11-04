@@ -1,0 +1,10 @@
+{
+    "radar_guided": true,
+    "standard_rating": 3,
+    "bvr_rating": 0,
+    "bvr_range_forward": 0,
+    "bvr_range_beam": 0,
+    "bvr_range_rear": 0,
+    "weapon_display_name": "R-23",
+    "weapon_type": "R23"
+}

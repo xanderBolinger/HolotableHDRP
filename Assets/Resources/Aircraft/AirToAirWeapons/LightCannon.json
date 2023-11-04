@@ -1,0 +1,10 @@
+{
+    "radar_guided": false,
+    "standard_rating": 2,
+    "bvr_rating": 0,
+    "bvr_range_forward": 0,
+    "bvr_range_beam": 0,
+    "bvr_range_rear": 0,
+    "weapon_display_name": "Light Blaster Cannons",
+    "weapon_type": "LightCannon"
+}

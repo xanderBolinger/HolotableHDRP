@@ -1,0 +1,10 @@
+{
+    "radar_guided": false,
+    "standard_rating": 3,
+    "bvr_rating": 0,
+    "bvr_range_forward": 0,
+    "bvr_range_beam": 0,
+    "bvr_range_rear": 0,
+    "weapon_display_name": "Blaster Cannons",
+    "weapon_type": "Cannon"
+}

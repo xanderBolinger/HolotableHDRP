@@ -1,0 +1,10 @@
+{
+    "radar_guided": true,
+    "standard_rating": 2,
+    "bvr_rating": -1,
+    "bvr_range_forward": 4,
+    "bvr_range_beam": 2,
+    "bvr_range_rear": 1,
+    "weapon_display_name": "R-73",
+    "weapon_type": "R73"
+}

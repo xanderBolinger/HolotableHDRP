@@ -14,7 +14,7 @@ public class AirToAirCombatCalculator
         if (forward != attacker.GetFacing())
         {
             Debug.Log("Defender(" + defender.flightCallsign + ") outside attacker("
-                + attacker.flightCallsign + ")'s forward arc");
+                + attacker.flightCallsign + ")'s forward arc, side facing target: "+forward);
             return false;
         }
 

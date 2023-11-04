@@ -11,7 +11,7 @@ public class AircraftLoaderTests
     {
         var aircraftLoader = new AircraftLoader();
 
-        Assert.AreEqual(1, aircraftLoader.LoadedAircraftCount());
+        Assert.AreEqual(2, aircraftLoader.LoadedAircraftCount());
     }
 
 }

@@ -47,7 +47,8 @@ public class AirToAirDepletionTests
 
         DepletionCheck(flight, 3, GetPylon(flight, false, null), false);
 
-        Assert.IsNull(GetPylon(flight, false, null));
+        Assert.IsTrue(GetPylon(flight, false, null).weaponType 
+            == Cannon);
 
     }
 

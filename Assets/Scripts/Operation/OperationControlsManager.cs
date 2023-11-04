@@ -1,3 +1,4 @@
+using HexMapper;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -90,7 +91,8 @@ namespace Operation {
 
                     if (lastSelectedHex != null ) {
                         var cord2 = HexCord.GetHexCord(lastSelectedHex);
-                        Debug.Log("Distance from " + cord2.GetCord() + " to "+cord.GetCord()+": "+HexMap.GetDistance(cord, cord2));
+                        Debug.Log("Distance from " + cord2.GetCord() + " to "+cord.GetCord()+": "+HexMap.GetDistance(cord, cord2)
+                            +", Facing: "+ HexDirection.GetHexSideFacingTarget(cord2.GetCord(), cord.GetCord()));
                     }
 
                 }
