@@ -15,6 +15,9 @@ public class AircraftSaveManager : MonoBehaviour
     public void LoadAircraft() { 
         var data = AircraftSaveRunner.LoadAircraft(fileName);
         AircraftFlightManager.aircraftFlightManager.LoadFlights(data);
+
+        
+
     }
 
 }

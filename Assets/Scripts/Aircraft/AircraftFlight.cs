@@ -73,8 +73,7 @@ public class AircraftFlight
     }
 
     public HexCord GetLocation() {
-        throw new NotImplementedException();
-        //return flightAircraft[0].movementData.location;
+        return flightAircraft[0].movementData.location;
     }
 
     public void RemoveAircraft(string callsign) {

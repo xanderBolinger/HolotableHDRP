@@ -1,10 +1,11 @@
-
+using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using static AircraftLoader;
 using static AircraftMovementData;
 using static AircraftSpeedData;
 
+[Serializable]
 public class Aircraft
 {
     [JsonProperty("aircraft_type"), JsonConverter(typeof(StringEnumConverter))]

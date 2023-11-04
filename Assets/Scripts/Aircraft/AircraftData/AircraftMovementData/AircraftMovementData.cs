@@ -1,10 +1,12 @@
-
+using System;
 using HexMapper;
 using Newtonsoft.Json;
 using static AircraftSpeedData;
 
+[Serializable]
 public class AircraftMovementData
 {
+    [Serializable]
     public enum AircraftAltitude { 
         VERY_HIGH,HIGH,MEDIUM,LOW,DECK
     }
@@ -23,6 +25,7 @@ public class AircraftMovementData
     public Direction facing;
     public AircraftSpeed speed;
     public AircraftAltitude altitude;
+    [NonSerialized]
     public HexCord location;
     public bool isLaden;
 

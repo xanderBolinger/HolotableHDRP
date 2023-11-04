@@ -64,9 +64,16 @@ public class AircraftFlightManager : MonoBehaviour
         testTargetAircraftFlightDisplayList.Clear();
         testAircraftFlightDisplayList.Clear();
 
-        foreach (var flight in data.flights) {
+        for (int i = 0; i < data.flights.Count; i++) {
+
+            var flight = data.flights[i];
+            var cordData = data.cords[i];
+            var cord = AircraftHexCordManager.CreateHexCord(cordData.rough, cordData.x, cordData.y);
+            foreach (var aircraft in flight.flightAircraft)
+                aircraft.movementData.location = cord;
             AddFlight(flight);
         }
+
     }
 
     public bool CanAddFlight(string flightCallsign) {
