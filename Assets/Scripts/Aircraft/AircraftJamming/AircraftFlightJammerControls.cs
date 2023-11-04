@@ -1,5 +1,7 @@
 ﻿using HexMapper;
+using System;
 
+[Serializable]
 public class AircraftFlightJammerControls
 {
 

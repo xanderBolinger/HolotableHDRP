@@ -5,6 +5,7 @@ using UnityEngine;
 
 
 namespace HexMapper {
+    [Serializable]
     public enum Direction
     {
         A,AB,
