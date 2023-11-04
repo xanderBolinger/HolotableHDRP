@@ -48,11 +48,25 @@ public class AircraftFlightManager : MonoBehaviour
 
         AircraftFlight flight = new AircraftFlight(flightCallsign, flightQualityTable.GetValue(quality));
         flight.side = forceSide;
-        aircraftFlights.Add(flight);
+        AddFlight(flight);
+    }
 
+    void AddFlight(AircraftFlight flight) {
+        var flightCallsign = flight.flightCallsign;
+        aircraftFlights.Add(flight);
         testTargetAircraftFlightDisplayList.Add(flightCallsign);
         testAircraftFlightDisplayList.Add(flightCallsign);
         Debug.Log("Add flight: " + flightCallsign);
+    }
+
+    public void LoadFlights(AircraftSaveData data) {
+        aircraftFlights.Clear();
+        testTargetAircraftFlightDisplayList.Clear();
+        testAircraftFlightDisplayList.Clear();
+
+        foreach (var flight in data.flights) {
+            AddFlight(flight);
+        }
     }
 
     public bool CanAddFlight(string flightCallsign) {
