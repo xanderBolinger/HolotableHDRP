@@ -1,6 +1,6 @@
 using static HexCord;
 using System;
-
+[Serializable]
 public enum AircraftDetectionSuit
 {
     

@@ -1,6 +1,8 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 
+[Serializable]
 public class AirToAirPylon {
 
     [JsonProperty("depletion_points")]

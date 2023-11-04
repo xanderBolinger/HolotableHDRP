@@ -1,6 +1,8 @@
 using HexMapper;
 using Newtonsoft.Json;
+using System;
 
+[Serializable]
 public class AircraftStandoffJammer
 {
 

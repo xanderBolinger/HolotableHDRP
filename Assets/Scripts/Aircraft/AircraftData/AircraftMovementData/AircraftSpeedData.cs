@@ -1,13 +1,15 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static AircraftMovementData;
 using static AircraftSpeedData;
 
+[Serializable]
 public class AircraftSpeedData
 {
-
+    [Serializable]
     public enum AircraftSpeed { 
         Combat,Dash,Manuever
     }
@@ -43,7 +45,7 @@ public class AircraftSpeedData
     }
 
 }
-
+[Serializable]
 class ElevationSpeedData {
     [JsonProperty("combat")]
     int _combat;

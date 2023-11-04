@@ -1,6 +1,8 @@
 using Newtonsoft.Json;
+using System;
 using UnityEngine;
 
+[Serializable]
 public class AircraftJammerData
 {
 

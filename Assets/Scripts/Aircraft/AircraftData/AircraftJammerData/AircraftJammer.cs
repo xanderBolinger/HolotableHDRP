@@ -1,8 +1,7 @@
 using Newtonsoft.Json;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
+[Serializable]
 public class AircraftJammer
 {
     [JsonProperty("jammer_strength_noise")]
