@@ -1,12 +1,15 @@
 using HexMapper;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static AircraftDetectionSuitMethods;
 using static AircraftMovementData;
 using static AircraftSpeedData;
 
+[Serializable]
 public class AircraftFlight
 {
+    [Serializable]
     public enum FlightStatus { 
         Fresh,Disordered,Aborted
     }
@@ -70,7 +73,8 @@ public class AircraftFlight
     }
 
     public HexCord GetLocation() {
-        return flightAircraft[0].movementData.location;
+        throw new NotImplementedException();
+        //return flightAircraft[0].movementData.location;
     }
 
     public void RemoveAircraft(string callsign) {
