@@ -18,37 +18,21 @@ public class HexCord : MonoBehaviour
         }
         set
         {
-            UpdateText(value);
             _elevation = value;
+            UpdateText();
         }
     }
     public bool roadHex = false;
     public bool urbanHex = false;
     public HexType hexType;
 
-    [SerializeField]
-    GameObject hexElevation;
-    [SerializeField]
-    TextMeshProUGUI text;
-
     [Serializable]
     public enum HexType { 
         Clear,HeavyWoods,MediumWoods,LightWoods,Brush,HeavyBrush,MOUNTAIN,Building,BigBuilding,PATH,HIGHWAY
     }
 
-    void UpdateText(int value) {
-        if(text != null)
-            text.SetText(value.ToString());
-    }
-
-    public void HideElevationText() {
-        if (hexElevation != null)
-            hexElevation.SetActive(false);
-    }
-
-    public void ShowElevationText() {
-        if (hexElevation != null)
-            hexElevation.SetActive(true);
+    void UpdateText() {
+        HexElevationManager.hexElevationManager.SetText(GetCord(), elevation);
     }
 
     public Vector2Int GetCord() {
