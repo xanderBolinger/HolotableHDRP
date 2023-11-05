@@ -34,15 +34,59 @@ namespace HexMapper {
             return false;
         }
 
+        private static Direction GetHexSideFacingTargetBaseCases(Vector2Int start, Vector2Int target, int startDistance)
+        {
+
+            if (startDistance == 0)
+            {
+                return Direction.A;
+            }
+            else if (startDistance == 1)
+            {
+
+                var adjacentTiles = GetHexNeighbours(start);
+
+                for (int i = 0; i < 6; i++)
+                {
+                    if (adjacentTiles[i] == target)
+                    {
+                        if (i == 0)
+                            return Direction.A;
+                        if (i == 1)
+                            return Direction.B;
+                        if (i == 2)
+                            return Direction.C;
+                        if (i == 3)
+                            return Direction.D;
+                        if (i == 4)
+                            return Direction.E;
+                        if (i == 5)
+                            return Direction.F;
+                    }
+
+                }
+
+            }
+
+            throw new Exception("Could not find base case direction: "+start+", "+target+", Dist: "+startDistance);
+
+        }
+
         public static Direction GetHexSideFacingTarget(Vector2Int start, Vector2Int target)
         {
 
             var startDistance = HexMap.GetDistance(start, target);
+            if (startDistance <= 1)
+            {
+                var baseCase = GetHexSideFacingTargetBaseCases(start, target, startDistance);
+                return baseCase;
+            }
+
 
             Direction closestDir = Direction.A;
             var closestDist = GetDistanceInDirection(start, target, startDistance, Direction.A);
 
-            foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+            foreach(Direction dir in Enum.GetValues(typeof(Direction)))
             {
                 var newDist = GetDistanceInDirection(start, target, startDistance, dir);
 
@@ -70,7 +114,6 @@ namespace HexMapper {
 
             //throw new Exception("Direction not found for cords: ("+start.toString()+") to ("+target.toString()+")");
         }
-
         public static int GetDistanceInDirection(Vector2Int start, Vector2Int target, int distance, Direction dir)
         {
 
@@ -224,28 +267,28 @@ namespace HexMapper {
             neighbors.Add(new Vector2Int(pos.x - 1, pos.y));
 
             // B
-            if (pos.y % 2 == 0)
+            if (pos.y % 2 != 0)
+                neighbors.Add(new Vector2Int(pos.x, pos.y + 1));
+            else
                 neighbors.Add(new Vector2Int(pos.x - 1, pos.y + 1));
-            else
-                neighbors.Add(new Vector2Int(pos.x, pos.y + 1));
 
-            // C 
-            if (pos.y % 2 == 0)
-                neighbors.Add(new Vector2Int(pos.x, pos.y + 1));
-            else
+            // C
+            if (pos.y % 2 != 0)
                 neighbors.Add(new Vector2Int(pos.x + 1, pos.y + 1));
+            else
+                neighbors.Add(new Vector2Int(pos.x, pos.y + 1));
 
             // D
             neighbors.Add(new Vector2Int(pos.x + 1, pos.y));
 
             // E
-            if (pos.y % 2 == 0)
-                neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
+            if (pos.y % 2 != 0)
+                neighbors.Add(new Vector2Int(pos.x - 1, pos.y - 1));
             else
-                neighbors.Add(new Vector2Int(pos.x + 1, pos.y - 1));
+                neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
 
             // F
-            if (pos.y % 2 == 0)
+            if (pos.y % 2 != 0)
                 neighbors.Add(new Vector2Int(pos.x - 1, pos.y - 1));
             else
                 neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
