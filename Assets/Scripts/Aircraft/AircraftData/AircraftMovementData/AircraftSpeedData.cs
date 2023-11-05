@@ -11,7 +11,7 @@ public class AircraftSpeedData
 {
     [Serializable]
     public enum AircraftSpeed { 
-        Combat,Dash,Manuever
+        Combat,Dash
     }
 
     [JsonProperty("very_high")]
@@ -24,6 +24,24 @@ public class AircraftSpeedData
     ElevationSpeedData _low;
     [JsonProperty("deck")]
     ElevationSpeedData _deck;
+
+    public int GetManuverRating(AircraftAltitude altitude) {
+        switch (altitude)
+        {
+            case AircraftAltitude.VERY_HIGH:
+                return _veryHigh.manuenverRating;
+            case AircraftAltitude.HIGH:
+                return _high.manuenverRating;
+            case AircraftAltitude.MEDIUM:
+                return _medium.manuenverRating;
+            case AircraftAltitude.LOW:
+                return _low.manuenverRating;
+            case AircraftAltitude.DECK:
+                return _deck.manuenverRating;
+            default:
+                throw new System.Exception("Altitude not found for altitude: " + altitude);
+        }
+    }
 
     public int GetSpeed(AircraftSpeed speed, AircraftAltitude altitude) {
 
@@ -56,7 +74,7 @@ class ElevationSpeedData {
 
     public int combatSpeed { get { return _combat; } }
     public int dashSpeed { get { return _dash; } }
-    public int manuenverSpeed { get { return _manuenver; } }
+    public int manuenverRating { get { return _manuenver; } }
 
     public int GetSpeed(AircraftSpeed speed)
     {
@@ -66,8 +84,6 @@ class ElevationSpeedData {
                 return _combat;
             case AircraftSpeed.Dash:
                 return _dash;
-            case AircraftSpeed.Manuever:
-                return _manuenver;
             default:
                 throw new System.Exception("Speed not found for speed: " + speed);
         }

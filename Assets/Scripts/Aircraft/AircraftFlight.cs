@@ -96,9 +96,12 @@ public class AircraftFlight
     public int UndamagedAircraft() {
         int goodAircraft = 0;
 
-        foreach (var aircraft in flightAircraft)
+        foreach (var aircraft in flightAircraft) { 
             if (aircraft.damaged || aircraft.crippled)
                 continue;
+            goodAircraft++;
+        }
+        
 
         return goodAircraft;
     }

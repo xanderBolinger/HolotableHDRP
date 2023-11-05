@@ -58,15 +58,15 @@ public class AircraftJsonTests
         Assert.AreEqual(7, md.fuel);
         Assert.AreEqual(0, md.currentFuel);
 
-        TestSpeed(md, 4, 7, 7, false,
+        TestSpeed(md, 5, 7, 8, false,
             AircraftAltitude.VERY_HIGH);
-        TestSpeed(md, 4, 7, 7, false,
+        TestSpeed(md, 5, 7, 8, false,
            AircraftAltitude.HIGH);
-        TestSpeed(md, 4, 6, 7, false,
+        TestSpeed(md, 4, 6, 8, false,
            AircraftAltitude.MEDIUM);
-        TestSpeed(md, 4, 5, 6, false,
+        TestSpeed(md, 4, 5, 7, false,
            AircraftAltitude.LOW);
-        TestSpeed(md, 4, 5, 6, false,
+        TestSpeed(md, 4, 5, 7, false,
            AircraftAltitude.DECK);
 
         TestSpeed(md, 4, 5, 5, true,
@@ -91,8 +91,6 @@ public class AircraftJsonTests
         Assert.AreEqual(0, jd.aircraftStandoffJammer.mediumRangeStrength);
         Assert.AreEqual(0, jd.aircraftStandoffJammer.longRangeStrength);
 
-        Assert.AreEqual(1, md.manueverRating);
-
         Assert.IsTrue(R23 == aircraft.aircraftPayload.pylons[0].weaponType);
         Assert.AreEqual(3, aircraft.aircraftPayload.pylons[0].depletionPoints);
         Assert.IsTrue(R73 == aircraft.aircraftPayload.pylons[1].weaponType);
@@ -112,15 +110,15 @@ public class AircraftJsonTests
         Assert.AreEqual(10, md.fuel);
         Assert.AreEqual(0, md.currentFuel);
 
-        TestSpeed(md, 4, 7, 7, false, 
+        TestSpeed(md, 5, 8, 9, false, 
             AircraftAltitude.VERY_HIGH);
-        TestSpeed(md, 4, 7, 7, false,
+        TestSpeed(md, 5, 8, 9, false,
            AircraftAltitude.HIGH);
-        TestSpeed(md, 4, 6, 7, false,
+        TestSpeed(md, 4, 6, 9, false,
            AircraftAltitude.MEDIUM);
-        TestSpeed(md, 4, 5, 6, false,
+        TestSpeed(md, 4, 5, 8, false,
            AircraftAltitude.LOW);
-        TestSpeed(md, 4, 5, 6, false,
+        TestSpeed(md, 4, 5, 8, false,
            AircraftAltitude.DECK);
 
         TestSpeed(md, 4, 5, 5, true,
@@ -145,7 +143,6 @@ public class AircraftJsonTests
         Assert.AreEqual(3, jd.aircraftStandoffJammer.mediumRangeStrength);
         Assert.AreEqual(2, jd.aircraftStandoffJammer.longRangeStrength);
 
-        Assert.AreEqual(1, md.manueverRating);
 
         Assert.IsTrue(Aim260Jatm == aircraft.aircraftPayload.pylons[0].weaponType);
         Assert.AreEqual(6, aircraft.aircraftPayload.pylons[0].depletionPoints);
@@ -164,7 +161,7 @@ public class AircraftJsonTests
             md.GetSpeed(AircraftSpeed.Dash,
             altitude, laden));
         Assert.AreEqual(mnvr,
-            md.GetSpeed(AircraftSpeed.Manuever,
+            md.GetManueverRating(
             altitude, laden));
     }
 

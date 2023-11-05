@@ -50,8 +50,8 @@ public class AircraftStandardCombat
     public static int CalculateManueverAttacker(AircraftFlight attacker, AircraftFlight defender,
         bool night, bool attackerSurprise, bool bvr)
     {
-        var aircraftManueverMod = !bvr ? attacker.flightAircraft[0].movementData.manueverRating -
-            defender.flightAircraft[0].movementData.manueverRating : 0;
+        var aircraftManueverMod = !bvr ? attacker.flightAircraft[0].movementData.GetManueverRating() -
+            defender.flightAircraft[0].movementData.GetManueverRating() : 0;
         var surpriseMod = attackerSurprise ? 3 : 0;
         var nightMod = night ? -3 : 0;
         var disorderedMod = defender.flightStatus == FlightStatus.Disordered ? 1 : 0;
@@ -78,8 +78,8 @@ public class AircraftStandardCombat
     public static int CalculateManueverDefender(AircraftFlight attacker, AircraftFlight defender,
         bool night, bool defenderDisadvantaged) {
 
-        var aircraftManueverMod = defender.flightAircraft[0].movementData.manueverRating -
-            attacker.flightAircraft[0].movementData.manueverRating;
+        var aircraftManueverMod = defender.flightAircraft[0].movementData.GetManueverRating() -
+            attacker.flightAircraft[0].movementData.GetManueverRating();
 
         var nightMod = night ? -3 : 0;
         

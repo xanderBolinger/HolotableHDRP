@@ -46,32 +46,31 @@
     },
     "aircraft_movement_data": {
         "max_fuel": 7,
-        "manuever_rating": 1,
         "not_laden": {
             "very_high": {
-                "combat": 4,
+                "combat": 5,
                 "dash": 7,
-                "manuever": 7
+                "manuever": 8
             },
             "high": {
-                "combat": 4,
+                "combat": 5,
                 "dash": 7,
-                "manuever": 7
+                "manuever": 8
             },
             "medium": {
                 "combat": 4,
                 "dash": 6,
-                "manuever": 7
+                "manuever": 8
             },
             "low": {
                 "combat": 4,
                 "dash": 5,
-                "manuever": 6
+                "manuever": 7
             },
             "deck": {
                 "combat": 4,
                 "dash": 5,
-                "manuever": 6
+                "manuever": 7
             }
         },
         "laden": {

@@ -19,8 +19,7 @@ public class AircraftMovementData
     AircraftSpeedData _ladenSpeed;
     [JsonProperty("not_laden")]
     AircraftSpeedData _regularSpeed;
-    [JsonProperty("manuever_rating")]
-    int _manueverRating;
+
 
     public Direction facing;
     public AircraftSpeed speed;
@@ -29,7 +28,6 @@ public class AircraftMovementData
     public HexCord location;
     public bool isLaden;
 
-    public int manueverRating { get { return _manueverRating; } }
     public int fuel { get { return _fuel; } }
     public int currentFuel { get { return _currentFuel; } }
 
@@ -46,7 +44,6 @@ public class AircraftMovementData
         altitude = amd.altitude;
         location = amd.location;
         isLaden = amd.isLaden;
-        _manueverRating = amd.manueverRating;
     }
 
     public void SetupMovementData(AircraftSpeed speed, AircraftAltitude altitude, bool refuel, HexCord location)
@@ -60,6 +57,16 @@ public class AircraftMovementData
 
     public int GetSpeed() {
         return GetSpeed(speed, altitude, isLaden);
+    }
+
+    public int GetManueverRating()
+    {
+        return GetManueverRating(altitude, isLaden);
+    }
+
+    public int GetManueverRating(AircraftAltitude altitude, bool laden)
+    {
+        return laden ? _ladenSpeed.GetManuverRating(altitude) : _regularSpeed.GetManuverRating(altitude);
     }
 
     public int GetSpeed(AircraftSpeed speed, AircraftAltitude altitude, bool laden) {

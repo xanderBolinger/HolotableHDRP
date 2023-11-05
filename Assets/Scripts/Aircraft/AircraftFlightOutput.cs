@@ -73,7 +73,7 @@ public class AircraftFlightOutput
     {
         int cmd = md.GetSpeed(AircraftSpeed.Combat, altitude, laden);
         int dash = md.GetSpeed(AircraftSpeed.Dash, altitude, laden);
-        int man = md.GetSpeed(AircraftSpeed.Manuever, altitude, laden);
+        int man = md.GetManueverRating(altitude, laden);
 
         return cmd + "/" + dash + "/" + man;
     }
