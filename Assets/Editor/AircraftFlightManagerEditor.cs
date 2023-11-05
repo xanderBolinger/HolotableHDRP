@@ -40,6 +40,11 @@ public class AircraftFlightManagerEditor : Editor
         {
             flightManager.PrintFlights();
         }
+
+        if (GUILayout.Button("Toggle Disengaging") && Flights())
+        {
+            GetFlight().disengaing = !GetFlight().disengaing;
+        }
     }
 
     public static bool Flights()

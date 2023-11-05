@@ -27,7 +27,7 @@ public class AircraftStandardCombat
 
         int defenderShots = 0;
 
-        if (!bvr) {
+        if (!bvr && !target.disengaing) {
             var manueverRollDefender = CalculateManueverDefender(agressor, target, !daytime,
             attackerYes && !defenderYes);
             defenderShots = combatManueverTable.GetValueStandard(target.UndamagedAircraft(),

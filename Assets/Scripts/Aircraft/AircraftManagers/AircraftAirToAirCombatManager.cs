@@ -44,8 +44,17 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
         return false;
     }
 
+    bool Disengaging(AircraftFlight attacker) {
+        if (attacker.disengaing)
+        {
+            Debug.Log("Flight " + attacker.flightCallsign + " is disengaging this turn and cannot enter combat.");
+            return true;
+        }
+        return false;
+    }
+
     public void BvrAirToAir(AircraftFlight attacker, AircraftFlight defender) {
-        if (SameSide(attacker, defender) || DisorderedOrAborted(attacker))
+        if (SameSide(attacker, defender) || DisorderedOrAborted(attacker) || Disengaging(attacker))
             return;
 
         var pylon = GetPylon(attacker, false);
@@ -118,7 +127,7 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
     }
 
     public void StandardAirToAir(AircraftFlight attacker, AircraftFlight defender) {
-        if (SameSide(attacker, defender) || DisorderedOrAborted(attacker))
+        if (SameSide(attacker, defender) || DisorderedOrAborted(attacker) || Disengaging(attacker))
             return;
 
         var dist = HexMap.GetDistance(attacker.GetCord(), defender.GetCord());

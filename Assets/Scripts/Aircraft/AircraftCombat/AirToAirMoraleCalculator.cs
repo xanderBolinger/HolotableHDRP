@@ -13,9 +13,11 @@ public class AirToAirMoraleCalculator
         var surpriseMod = hasSurprise ? 1 : 0;
         var disadvantageMod = disadvantage ? -1 : 0;
         var aggressionValueMod = flight.agressionValue;
+        var disengagingMod = flight.disengaing ? -1 : 0;
 
         var modifiedRoll = surpriseMod + disadvantageMod + aggressionValueMod + enemyCasualties 
             - friendlyCasualties
+            + disengagingMod
             + roll;
 
         if (modifiedRoll >= 17)

@@ -27,6 +27,7 @@ public class AircraftRaidManager : MonoBehaviour
                 DisorderedRecovery(flight);
             flight.SpendFuel();
             flight.zoomClimb = false;
+            flight.disengaing = false;
         }
 
     }
