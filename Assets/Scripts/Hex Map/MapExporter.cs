@@ -19,6 +19,8 @@ public class MapExporter
 
     private class Map {
         public List<Tile> tiles = new List<Tile>();
+        public List<RoadPoint> pathPoints = new List<RoadPoint>();
+        public List<RoadPoint> highwayPoints = new List<RoadPoint>();
         public int width;
         public int height;
         public string name;
@@ -36,10 +38,22 @@ public class MapExporter
                     HexCord hexCord = obj.GetComponent<HexCord>() != null ? obj.GetComponent<HexCord>() 
                         : obj.GetComponentInChildren<HexCord>();
                     tiles.Add(new Tile(x,y,hexCord.elevation,hexCord.hexType.ToString()));
+
                 }
             }
 
 
+        }
+
+    }
+
+    private class RoadPoint {
+        public int x;
+        public int y;
+
+        public RoadPoint(int x, int y) {
+            this.x = x;
+            this.y = y;
         }
 
     }

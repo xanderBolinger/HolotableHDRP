@@ -34,6 +34,9 @@ public class UrbanGenerator : MonoBehaviour
 
     Dictionary<Vector2Int, GameObject> originalHexes = new Dictionary<Vector2Int, GameObject>();
 
+    public List<Vector2Int> pathTiles;
+    public List<Vector2Int> highwayTiles;
+
     private void Start()
     {
         roadLineCreator = GetComponent<RoadLineCreator>();
@@ -64,7 +67,7 @@ public class UrbanGenerator : MonoBehaviour
 
         List<RoadPoint> tour = UrbanRoadGenerator.CalculateTour(pathPoints);
 
-        List<Vector2Int> pathTiles = UrbanRoadGenerator.GetRoadPoints(tour, UrbanType.Town);
+        pathTiles = UrbanRoadGenerator.GetRoadPoints(tour, UrbanType.Town);
 
         roadLineCreator.SetPoints(pathTiles, false);
         //SwapUrbanHexes(pathTiles, true);
@@ -83,7 +86,7 @@ public class UrbanGenerator : MonoBehaviour
 
         List<RoadPoint> tour = UrbanRoadGenerator.CalculateTour(highwayPoints);
 
-        List<Vector2Int> highwayTiles = UrbanRoadGenerator.GetRoadPoints(tour, UrbanType.City);
+        highwayTiles = UrbanRoadGenerator.GetRoadPoints(tour, UrbanType.City);
 
         roadLineCreator.SetPoints(highwayTiles, true);
         //SwapUrbanHexes(highwayTiles, true);

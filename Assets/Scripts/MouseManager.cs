@@ -3,11 +3,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static HexCord;
 
 public class MouseManager : MonoBehaviour
 {
+    public HexType hexType;
 
-    GameObject selectedHexPrefab;
     public bool mouseManagerOn = true;
     public GameObject hillHexPrefab;
     public GameObject grassHexPrefab;
@@ -27,7 +28,7 @@ public class MouseManager : MonoBehaviour
 
     void Start()
     {
-        selectedHexPrefab = grassHexPrefab;
+
         gridMover = GetComponent<GridMover>();
     }
 
@@ -107,42 +108,7 @@ public class MouseManager : MonoBehaviour
     }
 
     private void CreateTiles() {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            selectedHexPrefab = grassHexPrefab;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            selectedHexPrefab = treeHexPrefab;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            selectedHexPrefab = hillHexPrefab;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            selectedHexPrefab = cityHexPrefab;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            selectedHexPrefab = townHexPrefab;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            selectedHexPrefab = highwayHexPrefab;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            selectedHexPrefab = pathHexPrefab;
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Refresh Map");
-            MapGenerator.instance.ClearMap();
 
-            MapGenerator.instance.CreateTileMap();
-
-        }
 
 
 
@@ -159,7 +125,7 @@ public class MouseManager : MonoBehaviour
             GameObject hitObject = hitInfo.collider.transform.gameObject;
 
             //Debug.Log("Raycast Hit: "+hitInfo.collider.gameObject.name+", Tag: "+hitObject.tag);
-            if (Input.GetMouseButtonDown(0) && hitObject.tag == "Hex")
+            if (Input.GetMouseButton(0) && hitObject.tag == "Hex")
             {
                 int x = hitObject.GetComponent<HexCord>().x;
                 int y = hitObject.GetComponent<HexCord>().y;
@@ -186,7 +152,7 @@ public class MouseManager : MonoBehaviour
                 }
 
 
-                GameObject newHex = HexMap.SwapHex(selectedHexPrefab, hitObject);
+                GameObject newHex = HexMap.SwapHex(HexMap.GetPrefab(hexType), hitObject);
 
                 if (MapGenerator.instance != null)
                 {
