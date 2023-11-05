@@ -8,7 +8,7 @@ public class AircraftMovementData
 {
     [Serializable]
     public enum AircraftAltitude { 
-        VERY_HIGH,HIGH,MEDIUM,LOW,DECK
+        VERY_HIGH = 4,HIGH = 3,MEDIUM = 2,LOW = 1,DECK = 0
     }
 
     [JsonProperty("max_fuel")]

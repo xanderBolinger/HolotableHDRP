@@ -84,12 +84,18 @@ public class AircraftMovementManager : MonoBehaviour
             }
         }
 
+        flight.climbed = (int)flight.GetAltitude() < (int)altitude;
+        flight.zoomClimb = (int)flight.GetAltitude()+1 < (int)altitude;
+        flight.bvrAvoid = false;
+        flight.manueverMarker = false;
+
         foreach (var aircraft in flight.flightAircraft)
             aircraft.movementData.MoveAircraft(
                 hexCord != null ? hexCord : CreateHexCord(testHexCordManager.hexRough, testHexCordManager.xCord, testHexCordManager.yCord),
                 altitude, facing);
         Debug.Log("Moved flight "+flight.flightCallsign+" to "+hexCord.GetCord()
             +", Alt: "+altitude.ToString()+", Facing: "+facing);
+
     }
 
     private bool AircraftCanMove(Aircraft aircraft, HexCord hexCord) {
@@ -106,7 +112,5 @@ public class AircraftMovementManager : MonoBehaviour
         return true; 
     
     }
-
-    
 
 }
