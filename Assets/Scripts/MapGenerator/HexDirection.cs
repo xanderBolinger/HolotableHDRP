@@ -289,9 +289,9 @@ namespace HexMapper {
 
             // F
             if (pos.y % 2 != 0)
-                neighbors.Add(new Vector2Int(pos.x - 1, pos.y - 1));
-            else
                 neighbors.Add(new Vector2Int(pos.x, pos.y - 1));
+            else
+                neighbors.Add(new Vector2Int(pos.x - 1, pos.y - 1));
 
             return neighbors;
         }

@@ -37,13 +37,13 @@ public class AirToAirDepletionTests
     [Test]
     public void DepletionCheckTest() {
 
-        DiceRoller.AddNextTestValue(9);
+        DiceRoller.AddNextTestValue(1);
 
         DepletionCheck(flight, 3, GetPylon(flight, false, null), false);
 
         Assert.IsNotNull(GetPylon(flight, false, null));
 
-        DiceRoller.AddNextTestValue(8);
+        DiceRoller.AddNextTestValue(10);
 
         DepletionCheck(flight, 3, GetPylon(flight, false, null), false);
 

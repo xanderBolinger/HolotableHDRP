@@ -21,8 +21,8 @@ public class AircraftStandardCombat
 
         var manueverRollAttacker = CalculateManueverAttacker(agressor, target, !daytime, 
             attackerYes && !defenderYes, bvr);
-        var attackerShots = bvr ? combatManueverTable.GetValueBvr(agressor.flightAircraft.Count,
-            manueverRollAttacker) : combatManueverTable.GetValueStandard(agressor.flightAircraft.Count,
+        var attackerShots = bvr ? combatManueverTable.GetValueBvr(agressor.UndamagedAircraft(),
+            manueverRollAttacker) : combatManueverTable.GetValueStandard(agressor.UndamagedAircraft(),
             manueverRollAttacker);
 
         int defenderShots = 0;
@@ -30,7 +30,7 @@ public class AircraftStandardCombat
         if (!bvr) {
             var manueverRollDefender = CalculateManueverDefender(agressor, target, !daytime,
             attackerYes && !defenderYes);
-            defenderShots = combatManueverTable.GetValueStandard(target.flightAircraft.Count,
+            defenderShots = combatManueverTable.GetValueStandard(target.UndamagedAircraft(),
                 manueverRollDefender);
         }
 
@@ -56,12 +56,11 @@ public class AircraftStandardCombat
         var nightMod = night ? -3 : 0;
         var disorderedMod = defender.flightStatus == FlightStatus.Disordered ? 1 : 0;
         var enemyDisengaging = defender.disengaing ? -2 : 0;
-        var beam = HexDirection.Beam(defender.GetCord(), attacker.GetCord(), defender.GetFacing());
         var rear = HexDirection.Rear(defender.GetCord(), attacker.GetCord(), defender.GetFacing());
 
         var flightManueverMod = !bvr ? FlightManueverRating(attacker) - FlightManueverRating(defender) : 0;
 
-        var geometry = beam && rear ? 1 : 0;
+        var geometry = rear ? 1 : 0;
 
         var roll = DiceRoller.Roll(2, 20);
         var modifiedRoll = roll + geometry + enemyDisengaging + disorderedMod
@@ -70,7 +69,7 @@ public class AircraftStandardCombat
         Debug.Log("Attacker Manuever("+attacker.flightCallsign+")" + " roll: "+roll +", Modified Roll: "
             +modifiedRoll+", "+ "Geometry Mod: "+geometry + ", Enemy Disengaging: "+enemyDisengaging
             +", Enemy Disordered Mod: "+ disorderedMod+", Aircraft Manuever Rating Mod: "+aircraftManueverMod
-            + ", Flight Manuever Mod(Night only): " + (!night ? flightManueverMod : 0)+", Night Mod: "+nightMod+", "+
+            + ", Flight Manuever Mod(Day only): " + (!night ? flightManueverMod : 0)+", Night Mod: "+nightMod+", "+
             ", Surprise Mod: "+surpriseMod);
 
         return modifiedRoll;
@@ -86,12 +85,11 @@ public class AircraftStandardCombat
         
         var disadvantage = defenderDisadvantaged ? -1 : 0;
        
-        var beam = HexDirection.Beam(defender.GetCord(), attacker.GetCord(), defender.GetFacing());
         var rear = HexDirection.Rear(defender.GetCord(), attacker.GetCord(), defender.GetFacing());
 
         var flightManueverMod = FlightManueverRating(defender) - FlightManueverRating(attacker);
 
-        var geometry = beam && rear ? -1 : 0;
+        var geometry = rear ? -1 : 0;
 
         var roll = DiceRoller.Roll(2, 20);
 
@@ -100,7 +98,7 @@ public class AircraftStandardCombat
 
         Debug.Log("Defender Manuever(" + defender.flightCallsign + ")" + " roll: " + roll + " Modified Roll: "
             + modifiedRoll + ", "+ "Geometry Mod: " + geometry + ", Aircraft Manuever Rating Mod: " + aircraftManueverMod
-            + ", Flight Manuever Mod(Night only): " + (night ? flightManueverMod : 0) + ", Night Mod: " + nightMod 
+            + ", Flight Manuever Mod(Day only): " + (!night ? flightManueverMod : 0) + ", Night Mod: " + nightMod 
             + ", Disadvantage Mod: "+ disadvantage);
 
         return modifiedRoll;
@@ -119,6 +117,14 @@ public class AircraftStandardCombat
         if (flight.zoomClimb)
             rating -= 2;
         if (flight.climbed)
+            rating -= 1;
+
+        var undamagedAircraft = flight.UndamagedAircraft();
+
+        if (undamagedAircraft != flight.flightAircraft.Count 
+            && undamagedAircraft < flight.flightAircraft.Count / 2)
+            rating -= 2;
+        else if (undamagedAircraft != flight.flightAircraft.Count)
             rating -= 1;
 
         return rating;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class AirToAirMoraleCalculator
 {
 
-    public static void MoraleCheckStandard(AircraftFlight flight,
+    public static void MoraleCheck(AircraftFlight flight,
         bool hasSurprise, bool disadvantage, int enemyCasualties, int friendlyCasualties) {
 
         var roll = DiceRoller.Roll(2, 20);
@@ -29,13 +29,17 @@ public class AirToAirMoraleCalculator
         }
         else if (modifiedRoll >= 9)
         {
-            flight.flightStatus = AircraftFlight.FlightStatus.Disordered;
+            flight.flightStatus = flight.flightStatus != AircraftFlight.FlightStatus.Aborted ? 
+                AircraftFlight.FlightStatus.Disordered
+                : AircraftFlight.FlightStatus.Aborted;
             Debug.Log("Morale Result(" + flight.flightCallsign + "): DISORDERED, agression -1");
             flight.agressionValue--;
         }
         else if (modifiedRoll >= 6)
         {
-            flight.flightStatus = AircraftFlight.FlightStatus.Disordered;
+            flight.flightStatus = flight.flightStatus != AircraftFlight.FlightStatus.Aborted ? 
+                AircraftFlight.FlightStatus.Disordered
+                : AircraftFlight.FlightStatus.Aborted;
             Debug.Log("Morale Result(" + flight.flightCallsign + "): DISORDERED, agression -2");
             flight.agressionValue-=2;
         }

@@ -10,8 +10,8 @@ using static AircraftSpeedData;
 public class AircraftFlight
 {
     [Serializable]
-    public enum FlightStatus { 
-        Fresh,Disordered,Aborted
+    public enum FlightStatus {
+        Fresh, Disordered, Aborted
     }
 
     List<Aircraft> _flightAircraft;
@@ -34,7 +34,7 @@ public class AircraftFlight
     public string flightCallsign { get { return _flightCallsign; } }
     public List<Aircraft> flightAircraft { get { return _flightAircraft; } }
 
-    public AircraftFlight(string flightCallsign, int quality=0) {
+    public AircraftFlight(string flightCallsign, int quality = 0) {
         _aircraftDetectionSuit = GetSuit();
         _flightCallsign = flightCallsign;
         _flightAircraft = new List<Aircraft>();
@@ -42,6 +42,13 @@ public class AircraftFlight
         this.quality = quality;
         agressionValue = quality;
         flightStatus = FlightStatus.Fresh;
+    }
+
+    public bool DisorderdOrAborted() {
+        if (flightStatus == FlightStatus.Disordered ||
+                flightStatus == FlightStatus.Aborted)
+            return true;
+        return false;
     }
 
     public void SpendFuel() {
@@ -84,6 +91,16 @@ public class AircraftFlight
 
         _flightAircraft.Remove(GetAircraftInFlight(callsign));
         Debug.Log("Removed aircraft " + callsign + " from flight " + flightCallsign);
+    }
+
+    public int UndamagedAircraft() {
+        int goodAircraft = 0;
+
+        foreach (var aircraft in flightAircraft)
+            if (aircraft.damaged || aircraft.crippled)
+                continue;
+
+        return goodAircraft;
     }
 
     public void DamageAircraft(string callsign)

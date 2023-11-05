@@ -13,7 +13,13 @@ public class AircraftMovementManagerEditor : Editor
 
         AircraftMovementManager amm = (AircraftMovementManager)target;
 
-        if (GUILayout.Button("Get Distance") && Flights())
+
+        if (GUILayout.Button("Get Distance Between Flights") && Flights())
+        {
+            amm.GetDistanceBetweenTwoFlightsTest(GetFlight(), GetTargetFlight());
+        }
+
+        if (GUILayout.Button("Get Distance to Hex") && Flights())
         {
             amm.GetHexDistanceTest(GetFlight());
         }

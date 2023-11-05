@@ -10,11 +10,11 @@ public class AirToAirDepletionCalculator
 
         var roll = DiceRoller.Roll(1, 10);
 
-        var modifiedRoll = (1 - shots) + roll;
+        var modifiedRoll = (shots-1) + roll;
 
-        if (modifiedRoll <= dp)
+        if (modifiedRoll > dp)
         {
-            Debug.Log("Flight " + flight.flightCallsign + " weapon " + pylon.weaponType + " DEPLETED, DP: " + dp + ", Roll: " + roll +
+            Debug.Log("Flight " + flight.flightCallsign + " weapon " + pylon.weaponType + " DEPLETED, Roll >= DP: " + dp + ", Roll: " + roll +
                 ", Shots: " + shots + ", Modified Roll: " + modifiedRoll);
 
             DepleteFlight(flight, pylon);
@@ -28,7 +28,7 @@ public class AirToAirDepletionCalculator
         }
         else {
 
-            Debug.Log("Flight "+flight.flightCallsign+" weapon "+pylon.weaponType+" not depleted, DP: "+dp+", Roll: "+roll+
+            Debug.Log("Flight "+flight.flightCallsign+" weapon "+pylon.weaponType+" not depleted, Roll < DP: "+dp+", Roll: "+roll+
                 ", Shots: "+shots+", Modified Roll: "+modifiedRoll);
         }
 

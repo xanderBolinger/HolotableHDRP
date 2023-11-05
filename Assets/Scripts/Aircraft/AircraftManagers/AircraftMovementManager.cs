@@ -21,9 +21,18 @@ public class AircraftMovementManager : MonoBehaviour
         testHexCordManager = GetComponent<AircraftHexCordManager>();
     }
 
+    public void GetDistanceBetweenTwoFlightsTest(AircraftFlight flight, AircraftFlight targetFlight) {
+        var cord = flight.GetCord();
+        var cord1 = targetFlight.GetCord();
+        Debug.Log("Hex distance for " + flight.flightCallsign + " from " + cord + " to " 
+            + targetFlight.flightCallsign+"("+cord1.x+", "+cord1.y+"), dist: "
+            + HexMap.GetDistance(cord.x, cord.y, cord1.x, cord1.y));
+    }
+
     public void GetHexDistanceTest(AircraftFlight flight) {
         var cord = flight.GetLocation().GetCord();
-        Debug.Log("Hex distance for "+flight.flightCallsign+" from "+cord+" to ("+ testHexCordManager.xCord+ ", "+testHexCordManager.yCord+"), dist: "
+        Debug.Log("Hex distance for "+flight.flightCallsign+" from "+cord+" to ("
+            + testHexCordManager.xCord+ ", "+testHexCordManager.yCord+"), dist: "
             +HexMap.GetDistance(cord.x, cord.y, testHexCordManager.xCord, testHexCordManager.yCord));
         
     }

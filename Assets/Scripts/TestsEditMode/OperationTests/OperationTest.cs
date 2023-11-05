@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 using Operation;
 using static Operation.TimeSegment;
 using static HexCord;
@@ -128,7 +126,7 @@ public class OperationTest
 
         ou.moveType = MoveType.EXTENDED;
 
-        OperationMovement.AddPlannedMovement(opm, ou, hexCords[1][0], hexCords, new Vector2Int(0, 1));
+        OperationMovement.AddPlannedMovement(opm, ou, hexCords[1][1], hexCords, new Vector2Int(0, 1));
         Assert.AreEqual(1, currentTimeSegment.plannedMovement[ou].Count);
 
         opm.AdvanceTS();
@@ -147,7 +145,7 @@ public class OperationTest
 
         opm.undoRedo.Redo();
 
-        Assert.AreEqual(new Vector2Int(1, 0), opm.operationUnits[0].hexPosition);
+        Assert.AreEqual(new Vector2Int(1, 1), opm.operationUnits[0].hexPosition);
     }
 
 }

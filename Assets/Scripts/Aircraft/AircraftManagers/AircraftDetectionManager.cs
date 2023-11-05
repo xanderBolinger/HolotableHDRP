@@ -31,6 +31,11 @@ public class AircraftDetectionManager : MonoBehaviour
 
         foreach (var flight in flights) {
 
+            if (flight.DisorderdOrAborted()) {
+                Debug.Log("Flight " + flight.flightCallsign+" cannot spot, flight disordered or aborted");
+                continue;
+            }
+
             foreach (var possibleTarget in flights) {
                 if (flight.side.FriendlyTowards(possibleTarget.side)
                     || possibleTarget.Detected())

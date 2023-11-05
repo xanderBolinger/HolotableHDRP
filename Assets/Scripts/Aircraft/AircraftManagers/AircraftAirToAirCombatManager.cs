@@ -26,7 +26,28 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
 
     }
 
+    bool SameSide(AircraftFlight attacker, AircraftFlight defender) {
+        if (attacker.side == defender.side)
+        {
+            Debug.Log("Attacker(" + attacker.flightCallsign + ") and Defender(" + defender.flightCallsign + ") are on the same side.");
+            return true;
+        }
+        return false;
+    }
+
+    bool DisorderedOrAborted(AircraftFlight attacker) {
+        if (attacker.DisorderdOrAborted())
+        {
+            Debug.Log("Flight " + attacker.flightCallsign + " cannot spot, flight disordered or aborted");
+            return true;
+        }
+        return false;
+    }
+
     public void BvrAirToAir(AircraftFlight attacker, AircraftFlight defender) {
+        if (SameSide(attacker, defender) || DisorderedOrAborted(attacker))
+            return;
+
         var pylon = GetPylon(attacker, false);
         if (pylon == null)
         {
@@ -63,9 +84,11 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
             return;
 
         var attackerCasualtiesInflicted = ResolveShots(attacker, attackerShots, defender, true);
-        DepletionCheck(attacker, attackerShots, pylon, true);
 
-        MoraleCheckStandard(defender, false, false,
+        if (attackerShots > 0)
+            DepletionCheck(attacker, attackerShots, pylon, true);
+
+        MoraleCheck(defender, false, false,
            0, attackerCasualtiesInflicted);
         defender.bvrAvoid = true;
 
@@ -95,6 +118,9 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
     }
 
     public void StandardAirToAir(AircraftFlight attacker, AircraftFlight defender) {
+        if (SameSide(attacker, defender) || DisorderedOrAborted(attacker))
+            return;
+
         var dist = HexMap.GetDistance(attacker.GetCord(), defender.GetCord());
 
         if (dist > 1) {
@@ -127,7 +153,9 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
             defender.flightCallsign + ") shots (" + attackerShots + ", " + defenderShots + ")");
 
         var attackerCasualtiesInflicted = ResolveShots(attacker, attackerShots, defender, false);
-        DepletionCheck(attacker, attackerShots, pylon, false);
+
+        if(attackerShots > 0)
+            DepletionCheck(attacker, attackerShots, pylon, false);
 
         var defenderPylon = GetPylon(defender, false);
 
@@ -136,7 +164,8 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
         if (defenderPylon != null)
         {
             defenderCasualtiesInflicted = ResolveShots(defender, defenderShots, attacker, false);
-            DepletionCheck(defender, defenderShots, defenderPylon, false);
+            if (defenderShots > 0)
+                DepletionCheck(defender, defenderShots, defenderPylon, false);
         }
         else 
             Debug.Log("Defender "+defender.flightCallsign+" cannot shoot back, has no undepleted weapons");
@@ -144,10 +173,10 @@ public class AircraftAirToAirCombatManager : MonoBehaviour
         attacker.SpendFuel();
         defender.SpendFuel();
 
-        MoraleCheckStandard(attacker, attackerYes && !defenderYes, !attackerYes && defenderYes, 
+        MoraleCheck(attacker, attackerYes && !defenderYes, !attackerYes && defenderYes, 
             attackerCasualtiesInflicted, defenderCasualtiesInflicted);
 
-        MoraleCheckStandard(defender, false, attackerYes && !defenderYes,
+        MoraleCheck(defender, false, attackerYes && !defenderYes,
             defenderCasualtiesInflicted, attackerCasualtiesInflicted);
 
         RemoveDestroyedAircraft();

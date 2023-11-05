@@ -26,6 +26,12 @@ public class AircraftCombatManueverTable
     }
 
     public int GetValueStandard(int numberOfAircraft, int roll) {
+
+        if (numberOfAircraft == 0) {
+            Debug.Log("No shots possible, all aircraft in flight are damaged.");
+            return 0;
+        }
+
         return int.Parse(table.GetValue(numberOfAircraft, roll));
     }
 
