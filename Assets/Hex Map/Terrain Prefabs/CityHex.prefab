@@ -232,3 +232,4 @@ MonoBehaviour:
   roadHex: 0
   urbanHex: 0
   hexType: 8
+  hexObject: {fileID: 2421533609526419518}

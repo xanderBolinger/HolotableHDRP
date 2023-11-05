@@ -10,6 +10,8 @@ public class MouseManager : MonoBehaviour
     public HexType hexType;
 
     public bool mouseManagerOn = true;
+    public bool creatingTiles = true;
+
     public GameObject hillHexPrefab;
     public GameObject grassHexPrefab;
     public GameObject treeHexPrefab;
@@ -22,10 +24,6 @@ public class MouseManager : MonoBehaviour
     GameObject selectedUnit;
     GridMover gridMover;
 
-    bool creatingTiles = true;
-
-    Vector2Int b = new Vector2Int(-1,-1);
-
     void Start()
     {
 
@@ -37,11 +35,6 @@ public class MouseManager : MonoBehaviour
     {
         if (!mouseManagerOn)
             return;
-
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            creatingTiles = !creatingTiles;
-        }
 
         if (!creatingTiles)
             MoveUnits();
@@ -109,12 +102,6 @@ public class MouseManager : MonoBehaviour
 
     private void CreateTiles() {
 
-
-
-
-
-        //Debug.Log("Mouse Position: "+Input.mousePosition);
-
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hitInfo;
@@ -127,37 +114,19 @@ public class MouseManager : MonoBehaviour
             //Debug.Log("Raycast Hit: "+hitInfo.collider.gameObject.name+", Tag: "+hitObject.tag);
             if (Input.GetMouseButton(0) && hitObject.tag == "Hex")
             {
-                int x = hitObject.GetComponent<HexCord>().x;
-                int y = hitObject.GetComponent<HexCord>().y;
+                var hexCord = hitObject.GetComponent<HexCord>();
+                int x = hexCord.x;
+                int y = hexCord.y;
 
                 Debug.Log("Clicked Hex: " + x
                     + ", " + y);
 
-                if (b.x == -1)
-                {
-                    b = new Vector2Int(x, y);
-                }
-                else
-                {
-
-                    int x0 = b.x - (int)Mathf.Floor(b.y / 2);
-                    int y0 = b.y;
-                    int x1 = x - (int)Mathf.Floor(y / 2);
-                    int y1 = y;
-                    int dx = x1 - x0;
-                    int dy = y1 - y0;
-                    Debug.Log("Distance: " + Mathf.Max(Mathf.Abs(dx), Mathf.Abs(dy), Mathf.Abs(dx + dy)));
-
-                    b.x = -1;
-                }
-
-
-                GameObject newHex = HexMap.SwapHex(HexMap.GetPrefab(hexType), hitObject);
+                GameObject newHex = HexMap.SwapHex(HexMap.GetPrefab(hexType), hexCord.hexObject);
 
                 if (MapGenerator.instance != null)
                 {
                     MapGenerator.instance.hexes[x][y] = newHex;
-                    Debug.Log("set hex");
+                    Debug.Log("Set Hex");
                 }
 
                 //Debug.Log("Set Color");

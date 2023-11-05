@@ -52,15 +52,7 @@ namespace WaveFunctionCollapse {
                 var row = tilemap.hexes[rowIndex];
 
                 for (int colIndex = 0; colIndex < row.Count; colIndex++) {
-                    HexCord.HexType hexType;
-                    //Debug.Log("Row: "+rowIndex+", Col: "+colIndex);
-                    if (tilemap.hexes[rowIndex][colIndex].GetComponent<HexCord>() != null)
-                    {
-                        hexType = tilemap.hexes[rowIndex][colIndex].GetComponent<HexCord>().hexType;
-                    }
-                    else {
-                        hexType = tilemap.hexes[rowIndex][colIndex].GetComponentInChildren<HexCord>().hexType;
-                    }
+                    HexCord.HexType hexType = HexCord.GetHexCord(tilemap.hexes[rowIndex][colIndex]).hexType;
 
                     gridOfInputTiles[rowIndex][colIndex] = findBase(tileBases, hexType);
                 }

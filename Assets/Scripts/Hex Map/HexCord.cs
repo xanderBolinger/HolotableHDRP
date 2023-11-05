@@ -26,6 +26,8 @@ public class HexCord : MonoBehaviour
     public bool urbanHex = false;
     public HexType hexType;
 
+    public GameObject hexObject;
+
     [Serializable]
     public enum HexType { 
         Clear,HeavyWoods,MediumWoods,LightWoods,Brush,HeavyBrush,MOUNTAIN,Building,BigBuilding,PATH,HIGHWAY

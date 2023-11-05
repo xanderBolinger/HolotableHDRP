@@ -51,6 +51,9 @@ public class MapGenerator : MonoBehaviour
     /*float upperMagnification = 7.5f;
     float lowerMagnification = 6.5f;*/
 
+    public ElevationDistribution elevationDistribution;
+    public ElevationHeightRange elevationHeightRange;
+    
     public HexFrequency.Frequency elevationFrequency;
     public HexFrequency.Frequency mountainFrequency;
     public HexFrequency.Frequency treeFrequency;
@@ -156,7 +159,6 @@ public class MapGenerator : MonoBehaviour
         var treeStats = new HexFrequency(treeFrequency);
         var townStats = new HexFrequency(townFrequency);
         var cityStats = new HexFrequency(cityFrequency);
-        var elevationStats = new HexFrequency(elevationFrequency);
         Debug.Log("Mountain: ");
         var mountainMap = NoiseMap(mountainStats);
         Debug.Log("Tree Map: ");
@@ -167,9 +169,6 @@ public class MapGenerator : MonoBehaviour
         var cityMap = NoiseMap(cityStats);
 
         var brushMap = NoiseMap(brushStats);
-
-        var elevationMap = NoiseMap(elevationStats);
-        string elevationOutput = "";
         
         for (int x = 0; x < mapWidth; x++)
         {
@@ -183,8 +182,6 @@ public class MapGenerator : MonoBehaviour
                 int town = townMap[x][y];
                 int city = cityMap[x][y];
                 int brush = brushMap[x][y];
-                int elevation = elevationMap[x][y];
-                elevationOutput += elevation + ",";
                 bool urbanHex = false; 
 
                 GameObject hexPrefab = grassPrefab;
@@ -232,14 +229,12 @@ public class MapGenerator : MonoBehaviour
                     hex.GetComponentInChildren<HexCord>().urbanHex = urbanHex;
                     hex.GetComponentInChildren<HexCord>().x = x;
                     hex.GetComponentInChildren<HexCord>().y = y;
-                    hex.GetComponentInChildren<HexCord>().elevation = elevation;
                 }
                 else
                 {
                     hex.GetComponent<HexCord>().urbanHex = urbanHex;
                     hex.GetComponent<HexCord>().y = y;
                     hex.GetComponent<HexCord>().y = y;
-                    hex.GetComponent<HexCord>().elevation = elevation;
                 }
 
                 
@@ -249,10 +244,7 @@ public class MapGenerator : MonoBehaviour
             }
 
             hexes.Add(row);
-            elevationOutput += "\n";
         }
-
-        Debug.Log("Elevation: "+elevationOutput);
 
         RoadGenerator.roadCords.Clear();
 
@@ -270,8 +262,8 @@ public class MapGenerator : MonoBehaviour
         }
 
 
+        SetElevation();
         SetInputReader();
-
     }
 
     public void VerifyHexes() {
@@ -406,10 +398,10 @@ public class MapGenerator : MonoBehaviour
     }
 
     void SetElevation() {
-        var elevationStats = new HexFrequency(elevationFrequency);
+        //var elevationStats = new HexFrequency(elevationFrequency);
         var w = createAdditionalGrids * wfcOutputWidth;
         var h = createAdditionalGrids * wfcOutputHeight;
-        var elevationMap = NoiseMap(elevationStats, w, h);
+        var elevationMap = ElevationCalculator.GetElevationMap(w,h, elevationDistribution, elevationHeightRange);
 
         for (int x = 0; x < w; x++)
         {

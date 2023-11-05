@@ -148,3 +148,4 @@ MonoBehaviour:
   roadHex: 0
   urbanHex: 0
   hexType: 4
+  hexObject: {fileID: 5849751423415555673}

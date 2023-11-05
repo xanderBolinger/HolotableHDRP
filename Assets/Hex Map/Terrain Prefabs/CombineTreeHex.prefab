@@ -102,6 +102,7 @@ MonoBehaviour:
   roadHex: 0
   urbanHex: 0
   hexType: 1
+  hexObject: {fileID: 5097640567127986391}
 --- !u!64 &8903803063209708850
 MeshCollider:
   m_ObjectHideFlags: 0

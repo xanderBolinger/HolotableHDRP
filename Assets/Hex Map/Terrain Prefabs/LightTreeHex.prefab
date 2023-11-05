@@ -117,6 +117,7 @@ MonoBehaviour:
   roadHex: 0
   urbanHex: 0
   hexType: 3
+  hexObject: {fileID: 6847727587888379514}
 --- !u!1 &7078420601754078605
 GameObject:
   m_ObjectHideFlags: 0
