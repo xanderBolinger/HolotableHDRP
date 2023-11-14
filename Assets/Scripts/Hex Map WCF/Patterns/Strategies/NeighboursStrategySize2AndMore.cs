@@ -10,7 +10,7 @@ namespace WaveFunctionCollapse {
     
 
         public Dictionary<int, PatternNeighbours> FindNeighbours(PatternDataResults patternFinderResult) {
-            Debug.Log("Find Neighbours");
+            //Debug.Log("Find Neighbours");
             Dictionary<int, PatternNeighbours> result = new Dictionary<int, PatternNeighbours>();
 
             foreach (var patternDataToCheck in patternFinderResult.patternIndexDictionary) {
