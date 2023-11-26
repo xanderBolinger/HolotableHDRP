@@ -45,6 +45,12 @@ public class AircraftFlightManagerEditor : Editor
         {
             GetFlight().disengaing = !GetFlight().disengaing;
         }
+
+        if (GUILayout.Button("Set Fresh") && Flights())
+        {
+            GetFlight().flightStatus = AircraftFlight.FlightStatus.Fresh;
+            Debug.Log(GetFlight().flightCallsign + " flight status set FRESH.");
+        }
     }
 
     public static bool Flights()
