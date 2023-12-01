@@ -1,25 +1,34 @@
-using Codice.CM.Common;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Graphs;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Chit : MonoBehaviour
 {
     [SerializeField]
     float speed = 1f;
+
+    Rigidbody rb;
     
     Vector3 elevatedPosition;
     bool elevated;
-    
-    private void Update()
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
     {
         if (elevated) {
-            //var step = speed * Time.deltaTime; // calculate distance to move
-            //transform.position = Vector3.MoveTowards(transform.position, elevatedPosition, step);
-            transform.position = elevatedPosition;
+            var step = speed * Time.fixedDeltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, elevatedPosition, step);
+
+            /*if (Vector3.Distance(elevatedPosition, transform.position) > 0.001f)
+                rb.velocity = Vector3.up * step * 100f;
+            else { 
+                rb.velocity = Vector3.zero;
+                transform.position = elevatedPosition;
+            }*/
+
+            //transform.position = elevatedPosition;
         }
     }
 
@@ -29,11 +38,13 @@ public class Chit : MonoBehaviour
         newPos.y += 1f;
         elevatedPosition = newPos;
         elevated = true;
+        rb.useGravity = false;
     }
 
     private void OnMouseUp()
     {
         elevated = false;
+        rb.useGravity = true;
     }
 
 }
