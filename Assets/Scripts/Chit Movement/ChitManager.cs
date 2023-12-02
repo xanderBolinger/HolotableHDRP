@@ -5,11 +5,12 @@ using UnityEngine;
 public class ChitManager : MonoBehaviour
 {
     public static ChitManager instance;
-    public Chit selectedChit;
+    public List<Chit> selectedChits;
 
     private void Awake()
     {
         instance = this;
+        selectedChits = new List<Chit>();
     }
 
 }
