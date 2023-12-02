@@ -6,9 +6,13 @@ public class Chit : MonoBehaviour
     float speed = 1f;
 
     Rigidbody rb;
-    BoxCollider boxCollider;
 
-    Vector3 elevatedPosition;
+    [HideInInspector]
+    public BoxCollider boxCollider;
+
+    [HideInInspector]
+    public Vector3 elevatedPosition;
+    
     bool elevated;
     bool drawGizmos;
 
@@ -32,14 +36,14 @@ public class Chit : MonoBehaviour
     private void OnMouseDown()
     {
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        var hits = Physics.BoxCastAll(boxCollider.bounds.center, boxCollider.bounds.size, Vector3.up, transform.rotation, LayerMask.GetMask("Chit"));
+        var hits = Physics.BoxCastAll(boxCollider.bounds.center, boxCollider.bounds.size/2, Vector3.up, transform.rotation, LayerMask.GetMask("Chit"));
         Debug.DrawRay(transform.position, Vector3.up*3, Color.red, 1f);
         foreach(var hit in hits) {
 
             Chit clickedChit = hit.collider.GetComponent<Chit>();
             if (clickedChit != null && clickedChit.transform.position.y >= transform.position.y)
             {
-                Debug.Log("Apply click effects, hit: "+hit.transform.gameObject.name);
+                //Debug.Log("Apply click effects, hit: "+hit.transform.gameObject.name);
                 clickedChit.ApplyClickEffect();
             }
         }

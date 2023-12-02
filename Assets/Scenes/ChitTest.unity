@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 143227552}
   - component: {fileID: 143227553}
+  - component: {fileID: 143227554}
   m_Layer: 0
   m_Name: ChitManager
   m_TagString: Untagged
@@ -168,6 +169,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedChits: []
+--- !u!114 &143227554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143227551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48bdb3ea6e3da94c90f56571ec73c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 0
+  scaleSpeed: 0
+  changeHeightSpeed: 0
 --- !u!1 &222723816
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08175833994937240bd27850364f9d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
 --- !u!1 &390806455
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08175833994937240bd27850364f9d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
 --- !u!54 &486275054
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -572,7 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08175833994937240bd27850364f9d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
 --- !u!54 &1029753706
 Rigidbody:
   m_ObjectHideFlags: 0
