@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 222723817}
   - component: {fileID: 222723821}
   - component: {fileID: 222723822}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 486275055}
   - component: {fileID: 486275054}
   - component: {fileID: 486275053}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chit (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 1029753707}
   - component: {fileID: 1029753706}
   - component: {fileID: 1029753705}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chit (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
