@@ -368,14 +368,13 @@ public class MapGenerator : MonoBehaviour
     public void RunWFC() {
         var buttonWatch = new MapGeneratorBenchmark();
         buttonWatch.Start();
-        StartCoroutine(WFCBackground());
+        EditorCoroutine.StartCoroutine(WFCBackground());
         buttonWatch.Stop();
         Debug.Log("Button Press Finished, "+buttonWatch.PrintTime());
     }
 
     IEnumerator WFCBackground() {
         Debug.Log("Start WFC");
-
         var createTempWatch = new MapGeneratorBenchmark();
         var wfcWatch = new MapGeneratorBenchmark();
         var elevationWatch = new MapGeneratorBenchmark();
