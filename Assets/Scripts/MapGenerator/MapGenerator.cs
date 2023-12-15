@@ -367,16 +367,50 @@ public class MapGenerator : MonoBehaviour
 
     public void RunWFC() {
 
+        Debug.Log("Start WFC");
+
+        var createTempWatch = new MapGeneratorBenchmark();
+        var wfcWatch = new MapGeneratorBenchmark();
+        var elevationWatch = new MapGeneratorBenchmark();
+        createTempWatch.Start();
+        
         if (createAdditionalGrids > 1) {
             ClearMap();
             AddTempHexesForWFC(createAdditionalGrids * wfcOutputWidth, 
                 createAdditionalGrids * wfcOutputHeight);
         }
 
-        for(int x = 0; x < createAdditionalGrids; x++)
+        createTempWatch.Stop();
+        Debug.Log("Create Temp Finished, " + createTempWatch.PrintTime());
+
+        wfcWatch.Start();
+
+        CreateGridsWfc();
+
+        wfcWatch.Stop();
+        Debug.Log("Create Grids Finished "+wfcWatch.PrintTime());
+
+        elevationWatch.Start();
+        SetElevation();
+        elevationWatch.Stop();
+        Debug.Log("Set Elevation Time, "+elevationWatch.PrintTime());
+    }
+
+    void CreateGridsWfc() {
+        int createdGridCount = 0;
+        int gridsToCreate = createAdditionalGrids * createAdditionalGrids;
+        float timeElapsed = 0f;
+
+        Debug.Log("Create Grids: " + gridsToCreate);
+
+        for (int x = 0; x < createAdditionalGrids; x++)
         {
 
-            for (int y = 0; y < createAdditionalGrids; y++) {
+            for (int y = 0; y < createAdditionalGrids; y++)
+            {
+                var gridWatch = new MapGeneratorBenchmark();
+                gridWatch.Start();
+
                 WFCCore core = new WFCCore(wfcOutputWidth, wfcOutputHeight, maximumIterations, patternManager);
 
                 Tilemap outputTileMap = new Tilemap();
@@ -389,12 +423,15 @@ public class MapGenerator : MonoBehaviour
 
                 // needs offset params 
                 output.OutputImage.CreateTiles(wfcOutputHeight, wfcOutputWidth, x * wfcOutputWidth, y * wfcOutputHeight);
+
+                gridWatch.Stop();
+                timeElapsed += gridWatch.GetTimeMs();
+                createdGridCount++;
+                Debug.Log("Finished Grid, " + gridWatch.PrintTime() + ", Created Grids: "+createdGridCount+"/"+gridsToCreate+", EST Time Remaining: "
+                    +(timeElapsed/createdGridCount));
             }
 
         }
-
-        SetElevation();
-
     }
 
     void SetElevation() {
