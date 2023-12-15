@@ -366,17 +366,25 @@ public class MapGenerator : MonoBehaviour
     public int createAdditionalGrids = 1;
 
     public void RunWFC() {
+        var buttonWatch = new MapGeneratorBenchmark();
+        buttonWatch.Start();
+        StartCoroutine(WFCBackground());
+        buttonWatch.Stop();
+        Debug.Log("Button Press Finished, "+buttonWatch.PrintTime());
+    }
 
+    IEnumerator WFCBackground() {
         Debug.Log("Start WFC");
 
         var createTempWatch = new MapGeneratorBenchmark();
         var wfcWatch = new MapGeneratorBenchmark();
         var elevationWatch = new MapGeneratorBenchmark();
         createTempWatch.Start();
-        
-        if (createAdditionalGrids > 1) {
+
+        if (createAdditionalGrids > 1)
+        {
             ClearMap();
-            AddTempHexesForWFC(createAdditionalGrids * wfcOutputWidth, 
+            AddTempHexesForWFC(createAdditionalGrids * wfcOutputWidth,
                 createAdditionalGrids * wfcOutputHeight);
         }
 
@@ -388,12 +396,14 @@ public class MapGenerator : MonoBehaviour
         CreateGridsWfc();
 
         wfcWatch.Stop();
-        Debug.Log("Create Grids Finished "+wfcWatch.PrintTime());
+        Debug.Log("Create Grids Finished " + wfcWatch.PrintTime());
 
         elevationWatch.Start();
         SetElevation();
         elevationWatch.Stop();
-        Debug.Log("Set Elevation Time, "+elevationWatch.PrintTime());
+        Debug.Log("Set Elevation Time, " + elevationWatch.PrintTime());
+
+        yield return null;
     }
 
     void CreateGridsWfc() {
