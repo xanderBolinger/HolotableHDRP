@@ -6,6 +6,7 @@ using WaveFunctionCollapse;
 using System.Text;
 using System.Linq;
 using UnityEditor;
+using CielaSpike;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -368,13 +369,19 @@ public class MapGenerator : MonoBehaviour
     public void RunWFC() {
         var buttonWatch = new MapGeneratorBenchmark();
         buttonWatch.Start();
-        EditorCoroutine.StartCoroutine(WFCBackground());
+
+        this.StartCoroutineAsync(WFCBackground());
+        //EditorCoroutine.StartCoroutine(WFCBackground());
         buttonWatch.Stop();
         Debug.Log("Button Press Finished, "+buttonWatch.PrintTime());
     }
 
     IEnumerator WFCBackground() {
+        yield return Ninja.JumpToUnity;
         Debug.Log("Start WFC");
+        yield return Ninja.JumpBack;
+
+        yield return Ninja.JumpToUnity;
         var createTempWatch = new MapGeneratorBenchmark();
         var wfcWatch = new MapGeneratorBenchmark();
         var elevationWatch = new MapGeneratorBenchmark();
@@ -392,7 +399,7 @@ public class MapGenerator : MonoBehaviour
 
         wfcWatch.Start();
 
-        CreateGridsWfc();
+        yield return CreateGridsWfc();
 
         wfcWatch.Stop();
         Debug.Log("Create Grids Finished " + wfcWatch.PrintTime());
@@ -402,10 +409,9 @@ public class MapGenerator : MonoBehaviour
         elevationWatch.Stop();
         Debug.Log("Set Elevation Time, " + elevationWatch.PrintTime());
 
-        yield return null;
     }
 
-    void CreateGridsWfc() {
+    IEnumerator CreateGridsWfc() {
         int createdGridCount = 0;
         int gridsToCreate = createAdditionalGrids * createAdditionalGrids;
         float timeElapsed = 0f;
@@ -436,8 +442,11 @@ public class MapGenerator : MonoBehaviour
                 gridWatch.Stop();
                 timeElapsed += gridWatch.GetTimeMs();
                 createdGridCount++;
+
+                yield return Ninja.JumpToUnity;
                 Debug.Log("Finished Grid, " + gridWatch.PrintTime() + ", Created Grids: "+createdGridCount+"/"+gridsToCreate+", EST Time Remaining: "
-                    +(timeElapsed/createdGridCount));
+                    +(timeElapsed/(float)createdGridCount/1000f)+" seconds");
+                yield return Ninja.JumpBack;
             }
 
         }
